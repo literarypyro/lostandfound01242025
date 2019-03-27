@@ -1,14 +1,14 @@
-/*
+(function() {
+
 
 var requestModule=angular.module("requestApp",[]);
 requestModule.controller("requestController",function($scope,$http){
 		
-	/*
 	$scope.makeRequest=function (){
 			 
 			 var data = $.param({
-//                fName: $scope.firstName,
-//                lName: $scope.lastName
+                fName: $scope.firstName,
+                lName: $scope.lastName
             });
         
             var config = {
@@ -28,8 +28,7 @@ requestModule.controller("requestController",function($scope,$http){
                     "<hr />config: " + config;
             });
 	};
-	*/
-	/*
+	
 	$scope.listUserRequests=function (){
 	
 		var user_id=$scope.user_id;
@@ -51,16 +50,9 @@ requestModule.controller("requestController",function($scope,$http){
 	};
 	
 });
-*/
 var itemModule=angular.module("itemApp",[]);
-itemModule.controller("itemController",["$scope","$http",function($scope,$http){
+itemModule.controller("itemController",function($scope,$http){
 
-	$scope.add="Test";
-
-	$scope.test=function (){
-		alert("A");
-	};
-	
 	$scope.searchItem=function (){
 		var search_type=$scope.search_type;
 		var search_term=$scope.search_term;
@@ -73,8 +65,6 @@ itemModule.controller("itemController",["$scope","$http",function($scope,$http){
 	
 			 
 	};
-	
-		
 	$scope.retrieveItem=function (){
 		var item_id=$scope.item_id;
 		$http.get("http://localhost/lnf_api/lnf_api/item/"+item_id).success(function(response) {$scope.items = response.items;});	
@@ -88,4 +78,6 @@ itemModule.controller("itemController",["$scope","$http",function($scope,$http){
 
 	};
 		
-}]);
+	
+});
+})();
