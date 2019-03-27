@@ -64,10 +64,38 @@ itemModule.controller("itemController",["$scope","$http",function($scope,$http){
 	$scope.searchItem=function (){
 		var search_type=$scope.search_type;
 		var search_term=$scope.search_term;
-		
+
+
 		$http.get("http://localhost/lnf_api/lnf_api/items/"+search_type+"/"+search_term)
 		.success(function(response) { 
-			$scope.items = response.items; 
+			$scope.items = response; 
+			
+			var items=$scope.items;
+			var groupedItems={};
+			
+			items.forEach(function(item){
+			  if (!(item.category_id in groupedItems)) {
+				groupedItems[item.category_id] = [];
+				groupedItems[item.category_id]["tally"]++;
+				
+			  }
+			  else {
+				groupedItems[item.category_id]["tally"]++;
+			  }			  
+			  groupedItems[item.category_id].push(item);
+			  
+
+
+
+
+			  
+			});			
+			  
+		  $scope.groupedItems=groupedItems;
+			
+			
+			
+			
 		});	
 
 	
