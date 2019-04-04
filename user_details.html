@@ -1,0 +1,188 @@
+<head>
+
+
+   <link rel="stylesheet" href="css/bootstrap.css" >
+   <!-- Application styles-->
+   <link rel="stylesheet" href="css/app.css" >
+   <!-- Themes-->
+   <link rel="stylesheet" href="css/theme_b.css" >
+
+
+
+
+
+
+</head>
+<body>
+
+
+
+
+
+<div class="block-center mt-xl col-lg-6" ng-controller="RegisterFormController as reg">
+   <!-- START panel-->
+   <div class="panel panel-dark panel-flat">
+      <div class="panel-heading text-center">
+         <a href="#">
+            <img class="block-center img-rounded" src="app/img/logo.png" alt="Image" />
+         </a>
+      </div>
+      <div class="panel-body">
+         <p class="text-center pv">Enter Profile</p>
+         <form class="form-validate mb-lg" role="form" name="reg.registerForm" novalidate="" ng-submit="reg.register()">
+		 
+		 
+		 
+		 
+		  <div class="form-inline mb-lg col-auto" >
+		  <div class='row'>
+
+		  <div class="form-group col-md-3">
+            <label class="control-label" for="first_name">First Name</label>
+
+
+            <input class="form-control " id="first_name"  ng-model="first_name" placeholder="Search here" />
+			
+			<!--
+            <input class="form-control col-md-5" id="input-email" type="email"  placeholder="Type your email" />
+			-->
+		 </div>
+         <div class="form-group col-md-3">
+            <label class="control-label" for="middle_name">Middle Name</label>
+
+            <input class="form-control" id="middle_name"  ng-model="middle_name" placeholder="Search here" />
+
+
+         </div>
+         <div class="form-group col-md-3">
+            <label class="control-label" for="last_name">Last Name</label>
+
+            <input class="form-control" id="last_name"  ng-model="last_name" placeholder="Search here" />
+
+
+         </div>
+         </div>
+		 
+		 </div>
+		 
+		  <div class="form-inline mb-lg col-auto" >
+		  <div class='row'>
+         <div class=" col-md-3">
+            <label class="control-label" for="search_term">Civil Status</label>
+
+            <input class="form-control" id="search_term"  ng-model="search_term" placeholder="Search here" />
+			
+			<!--
+            <input class="form-control col-md-5" id="input-email" type="email"  placeholder="Type your email" />
+			-->
+		 </div>
+         <div class=" col-md-3">
+            <label class="control-label" for="input-password">Gender</label>
+
+            <input class="form-control" id="search_term"  ng-model="search_term" placeholder="Search here" />
+
+         </div>
+		 
+		 </div>
+		 </div>
+
+         <p class="text-center pv">Address</p>
+
+		 <div class="form-inline mb-lg col-auto" >
+		  <div class='row'>
+         <div class=" col-md-3">
+            <label class="control-label" for="search_term">No./Bldg.</label>
+
+            <input class="form-control" id="search_term"  ng-model="search_term" placeholder="Search here" />
+			
+			<!--
+            <input class="form-control col-md-5" id="input-email" type="email"  placeholder="Type your email" />
+			-->
+		 </div>
+         <div class=" col-md-3">
+            <label class="control-label" for="search_term">Street</label>
+
+            <input class="form-control" id="search_term"  ng-model="search_term" placeholder="Search here" />
+			
+			<!--
+            <input class="form-control col-md-5" id="input-email" type="email"  placeholder="Type your email" />
+			-->
+		 </div>
+         <div class=" col-md-3">
+            <label class="control-label" for="search_term">Subdivision</label>
+
+            <input class="form-control" id="search_term"  ng-model="search_term" placeholder="Search here" />
+			
+			<!--
+            <input class="form-control col-md-5" id="input-email" type="email"  placeholder="Type your email" />
+			-->
+		 </div>
+		 </div>
+		 </div>
+
+         <p class="text-center pv">Contact</p>
+
+
+		 <div class="form-inline mb-lg col-auto" >
+		  <div class='row'>
+
+         <div class=" col-md-3">
+            <label class="control-label" for="search_term">Work Phone</label>
+
+            <input class="form-control" id="search_term"  ng-model="search_term" placeholder="Search here" />
+			
+			<!--
+            <input class="form-control col-md-5" id="input-email" type="email"  placeholder="Type your email" />
+			-->
+		 </div>
+         <div class=" col-md-3">
+            <label class="control-label" for="search_term">Mobile Phone</label>
+
+            <input class="form-control" id="search_term"  ng-model="search_term" placeholder="Search here" />
+			
+			<!--
+            <input class="form-control col-md-5" id="input-email" type="email"  placeholder="Type your email" />
+			-->
+		 </div>
+         <div class=" col-md-3">
+            <label class="control-label" for="search_term">Email</label>
+
+            <input class="form-control" id="search_term"  ng-model="search_term" placeholder="Search here" />
+			
+			<!--
+            <input class="form-control col-md-5" id="input-email" type="email"  placeholder="Type your email" />
+			-->
+		 </div>
+		 </div>
+		 </div>
+		 </div>
+
+
+
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+            <button class="btn btn-block btn-primary mt-lg" type="submit">Submit Details</button>
+         </form>
+      </div>
+   </div>
+   <!-- END panel-->
+   <div class="p-lg text-center">
+      <span>&copy;</span>
+      <span ng-bind="app.year"></span>
+      <span>-</span>
+      <span ng-bind="app.name"></span>
+      <br/>
+      <span ng-bind="app.description"></span>
+   </div>
+</div>
+</body>

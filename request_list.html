@@ -1,0 +1,138 @@
+<head>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.13/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.5.6/angular-datatables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.1/angular-resource.js"></script>
+
+  <script src="js/app.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.5.6/css/angular-datatables.css">
+
+
+<!--
+   <link rel="stylesheet" href="css/bootstrap.css" >
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.5.6/css/angular-datatables.css">
+-->
+<!--
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+-->
+<!--
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.13/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.5.6/angular-datatables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.1/angular-resource.min.js"></script>
+-->
+
+  <link rel="stylesheet" href="css/datatables.min.css" >
+ <!--<link rel="stylesheet" href="style.css">-->
+
+<!--    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+-->
+
+
+
+
+
+
+
+    
+
+   <!-- Application styles-->
+   <!-- Themes-->
+   <link rel="stylesheet" href="css/app.css" >
+   <link rel="stylesheet" href="css/theme_b.css" >
+
+
+</head>
+<body>
+<div ng-app="requestApp">
+
+
+<div ng-controller="requestController">
+
+
+<h3>Data Tables
+   <small>Tables, one step forward.</small>
+</h3>
+<!-- ngRepeat + ngResource-->
+<div class="panel panel-default">
+   <div class="panel-heading">Datatables |
+      <small>ngRepeat + ngRe123source</small>
+   </div>
+   <div class="panel-body">
+<!--
+   <div ng-controller="DataTableController as table1">
+-->    
+    <table datatable=""  class="row-border hover" cellspacing="0" width="100%">
+<!--	<table  class="row-border hover" datatable="ng">
+    -->
+		<thead>
+               <tr>
+                  <th>Person 123123ID </th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr ng-repeat="request in requests" >
+                  <td>{{ request.category_id }}</td>
+                  <td>{{ request.status_id }}</td>
+                  <td>{{ request.user_id }}</td>
+               </tr>
+
+            </tbody>
+         </table>
+      </div>
+<!--
+	  </div>
+	  -->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+
+</body>
+<!--
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.13/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.5.6/angular-datatables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.1/angular-resource.min.js"></script>
+-->
+  <!--
+   <script src="js/jquery.js"></script>
+   <script src="js/jquery.dataTables.min.js"></script>
+
+   <script src="js/bootstrap.min.js"></script>
+   <script src="js/angular.min.js"></script>
+   <script src="js/angular-datatables.js"></script>
+ 
+   <script src="js/app.js"></script>
+-->
+
+<!--  
+   <script src="js/app.js"></script>
+-->

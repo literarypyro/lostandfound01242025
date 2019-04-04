@@ -1,9 +1,62 @@
-/*
 
-var requestModule=angular.module("requestApp",[]);
-requestModule.controller("requestController",function($scope,$http){
-		
-	/*
+var requestModule=angular.module('requestApp', ['datatables', 'ngResource']);
+
+
+requestModule.controller("requestController",['$compile', '$scope',"$http", '$resource', 'DTOptionsBuilder', 'DTColumnBuilder',function RowSelectCtrl($compile, $scope,$http, $resource, DTOptionsBuilder, DTColumnBuilder) {
+
+//.controller('RowSelectCtrl', ['$compile', '$scope', '$resource', 'DTOptionsBuilder', 'DTColumnBuilder', function RowSelectCtrl($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilder) {
+    var vm = this;
+    vm.selected = {};
+    vm.selectAll = false;
+    vm.toggleAll = toggleAll;
+    vm.toggleOne = toggleOne;
+
+    var titleHtml = '<input ng-model="showCase.selectAll" ng-click="showCase.toggleAll(showCase.selectAll, showCase.selected)" type="checkbox">';
+
+    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
+        .withOption('createdRow', function(row, data, dataIndex) {
+            // Recompiling so we can bind Angular directive to the DT
+            $compile(angular.element(row).contents())($scope);
+        })
+        .withOption('headerCallback', function(header) {
+            if (!vm.headerCompiled) {
+                // Use this headerCompiled field to only compile header once
+                vm.headerCompiled = true;
+                $compile(angular.element(header).contents())($scope);
+            }
+        })
+        .withPaginationType('full_numbers');
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn(null).withTitle(titleHtml).notSortable()
+            .renderWith(function(data, type, full, meta) {
+                vm.selected[full.id] = false;
+                return '<input ng-model="showCase.selected[' + data.id + ']" ng-click="showCase.toggleOne(showCase.selected)" type="checkbox">';
+            }),
+        DTColumnBuilder.newColumn('id').withTitle('ID'),
+        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+        DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
+    ];
+
+    function toggleAll (selectAll, selectedItems) {
+        for (var id in selectedItems) {
+            if (selectedItems.hasOwnProperty(id)) {
+                selectedItems[id] = selectAll;
+            }
+        }
+    }
+    function toggleOne (selectedItems) {
+        for (var id in selectedItems) {
+            if (selectedItems.hasOwnProperty(id)) {
+                if(!selectedItems[id]) {
+                    vm.selectAll = false;
+                    return;
+                }
+            }
+        }
+        vm.selectAll = true;
+    }
+
+/*
 	$scope.makeRequest=function (){
 			 
 			 var data = $.param({
@@ -29,7 +82,6 @@ requestModule.controller("requestController",function($scope,$http){
             });
 	};
 	*/
-	/*
 	$scope.listUserRequests=function (){
 	
 		var user_id=$scope.user_id;
@@ -49,8 +101,15 @@ requestModule.controller("requestController",function($scope,$http){
 		$http.get("http://localhost/lnf_api/lnf_api/request/"+item_id+"/status").success(function(response) {$scope.requests = response.requests;});	
 
 	};
+
+	$http.get("http://localhost/lnf_api/lnf_api/requests/userRequests/1").then(function(response) {$scope.requests = response.data; });	
 	
-});
+	
+}]);
+
+/*
+	
+}]);
 */
 var itemModule=angular.module("itemApp",[]);
 itemModule.controller("itemController",["$scope","$http",function($scope,$http){
