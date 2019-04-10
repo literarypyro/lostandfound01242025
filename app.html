@@ -1,0 +1,35 @@
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.13/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.5.6/angular-datatables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.1/angular-resource.js"></script>
+
+  <script src="js/app.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.5.6/css/angular-datatables.css">
+
+
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+   <!-- Themes-->
+   <link rel="stylesheet" href="css/app.css" >
+   <link rel="stylesheet" href="css/theme_b.css" >
+  
+  <body>
+  <div ng-app="requestApp">
+
+
+<div ng-controller="requestController">
+  <!-- top navbar-->
+<header class="topnavbar-wrapper" ng-include="'partials/top-navbar.html'"></header>
+<!-- sidebar-->
+<aside class="aside" ng-include="'partials/sidebar.html'" ></aside>
+<!-- Main section-->
+<section>
+   <!-- Page content-->
+   <div class="content-wrapper" ng-include="'request_list.html'" ui-view="" autoscroll="false" ></div>
+</section>
+<!-- Page footer-->
+<footer ng-include="'partials/footer.html'"></footer>
+
+</div>
+</div>
+</body>

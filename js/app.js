@@ -107,6 +107,29 @@ requestModule.controller("requestController",['$compile', '$scope',"$http", '$re
 	
 }]);
 
+
+/*
+
+app.config(['$routeProvider', 
+  function($routeProvider){
+    $routeProvider
+      .when('/', {
+        template: '<h1>This is home</h1>'
+      })
+      .when('/about', {
+        template: '<h1>This is about</h1>'
+      })
+      .otherwise({
+        redirectTo: '/'
+      })
+  }
+]);
+
+
+
+*/
+
+
 /*
 	
 }]);
