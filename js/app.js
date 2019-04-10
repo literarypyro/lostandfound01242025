@@ -2,7 +2,7 @@
 var requestModule=angular.module('requestApp', ['datatables', 'ngResource']);
 
 
-requestModule.controller("requestController",['$compile', '$scope',"$http", '$resource', 'DTOptionsBuilder', 'DTColumnBuilder', 'ngDialog',function RowSelectCtrl($compile, $scope,$http, $resource, DTOptionsBuilder, DTColumnBuilder, ngDialog) {
+requestModule.controller("requestController",['$compile', '$scope',"$http", '$resource', 'DTOptionsBuilder', 'DTColumnBuilder','ngDialog' function requestController($compile, $scope,$http, $resource, DTOptionsBuilder, DTColumnBuilder,ngDialog) {
 
 //.controller('RowSelectCtrl', ['$compile', '$scope', '$resource', 'DTOptionsBuilder', 'DTColumnBuilder', function RowSelectCtrl($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
