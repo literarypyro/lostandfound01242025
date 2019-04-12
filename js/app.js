@@ -1,8 +1,8 @@
 
-var requestModule=angular.module('requestApp', ['datatables', 'ngResource']);
+var requestModule=angular.module('requestApp', ["datatables", "ngResource","ngDialog"]);
 
 
-requestModule.controller("requestController",['$compile', '$scope',"$http", '$resource', 'DTOptionsBuilder', 'DTColumnBuilder','ngDialog' function requestController($compile, $scope,$http, $resource, DTOptionsBuilder, DTColumnBuilder,ngDialog) {
+requestModule.controller("requestController",['$compile', '$scope',"$http", '$resource', 'DTOptionsBuilder', 'DTColumnBuilder','ngDialog', function requestController($compile, $scope,$http, $resource, DTOptionsBuilder, DTColumnBuilder,ngDialog) {
 
 //.controller('RowSelectCtrl', ['$compile', '$scope', '$resource', 'DTOptionsBuilder', 'DTColumnBuilder', function RowSelectCtrl($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilder) {
     var vm = this;
@@ -198,7 +198,6 @@ itemModule.controller("itemController",["$scope","$http",function($scope,$http){
 	
 			 
 	};
-	
 		
 	$scope.retrieveItem=function (){
 		var item_id=$scope.item_id;
@@ -212,7 +211,15 @@ itemModule.controller("itemController",["$scope","$http",function($scope,$http){
 
 
 	};
+          $scope.openTemplate = function () {
+            $scope.value = true;
 
+            ngDialog.open({
+              template: "request_details.html",
+              className: 'ngdialog-theme-default',
+              scope: $scope
+            });
+          };
 
 /**
 

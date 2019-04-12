@@ -2,7 +2,6 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.13/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.5.6/angular-datatables.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.1/angular-resource.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/1.4.0/js/ngDialog.min.js"></script>
@@ -121,7 +120,15 @@
 
 </div>
 </div>
-
+   <div class="row">
+      <div class="col-xs-9 col-lg-6">
+         <p class="mt-sm">Open with external template for modal</p>
+      </div>
+      <div class="col-xs-3 col-lg-6">
+         <p><a class="btn btn-default" href="" ng-click="openTemplate()">Open</a>
+         </p>
+      </div>
+   </div>
 
    <!-- Templates -->
    <script type="text/ng-template" id="firstDialogId">
@@ -149,7 +156,8 @@
 
 
    <script type="text/ng-template" id="requestDetails">
-<h3>Order #987654</h3>
+ <div class="ngdialog-message">
+   <h3>Order #987654</h3>
 <div class="panel panel-default">
    <div class="panel-heading">Order Information</div>
    <div class="panel-body">
@@ -367,7 +375,7 @@
          <em class="fa fa-exclamation-circle fa-lg fa-fw"></em>Shipping address is different than billing address</div>
    </div>
 </div>
-   
+   </div>
    
    </script>
 
