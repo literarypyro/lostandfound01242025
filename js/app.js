@@ -86,20 +86,20 @@ requestModule.controller("requestController",['$compile', '$scope',"$http", '$re
 	$scope.listUserRequests=function (){
 	
 		var user_id=$scope.user_id;
-		$http.get("http://localhost/lnf_api/lnf_api/requests/userRequests/"+user_id).success(function(response) {$scope.requests = response.requests;});	
+		$http.get("http://localhost/lnf_api/requests/userRequests/"+user_id).success(function(response) {$scope.requests = response.requests;});	
 	
 	};
 	$scope.retrieveItem=function (){
 		
 		var item_id=$scope.item_id;
-		$http.get("http://localhost/lnf_api/lnf_api/request/"+item_id).success(function(response) {$scope.requests = response.requests;});	
+		$http.get("http://localhost/lnf_api/request/"+item_id).success(function(response) {$scope.requests = response.requests;});	
 
 	};
 	
 	$scope.retrieveRequestStatus=function (){
 		
 		var item_id=$scope.item_id;
-		$http.get("http://localhost/lnf_api/lnf_api/request/"+item_id+"/status").success(function(response) {$scope.requests = response.requests;});	
+		$http.get("http://localhost/lnf_api/request/"+item_id+"/status").success(function(response) {$scope.requests = response.requests;});	
 
 	};
 
@@ -116,7 +116,22 @@ requestModule.controller("requestController",['$compile', '$scope',"$http", '$re
               scope: $scope
             });
           };
+
+
+          $scope.addRequest = function () {
+			  
+			  
+			  
+            $scope.value = true;
+
+            ngDialog.open({
+              templateUrl: 'add_request.html',
+              className: 'ngdialog-theme-default',
+              scope: $scope
+            });
+          };
 	
+		  
 
 	$http.get("http://localhost/lnf_api/lnf_api/requests/userRequests/1").then(function(response) {$scope.requests = response.data; });	
 	
