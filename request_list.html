@@ -57,10 +57,6 @@
 
 </head>
 <body>
-<div ng-app="requestApp">
-
-
-<div ng-controller="requestController">
 
 
 <h3>Data Tables
@@ -80,7 +76,7 @@
     -->
 		<thead>
                <tr>
-                  <th>Person 123123ID </th>
+                  <th>Person {{ hello }} </th>
                   <th>First Name</th>
                   <th>Last Name</th>
                </tr>
@@ -89,12 +85,12 @@
                <tr ng-repeat="request in requests" >
                   <td>{{ request.category_id }}</td>
                   <td>{{ request.status_id }}</td>
-                  <td><div class='col-md-4'>{{ request.user_id }}</div><div class='col-md-4'><button class="btn btn-block btn-primary col-md-4" type="button" onclick="window.open('request_details.html?{{ request.id }}')">Get Details</button></div></td>
+                  <td><div class='col-md-4'>{{ request.user_id }}</div><div class='col-md-4'><button class="btn btn-block btn-primary col-md-4" type="button" onclick="window.open('#!details')">Get Details</button></div></td>
                </tr>
 
             </tbody>
          </table>
-         <button class="btn btn-block btn-primary col-md-4" type="submit" onclick="window.open('add_request.html')">New Request</button>
+         <button class="btn btn-block btn-primary col-md-4" type="submit" onclick="window.open('#!add_req')">New Request</button>
 
       </div>
 <!--
@@ -112,7 +108,6 @@
         <h4 class="modal-title">Modal Header</h4>
       </div>
       <div class="modal-body">
-        <ng-include='add_request.html'>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -394,8 +389,6 @@
       </div>
       <div class="alert alert-warning">
          <em class="fa fa-exclamation-circle fa-lg fa-fw"></em>Shipping address is different than billing address</div>
-   </div>
-</div>
    </div>
    
    </script>

@@ -1,5 +1,5 @@
 
-var requestModule=angular.module('requestApp', ["datatables", "ngResource","ngDialog"]);
+var requestModule=angular.module('requestApp', ["datatables", "ngResource","ngDialog","ngRoute"]);
 
 
 requestModule.controller("requestController",['$compile', '$scope',"$http", '$resource', 'DTOptionsBuilder', 'DTColumnBuilder','ngDialog', function requestController($compile, $scope,$http, $resource, DTOptionsBuilder, DTColumnBuilder,ngDialog) {
@@ -83,23 +83,26 @@ requestModule.controller("requestController",['$compile', '$scope',"$http", '$re
             });
 	};
 	*/
-	$scope.listUserRequests=function (){
+	alert("As");
+	$scope.hello="AS";
 	
+	$scope.listUserRequests=function (){
+		alert("A");
 		var user_id=$scope.user_id;
-		$http.get("http://localhost/lnf_api/requests/userRequests/"+user_id).success(function(response) {$scope.requests = response.requests;});	
+		$http.get("http://localhost/lnf_api/requests/userRequests/"+user_id).then(function(response) {$scope.requests = response.requests;});	
 	
 	};
 	$scope.retrieveItem=function (){
 		
 		var item_id=$scope.item_id;
-		$http.get("http://localhost/lnf_api/request/"+item_id).success(function(response) {$scope.requests = response.requests;});	
+		$http.get("http://localhost/lnf_api/request/"+item_id).then(function(response) {$scope.requests = response.requests;});	
 
 	};
 	
 	$scope.retrieveRequestStatus=function (){
 		
 		var item_id=$scope.item_id;
-		$http.get("http://localhost/lnf_api/request/"+item_id+"/status").success(function(response) {$scope.requests = response.requests;});	
+		$http.get("http://localhost/lnf_api/request/"+item_id+"/status").then(function(response) {$scope.requests = response.requests;});	
 
 	};
 
@@ -130,47 +133,33 @@ requestModule.controller("requestController",['$compile', '$scope',"$http", '$re
               scope: $scope
             });
           };
-	
-	/*
-	
-	var url_string = window.location.href
-	var url = new URL(url_string);
-	var c = url.searchParams.get("req_id");
-	
-	if(c==""){
-		$http.get("http://localhost/lnf_api/lnf_api/request/"+c).then(function(response) {$scope.details = response.data; });	
-		
-	}
-	else {
-		
-	}
-		*/  
 
-	$http.get("http://localhost/lnf_api/lnf_api/requests/userRequests/1").then(function(response) {$scope.requests = response.data; });	
+	$http.get("http://localhost/lnf_api/requests/userRequests/1").then(function(response) {$scope.requests = response.data; });	
+		  
+
 	
 }]);
 
 
-/*
-
-app.config(['$routeProvider', 
+requestModule.config(['$routeProvider', 
   function($routeProvider){
     $routeProvider
       .when('/', {
         template: '<h1>This is home</h1>'
       })
-      .when('/about', {
-        template: '<h1>This is about</h1>'
+      .when('/details', {
+        template: '<h1>This is home</h1>'
+
+//	  templateUrl: 'request_details.html'
       })
-      .otherwise({
-        redirectTo: '/'
+      .when('/add_req', {
+          template: '<h1>This is home</h1>'
+//      templateUrl: 'add_request.html'
       })
   }
 ]);
 
 
-
-*/
 
 
 /*
@@ -251,6 +240,18 @@ itemModule.controller("itemController",["$scope","$http",function($scope,$http){
 
 /**
 
+	
+	var url_string = window.location.href
+	var url = new URL(url_string);
+	var c = url.searchParams.get("req_id");
+	
+	if(c==""){
+		$http.get("http://localhost/lnf_api/lnf_api/request/"+c).then(function(response) {$scope.details = response.data; });	
+		
+	}
+	else {
+		
+	}
 
 
 
