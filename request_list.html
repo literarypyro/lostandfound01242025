@@ -89,7 +89,7 @@
                <tr ng-repeat="request in requests" >
                   <td>{{ request.category_id }}</td>
                   <td>{{ request.status_id }}</td>
-                  <td>{{ request.user_id }}<button class="btn btn-block btn-primary col-md-4" type="button" onclick="window.open('request_details.html')">Get Details</button></td>
+                  <td><div class='col-md-4'>{{ request.user_id }}</div><div class='col-md-4'><button class="btn btn-block btn-primary col-md-4" type="button" onclick="window.open('request_details.html?{{ request.id }}')">Get Details</button></div></td>
                </tr>
 
             </tbody>

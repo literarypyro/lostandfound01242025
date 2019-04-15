@@ -131,7 +131,20 @@ requestModule.controller("requestController",['$compile', '$scope',"$http", '$re
             });
           };
 	
-		  
+	/*
+	
+	var url_string = window.location.href
+	var url = new URL(url_string);
+	var c = url.searchParams.get("req_id");
+	
+	if(c==""){
+		$http.get("http://localhost/lnf_api/lnf_api/request/"+c).then(function(response) {$scope.details = response.data; });	
+		
+	}
+	else {
+		
+	}
+		*/  
 
 	$http.get("http://localhost/lnf_api/lnf_api/requests/userRequests/1").then(function(response) {$scope.requests = response.data; });	
 	
