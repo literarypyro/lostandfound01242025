@@ -28,7 +28,45 @@ requestModule.controller=controller("requestController",['$compile', '$scope',"$
 
 var detailsModule=angular.module('detailsApp');
 
-detailsModule.controller=controller("detailsController",['$compile', '$scope',"$http", function requestController($compile, $scope,$http){
+detailsModule.controller=controller("detailsController",['$compile','$scope',"$http", function requestController($compile, $scope,$http){
+
+	$http.get("http://localhost/lnf_api/request/1").then(function(response) {$scope.requests = response.data; });	
+		  
+}]);
+
+
+var addRequestModule=angular.module('addRequestApp');
+
+addModule.controller=controller("addController",['$compile', '$scope',"$http", function addController($compile, $scope,$http){
+
+	$http.get("http://localhost/lnf_api/request/1").then(function(response) {$scope.requests = response.data; });	
+		  
+}]);
+
+
+
+var addItemModule=angular.module('addItemApp');
+
+addItemModule.controller=controller("addController",['$compile', '$scope',"$http", function addController($compile, $scope,$http){
+
+	$http.get("http://localhost/lnf_api/request/1").then(function(response) {$scope.requests = response.data; });	
+		  
+}]);
+
+
+var itemDetailsModule=angular.module('itemDetailsApp');
+
+addModule.controller=controller("addController",['$compile','$scope',"$http", function addController($compile, $scope,$http){
+
+	$http.get("http://localhost/lnf_api/request/1").then(function(response) {$scope.requests = response.data; });	
+		  
+}]);
+
+
+
+var itemListModule=angular.module('addRequestApp');
+
+itemListModule.controller=controller("addController",['$compile','$scope',"$http", function addController($compile, $scope,$http){
 
 	$http.get("http://localhost/lnf_api/request/1").then(function(response) {$scope.requests = response.data; });	
 		  
