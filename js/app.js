@@ -1,6 +1,23 @@
 
 var requestModule=angular.module('requestApp', ["datatables", "ngResource","ngDialog","ngRoute"]);
 
+requestModule.config(['$routeProvider', 
+  function($routeProvider){
+    $routeProvider
+      .when('/', {
+        template: '<h1>This is home</h1>'
+      })
+      .when('/details', {
+        template: '<h1>This is home</h1>'
+
+//	  templateUrl: 'request_details.html'
+      })
+      .when('/add_req', {
+          template: '<h1>This is home</h1>'
+//      templateUrl: 'add_request.html'
+      })
+  }
+]);
 
 requestModule.controller("requestController",['$compile', '$scope',"$http", '$resource', 'DTOptionsBuilder', 'DTColumnBuilder','ngDialog', function requestController($compile, $scope,$http, $resource, DTOptionsBuilder, DTColumnBuilder,ngDialog) {
 
@@ -141,23 +158,6 @@ requestModule.controller("requestController",['$compile', '$scope',"$http", '$re
 }]);
 
 
-requestModule.config(['$routeProvider', 
-  function($routeProvider){
-    $routeProvider
-      .when('/', {
-        template: '<h1>This is home</h1>'
-      })
-      .when('/details', {
-        template: '<h1>This is home</h1>'
-
-//	  templateUrl: 'request_details.html'
-      })
-      .when('/add_req', {
-          template: '<h1>This is home</h1>'
-//      templateUrl: 'add_request.html'
-      })
-  }
-]);
 
 
 
