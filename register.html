@@ -28,6 +28,11 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition register-page">
+
+<div ng-app='registrationApp'>
+<div ng-controller='registrationController'>
+
+
 <div class="register-box">
   <div class="register-logo">
     <a href="../../index2.html"><b>Admin</b>LTE</a>
@@ -53,6 +58,13 @@
         <input type="password" class="form-control" placeholder="Retype password">
         <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
       </div>
+	            <div class="form-group">
+                  <label>User Type</label>
+                  <select class="form-control">
+                    <option>Client</option>
+                    <option>Administrator</option>
+                  </select>
+                </div>
       <div class="row">
         <div class="col-xs-8">
           <div class="checkbox icheck">
@@ -75,6 +87,8 @@
   <!-- /.form-box -->
 </div>
 <!-- /.register-box -->
+</div>
+</div>
 
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>

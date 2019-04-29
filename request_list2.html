@@ -1,0 +1,435 @@
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
+
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.13/js/jquery.dataTables.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.5.6/angular-datatables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/1.4.0/js/ngDialog.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.1/angular-resource.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.5.6/css/angular-datatables.css">
+  
+  <script src="js/app.js"></script>
+
+
+
+
+
+<!--
+   <link rel="stylesheet" href="css/bootstrap.css" >
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.5.6/css/angular-datatables.css">
+-->
+<!--
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+-->
+<!--
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.13/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.5.6/angular-datatables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.1/angular-resource.min.js"></script>
+-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/1.4.0/css/ngDialog-theme-plain.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/1.4.0/css/ngDialog-theme-default.min.css">
+
+  <link rel="stylesheet" href="css/datatables.min.css" >
+ <!--<link rel="stylesheet" href="style.css">-->
+
+<!--    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+-->
+
+
+
+
+
+
+
+    
+
+   <!-- Application styles-->
+   <!-- Themes-->
+   <link rel="stylesheet" href="css/app.css" >
+   <link rel="stylesheet" href="css/theme_b.css" >
+
+
+</head>
+<body>
+
+
+<h3>Data Tables
+   <small>Tables, one step forward.</small>
+</h3>
+<!-- ngRepeat + ngResource-->
+<div class="panel panel-default">
+   <div class="panel-heading">Datatables |
+      <small>ngRepeat + ngRe123source</small>
+   </div>
+   <div class="panel-body">
+<!--
+   <div ng-controller="DataTableController as table1">
+-->    
+    <table datatable=""  class="row-border hover" cellspacing="0" width="100%">
+<!--	<table  class="row-border hover" datatable="ng">
+    -->
+		<thead>
+               <tr>
+                  <th>Person {{ hello }} </th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr ng-repeat="request in requests" >
+                  <td>{{ request.category_id }}</td>
+                  <td>{{ request.status_id }}</td>
+                  <td><div class='col-md-4'>{{ request.user_id }}</div><div class='col-md-4'><button class="btn btn-block btn-primary col-md-4" type="button" onclick="window.open('#!details')">Get Details</button></div></td>
+               </tr>
+
+            </tbody>
+         </table>
+         <button class="btn btn-block btn-primary col-md-4" type="submit" onclick="window.open('#!add_req')">New Request</button>
+
+      </div>
+<!--
+	  </div>
+	  -->
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+   <div class="row">
+      <div class="col-xs-9 col-lg-6">
+         <p class="mt-sm">Open with external template for modal</p>
+      </div>
+      <div class="col-xs-3 col-lg-6">
+         <p><a class="btn btn-default" href="" ng-click="openTemplate()">Open</a>
+         </p>
+      </div>
+   </div>
+
+   <!-- Templates -->
+   <script type="text/ng-template" id="firstDialogId">
+      <div><h3 class="mt0">ngDialog template</h3><p ng-show="theme">Test content for<code>{{theme}}</code></p><p ng-show="ngDialogData.foo">Data passed through:<code>{{ngDialogData.foo}}</code></p><p ng-show="dialogModel.message">Scope passed through:<code>{{dialogModel.message}}</code></p><button class="btn btn-default mr" type="button" ng-dialog="secondDialogId" ng-dialog-class="ngdialog-theme-default" ng-dialog-controller="SecondModalCtrl" ng-dialog-close-previous="ng-dialog-close-previous">Close and open</button><button class="btn btn-primary" type="button" ng-click="openSecond()">Open next</button></div>
+   </script>
+   <script type="text/ng-template" id="dialogWithNestedConfirmDialogId">
+      <div class="ngdialog-message">
+	  <h3 class="mt0">ngDialog template</h3>
+	  <p>Dialog containing work in which a user has to perform a task (e.g. editing data).</p>
+	  <p>'Save' would save the task's actions, while 'Cancel' would cause the task's actions to be lost.</p>
+	  <p>...other controls here...</p>
+	  <button class="btn btn-default mr" type="button" ng-click="closeThisDialog('Cancel')">Cancel</button>
+	  <button class="btn btn-primary" type="button" ng-click="confirm('Save')">Save</button></div>
+   </script>
+   <script type="text/ng-template" id="withInlineController">
+      <div class="ngdialog-message"><h3 class="mt0">ngDialog template</h3><p ng-show="theme">Test content for<code>{{theme}}</code></p><p ng-show="exampleExternalData">Example data from external service:<code>{{exampleExternalData}}</code></p><button class="btn btn-primary" type="button" ng-click="closeThisDialog()">Close</button></div>
+   </script>
+   <script type="text/ng-template" id="secondDialogId">
+      <p class="lead m0"><a href="" ng-click="closeSecond()">Close all by click here!</a></p>
+   </script>
+   <script type="text/ng-template" id="modalDialogId">
+      <div class="ngdialog-message"><h3>ngDialog modal example</h3><p>The<code>.openConfirm()</code>function returns a promise that is resolved when confirmed and rejected when otherwise closed. Modal dialogs by default do not close when clicked outside the dialog or when hitting escape. This can ofcourse be overridden when opening the dialog.</p><p>Confirm can take a value. Enter one here for example and see the console output:<input ng-model="confirmValue"/></p><button class="btn btn-primary mr" type="button" ng-click="confirm(confirmValue)">Confirm</button><button class="btn btn-default" type="button" ng-click="closeThisDialog('button')">Cancel</button></div>
+   </script>
+
+
+
+   <script type="text/ng-template" id="requestDetails">
+ <div class="ngdialog-message">
+   <h3>Order #987654</h3>
+<div class="panel panel-default">
+   <div class="panel-heading">Order Information</div>
+   <div class="panel-body">
+      <div class="row">
+         <div class="col-md-6">
+            <p class="lead bb">Details</p>
+            <form class="form-horizontal p-20">
+               <div class="form-group">
+                  <div class="col-sm-4">Order ID:</div>
+                  <div class="col-sm-8">
+                     <strong>987654</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Purchased On:</div>
+                  <div class="col-sm-8">
+                     <strong>03/11/2015 10:10</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Client Name:</div>
+                  <div class="col-sm-8">
+                     <strong>Addison Nichols</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Items:</div>
+                  <div class="col-sm-8">
+                     <strong>547</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Amount:</div>
+                  <div class="col-sm-8">
+                     <strong>$515.20</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Shipment:</div>
+                  <div class="col-sm-8">
+                     <strong>04/10/2015</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Status</div>
+                  <div class="col-sm-8">
+                     <div class="label label-info">Shipped</div>
+                  </div>
+               </div>
+            </form>
+         </div>
+         <div class="col-md-6">
+            <p class="lead bb">Client</p>
+            <form class="form-horizontal p-20">
+               <div class="form-group">
+                  <div class="col-sm-4">Client ID:</div>
+                  <div class="col-sm-8">
+                     <strong>#32654</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Name:</div>
+                  <div class="col-sm-8">
+                     <strong>Addison Nichols</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Email:</div>
+                  <div class="col-sm-8">
+                     <strong>addisong@mail.com</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Company:</div>
+                  <div class="col-sm-8">
+                     <strong>Addison co.</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Phone:</div>
+                  <div class="col-sm-8">
+                     <strong>(123) 123 456465</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Status</div>
+                  <div class="col-sm-8">
+                     <div class="label label-success">Active</div>
+                  </div>
+               </div>
+            </form>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-6">
+            <p class="lead bb">Billing Address</p>
+            <form class="form-horizontal p-20">
+               <div class="form-group">
+                  <div class="col-sm-4">First Name</div>
+                  <div class="col-sm-8">
+                     <strong>John</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Last Name:</div>
+                  <div class="col-sm-8">
+                     <strong>Johnson</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Company:</div>
+                  <div class="col-sm-8">
+                     <strong>John co.</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Address:</div>
+                  <div class="col-sm-8">
+                     <strong>2125 Chesterfield</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">City:</div>
+                  <div class="col-sm-8">
+                     <strong>San Francisco</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">State</div>
+                  <div class="col-sm-8">
+                     <strong>N/a</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">ZIP/Post Code</div>
+                  <div class="col-sm-8">
+                     <strong>1324</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Country</div>
+                  <div class="col-sm-8">
+                     <strong>Neverland</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Phone</div>
+                  <div class="col-sm-8">
+                     <strong>(123) 132 456789</strong>
+                  </div>
+               </div>
+            </form>
+         </div>
+         <div class="col-md-6">
+            <p class="lead bb">Shipping Address</p>
+            <form class="form-horizontal p-20">
+               <div class="form-group">
+                  <div class="col-sm-4">First Name</div>
+                  <div class="col-sm-8">
+                     <strong>John</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Last Name:</div>
+                  <div class="col-sm-8">
+                     <strong>Johnson</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Company:</div>
+                  <div class="col-sm-8">
+                     <strong>John co.</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Address:</div>
+                  <div class="col-sm-8">
+                     <strong>2125 Chesterfield</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">City:</div>
+                  <div class="col-sm-8">
+                     <strong>San Francisco</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">State</div>
+                  <div class="col-sm-8">
+                     <strong>N/a</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">ZIP/Post Code</div>
+                  <div class="col-sm-8">
+                     <strong>1324</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Country</div>
+                  <div class="col-sm-8">
+                     <strong>Neverland</strong>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="col-sm-4">Phone</div>
+                  <div class="col-sm-8">
+                     <strong>(123) 132 456789</strong>
+                  </div>
+               </div>
+            </form>
+         </div>
+      </div>
+      <div class="alert alert-warning">
+         <em class="fa fa-exclamation-circle fa-lg fa-fw"></em>Shipping address is different than billing address</div>
+   </div>
+   
+   </script>
+
+
+
+
+
+
+</body>
+<!--
+
+	/**
+		<div class="ngdialog-message">
+	  <h3 class="mt0">ngDialog template</h3>
+	  <p>Dialog containing work in which a user has to perform a task (e.g. editing data).</p>
+	  <p>'Save' would save the task's actions, while 'Cancel' would cause the task's actions to be lost.</p>
+	  <p>...other controls here...</p>
+	  <button class="btn btn-default mr" type="button" ng-click="closeThisDialog('Cancel')">Cancel</button>
+	  <button class="btn btn-primary" type="button" ng-click="confirm('Save')">Save</button></div>
+   */
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.13/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.5.6/angular-datatables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.1/angular-resource.min.js"></script>
+-->
+  <!--
+   <script src="js/jquery.js"></script>
+   <script src="js/jquery.dataTables.min.js"></script>
+
+   <script src="js/bootstrap.min.js"></script>
+   <script src="js/angular.min.js"></script>
+   <script src="js/angular-datatables.js"></script>
+ 
+   <script src="js/app.js"></script>
+-->
+
+<!--  
+   <script src="js/app.js"></script>
+-->
+
+
