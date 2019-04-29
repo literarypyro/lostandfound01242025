@@ -1,469 +1,320 @@
 
-var requestModule=angular.module('requestApp', ["datatables", "ngResource","ngDialog","ngRoute"]);
+/**
+Functionality for the Client side of the System
+*/
 
-requestModule.config(['$routeProvider', 
-  function($routeProvider){
-    $routeProvider
-      .when('/', {
-        template: '<h1>This is home</h1>'
-      })
-      .when('/details', {
-        template: '<h1>This is home</h1>'
+var requestModule=angular.module('requestApp');
+requestModule.controller=controller("requestController",['$compile', '$scope',"$http","$rootScope", function requestController($compile, $scope,$http,$rootScope){
 
-//	  templateUrl: 'request_details.html'
-      })
-      .when('/add_req', {
-          template: '<h1>This is home</h1>'
-//      templateUrl: 'add_request.html'
-      })
-  }
-]);
-
-requestModule.controller("requestController",['$compile', '$scope',"$http", '$resource', 'DTOptionsBuilder', 'DTColumnBuilder','ngDialog', function requestController($compile, $scope,$http, $resource, DTOptionsBuilder, DTColumnBuilder,ngDialog) {
-
-//.controller('RowSelectCtrl', ['$compile', '$scope', '$resource', 'DTOptionsBuilder', 'DTColumnBuilder', function RowSelectCtrl($compile, $scope, $resource, DTOptionsBuilder, DTColumnBuilder) {
-    var vm = this;
-    vm.selected = {};
-    vm.selectAll = false;
-    vm.toggleAll = toggleAll;
-    vm.toggleOne = toggleOne;
-
-    var titleHtml = '<input ng-model="showCase.selectAll" ng-click="showCase.toggleAll(showCase.selectAll, showCase.selected)" type="checkbox">';
-
-    vm.dtOptions = DTOptionsBuilder.fromSource('data.json')
-        .withOption('createdRow', function(row, data, dataIndex) {
-            // Recompiling so we can bind Angular directive to the DT
-            $compile(angular.element(row).contents())($scope);
-        })
-        .withOption('headerCallback', function(header) {
-            if (!vm.headerCompiled) {
-                // Use this headerCompiled field to only compile header once
-                vm.headerCompiled = true;
-                $compile(angular.element(header).contents())($scope);
-            }
-        })
-        .withPaginationType('full_numbers');
-    vm.dtColumns = [
-        DTColumnBuilder.newColumn(null).withTitle(titleHtml).notSortable()
-            .renderWith(function(data, type, full, meta) {
-                vm.selected[full.id] = false;
-                return '<input ng-model="showCase.selected[' + data.id + ']" ng-click="showCase.toggleOne(showCase.selected)" type="checkbox">';
-            }),
-        DTColumnBuilder.newColumn('id').withTitle('ID'),
-        DTColumnBuilder.newColumn('firstName').withTitle('First name'),
-        DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
-    ];
-
-    function toggleAll (selectAll, selectedItems) {
-        for (var id in selectedItems) {
-            if (selectedItems.hasOwnProperty(id)) {
-                selectedItems[id] = selectAll;
-            }
-        }
-    }
-    function toggleOne (selectedItems) {
-        for (var id in selectedItems) {
-            if (selectedItems.hasOwnProperty(id)) {
-                if(!selectedItems[id]) {
-                    vm.selectAll = false;
-                    return;
-                }
-            }
-        }
-        vm.selectAll = true;
-    }
-
-
-	/*
-	$scope.makeRequest=function (){
-			 
-			 var data = $.param({
-//                fName: $scope.firstName,
-//                lName: $scope.lastName
-            });
-        
-            var config = {
-                headers : {
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-                }
-            }
-
-            $http.post('/ServerRequest/PostDataResponse', data, config)
-            .success(function (data, status, headers, config) {
-                $scope.PostDataResponse = data;
-            })
-            .error(function (data, status, header, config) {
-                $scope.ResponseDetails = "Data: " + data +
-                    "<hr />status: " + status +
-                    "<hr />headers: " + header +
-                    "<hr />config: " + config;
-            });
-	};
-	*/
-	alert("As");
-	$scope.hello="AS";
+	var request_id=$rootScope.user_id;
+	var token=$rootScope.token;
 	
+	$http.get("http://localhost/lnf_api/requests/userRequests/"+request_id+"/?api_token="+token).then(function(response) {$scope.requests = response.requests;});	
+
+
 	$scope.listUserRequests=function (){
-		alert("A");
-		var user_id=$scope.user_id;
-		$http.get("http://localhost/lnf_api/requests/userRequests/"+user_id).then(function(response) {$scope.requests = response.requests;});	
+		var request_id=$scope.request_id;
+		$http.get("http://localhost/lnf_api/requests/userRequests/"+request_id+"/?api_token="+token).then(function(response) {$scope.requests = response.requests;});	
 	
 	};
 	$scope.retrieveItem=function (){
 		
-		var item_id=$scope.item_id;
-		$http.get("http://localhost/lnf_api/request/"+item_id).then(function(response) {$scope.requests = response.requests;});	
+		var request_id=$scope.request_id;
+		$http.get("http://localhost/lnf_api/request/"+request_id+"/?api_token="+token).then(function(response) {$scope.requests = response.requests;});	
 
 	};
 	
 	$scope.retrieveRequestStatus=function (){
 		
-		var item_id=$scope.item_id;
-		$http.get("http://localhost/lnf_api/request/"+item_id+"/status").then(function(response) {$scope.requests = response.requests;});	
+		var request_id=$scope.request_id;
+		$http.get("http://localhost/lnf_api/request/"+item_id+"/status/?api_token="+token).then(function(response) {$scope.requests = response.requests;});	
 
 	};
 
-          $scope.getDetails = function () {
-			  
-			  
-			  alert("A");
-			  
-            $scope.value = true;
-
-            ngDialog.open({
-              template: 'requestDetails',
-              className: 'ngdialog-theme-default',
-              scope: $scope
-            });
-          };
-
-
-          $scope.addRequest = function () {
-			  
-			  
-			  
-            $scope.value = true;
-
-            ngDialog.open({
-              templateUrl: 'add_request.html',
-              className: 'ngdialog-theme-default',
-              scope: $scope
-            });
-          };
-
-	$http.get("http://localhost/lnf_api/requests/userRequests/1").then(function(response) {$scope.requests = response.data; });	
 		  
-
-	
 }]);
 
+var requestDetailsModule=angular.module('detailsApp');
+requestDetailsModule.controller=controller("requestDetailsController",['$compile','$scope',"$http","$rootScope", function requestDetailsController($compile, $scope,$http,$rootScope){
 
-
-
-
-
-/*
-	
+	var item_id=$scope.item_id;
+	var token=$rootScope.token;
+	$http.get("http://localhost/lnf_api/request/"+request_id+"/?api_token="+token).then(function(response) {$scope.requests = response.data; });	
+		  
 }]);
-*/
-var itemModule=angular.module("itemApp",[]);
-itemModule.controller("itemController",["$scope","$http",function($scope,$http){
-
-	$scope.add="Test";
-
-	$scope.test=function (){
-		alert("A");
-	};
-	
-	$scope.searchItem=function (){
-		var search_type=$scope.search_type;
-		var search_term=$scope.search_term;
-
-
-		$http.get("http://localhost/lnf_api/lnf_api/items/"+search_type+"/"+search_term)
-		.success(function(response) { 
-			$scope.items = response; 
-			
-			var items=$scope.items;
-			var groupedItems={};
-			
-			items.forEach(function(item){
-			  if (!(item.category_id in groupedItems)) {
-				groupedItems[item.category_id] = [];
-				groupedItems[item.category_id]["tally"]++;
-				
-			  }
-			  else {
-				groupedItems[item.category_id]["tally"]++;
-			  }			  
-			  groupedItems[item.category_id].push(item);
-			  
-
-
-
-
-			  
-			});			
-			  
-		  $scope.groupedItems=groupedItems;
-			
-			
-			
-			
-		});	
-
-	
-			 
-	};
-		
-	$scope.retrieveItem=function (){
-		var item_id=$scope.item_id;
-		$http.get("http://localhost/lnf_api/lnf_api/item/"+item_id).success(function(response) {$scope.items = response.items;});	
-
-
-	};
-	$scope.retrieveItemStatus=function (){
-		var item_id=$scope.item_id;
-		$http.get("http://localhost/lnf_api/lnf_api/item/"+item_id+"/status").success(function(response) {$scope.requests = response.requests;});	
-
-
-	};
-          $scope.openTemplate = function () {
-            $scope.value = true;
-
-            ngDialog.open({
-              template: "request_details.html",
-              className: 'ngdialog-theme-default',
-              scope: $scope
-            });
-          };
 
 /**
+Admin Side, for Listing of Items
+*/
+
+
+var itemListModule=angular.module('itemListApp');
+itemListModule.controller=controller("itemListController",['$compile','$scope',"$http","$rootScope", function itemListController($compile, $scope,$http,$rootScope){
+
+
+	//Introduce Tagging
+	var token=$rootScope.token;
+
+
+	var category=$scope.category;
+	var search_id=$scope.search_id;
+
+
+	$http.get("http://localhost/lnf_api/items/"+category+"/"+search_id+"/?api_token="+token).then(function(response) {$scope.items = response.data; });	
+
+	$scope.retrieveItemStatus=function (){
+		
+		var item_id=$scope.item_id;
+		$http.get("http://localhost/lnf_api/item/"+item_id+"/status/?api_token="+token).then(function(response) {$scope.requests = response.requests;});	
+
+	};
+		  
+}]);
+
+
+
+var itemDetailsModule=angular.module('itemDetailsApp');
+
+itemDetailsModule.controller=controller("itemDetailsController",['$compile','$scope',"$http", function itemDetailsController($compile, $scope,$http){
+
+	var item_id=$scope.item_id;
+	var token=$rootScope.token;
 
 	
-	var url_string = window.location.href
-	var url = new URL(url_string);
-	var c = url.searchParams.get("req_id");
+	$http.get("http://localhost/lnf_api/item/"+item_id+"/?api_token="+token).then(function(response) {$scope.requests = response.data; });	
+
+	$scope.retrieveItemStatus=function (){
+		
+		var item_id=$scope.item_id;
+		$http.get("http://localhost/lnf_api/item/"+item_id+"/status/?api_token="+token").then(function(response) {$scope.requests = response.requests;});	
+
+	};
+
+
 	
-	if(c==""){
-		$http.get("http://localhost/lnf_api/lnf_api/request/"+c).then(function(response) {$scope.details = response.data; });	
-		
-	}
-	else {
-		
-	}
+}]);
 
 
 
-          $scope.directivePreCloseCallback = function (value) {
-            if(confirm('Close it? MainCtrl.Directive. (Value = ' + value + ')')) {
-              return true;
-            }
-            return false;
-          };
-
-          $scope.preCloseCallbackOnScope = function (value) {
-            if(confirm('Close it? MainCtrl.OnScope (Value = ' + value + ')')) {
-              return true;
-            }
-            return false;
-          };
-
-          $scope.open = function () {
-            ngDialog.open({ template: 'firstDialogId', controller: 'InsideCtrl', data: {foo: 'some data'} });
-          };
-
-          $scope.openDefault = function () {
-            ngDialog.open({
-              template: 'firstDialogId',
-              controller: 'InsideCtrl',
-              className: 'ngdialog-theme-default'
-            });
-          };
-
-          $scope.openDefaultWithPreCloseCallbackInlined = function () {
-            ngDialog.open({
-              template: 'firstDialogId',
-              controller: 'InsideCtrl',
-              className: 'ngdialog-theme-default',
-              preCloseCallback: function(value) {
-                if (confirm('Close it?  (Value = ' + value + ')')) {
-                  return true;
-                }
-                return false;
-              }
-            });
-          };
-
-          $scope.openConfirm = function () {
-            ngDialog.openConfirm({
-              template: 'modalDialogId',
-              className: 'ngdialog-theme-default'
-            }).then(function (value) {
-              console.log('Modal promise resolved. Value: ', value);
-            }, function (reason) {
-              console.log('Modal promise rejected. Reason: ', reason);
-            });
-          };
-
-          $scope.openConfirmWithPreCloseCallbackOnScope = function () {
-            ngDialog.openConfirm({
-              template: 'modalDialogId',
-              className: 'ngdialog-theme-default',
-              preCloseCallback: 'preCloseCallbackOnScope',
-              scope: $scope
-            }).then(function (value) {
-              console.log('Modal promise resolved. Value: ', value);
-            }, function (reason) {
-              console.log('Modal promise rejected. Reason: ', reason);
-            });
-          };
-
-          $scope.openConfirmWithPreCloseCallbackInlinedWithNestedConfirm = function () {
-            ngDialog.openConfirm({
-              template: 'dialogWithNestedConfirmDialogId',
-              className: 'ngdialog-theme-default',
-              preCloseCallback: function(/*value*/
-			  
-			  /**
-			  ) {
-
-                var nestedConfirmDialog = ngDialog.openConfirm({
-                  template:
-                      '<p>Are you sure you want to close the parent dialog?</p>' +
-                      '<div>' +
-                        '<button type="button" class="btn btn-default" ng-click="closeThisDialog(0)">No' +
-                        '<button type="button" class="btn btn-primary" ng-click="confirm(1)">Yes' +
-                      '</button></div>',
-                  plain: true,
-                  className: 'ngdialog-theme-default'
-                });
-
-                return nestedConfirmDialog;
-              },
-              scope: $scope
-            })
-            .then(function(value){
-              console.log('resolved:' + value);
-              // Perform the save here
-            }, function(value){
-              console.log('rejected:' + value);
-
-            });
-          };
-
-          $scope.openInlineController = function () {
-            $rootScope.theme = 'ngdialog-theme-default';
-
-            ngDialog.open({
-              template: 'withInlineController',
-              controller: ['$scope', '$timeout', function ($scope, $timeout) {
-                var counter = 0;
-                var timeout;
-                function count() {
-                  $scope.exampleExternalData = 'Counter ' + (counter++);
-                  timeout = $timeout(count, 450);
-                }
-                count();
-                $scope.$on('$destroy', function () {
-                  $timeout.cancel(timeout);
-                });
-              }],
-              className: 'ngdialog-theme-default'
-            });
-          };
-
-          $scope.openTemplate = function () {
-            $scope.value = true;
-
-            ngDialog.open({
-              template: $scope.tpl.path,
-              className: 'ngdialog-theme-default',
-              scope: $scope
-            });
-          };
-
-          $scope.openTemplateNoCache = function () {
-            $scope.value = true;
-
-            ngDialog.open({
-              template: $scope.tpl.path,
-              className: 'ngdialog-theme-default',
-              scope: $scope,
-              cache: false
-            });
-          };
-
-          $scope.openTimed = function () {
-            var dialog = ngDialog.open({
-              template: '<p>Just passing through!</p>',
-              plain: true,
-              closeByDocument: false,
-              closeByEscape: false
-            });
-            setTimeout(function () {
-              dialog.close();
-            }, 2000);
-          };
-
-          $scope.openNotify = function () {
-            var dialog = ngDialog.open({
-              template:
-                '<p>You can do whatever you want when I close, however that happens.</p>' +
-                '<div><button type="button" class="btn btn-primary" ng-click="closeThisDialog(1)">Close Me</button></div>',
-              plain: true
-            });
-            dialog.closePromise.then(function (data) {
-              console.log('ngDialog closed' + (data.value === 1 ? ' using the button' : '') + ' and notified by promise: ' + data.id);
-            });
-          };
-
-          $scope.openWithoutOverlay = function () {
-            ngDialog.open({
-              template: '<h2>Notice that there is no overlay!</h2>',
-              className: 'ngdialog-theme-default',
-              plain: true,
-              overlay: false
-            });
-          };
-
-          $rootScope.$on('ngDialog.opened', function (e, $dialog) {
-            console.log('ngDialog opened: ' + $dialog.attr('id'));
-          });
-
-          $rootScope.$on('ngDialog.closed', function (e, $dialog) {
-            console.log('ngDialog closed: ' + $dialog.attr('id'));
-          });
-
-          $rootScope.$on('ngDialog.closing', function (e, $dialog) {
-            console.log('ngDialog closing: ' + $dialog.attr('id'));
-          });
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/**
+For both Client Side and Admin side, for adding Items
 
 */
 
+
+var addRequestModule=angular.module('addRequestApp');
+addRequestModule.controller=controller("addRequestController",['$compile', '$scope',"$http", function addController($compile, $scope,$http){
+
+
+	var url="http://localhost/lnf_api/request/?api_token"+token;
 	
+	var parameter = JSON.stringify({
+						type:"user", 
+						username:user_email, 
+						password:user_password
+					});
+    $http.post(url, parameter).
+    success(function(data, status, headers, config) {
+        // this callback will be called asynchronously
+        // when the response is available
+        $scope.response=data;
+      }).
+      error(function(data, status, headers, config) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+      });
+
+		  
+}]);
+
+
+var addItemModule=angular.module('addItemApp');
+addItemModule.controller=controller("addController",['$compile', '$scope',"$http", function addController($compile, $scope,$http){
+
+	
+	
+	var url="http://localhost/lnf_api/item/?api_token"+token;
+	
+	var parameter = JSON.stringify({
+						type:"user", 
+						username:user_email, 
+						password:user_password
+					});
+    $http.post(url, parameter).
+    success(function(data, status, headers, config) {
+        // this callback will be called asynchronously
+        // when the response is available
+        $scope.response=data;
+      }).
+      error(function(data, status, headers, config) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+      });
+
+		  
+}]);
+
+
+
+/**
+For login/authentication
+*/
+
+
+var loginModule=angular.module('loginApp');
+
+loginModule.controller=controller("loginController",['$compile','$scope',"$http", function loginController($compile, $scope,$http,$rootScope){
+
+
+	var url="http://localhost/lnf_api/user/login";
+	
+	
+	$scope.loginUser=function (){
+
+		var username=$scope.username;
+		var password=$scope.password;
+	
+		var parameter = JSON.stringify({username:username, password:password});
+		$http.post(url, parameter).
+		success(function(data, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+			var response=data;
+						
+			//if login is illegal
+			if(response["confirm"]==false){
+				$scope.error_message=response["message"];
+			}
+			else {
+				$scope.error_mesage=response["message"];
+				$rootScope.username=response["username"];
+				$rootScope.name=response["name"];
+				$rootScope.token=response["token"];
+				
+			}
+			
+			
+			
+			//console.log(data);
+		}).
+		error(function(data, status, headers, config) {
+			// called asynchronously if an error occurs
+			// or server returns response with an error status.
+		});
+	};
+	
+	
+	
+	
+
+		  
+}]);
+
+var registrationModule=angular.module('registrationApp');
+
+registrationModule.controller=controller("registrationController",['$compile','$scope',"$http", function registrationController($compile, $scope,$http){
+
+
+
+	$scope.registerUser=function (){
+
+		var url="http://localhost/lnf_api/register";
+	
+		var username=$scope.username;
+		var name=$scope.name;
+		var password=$scope.password;
+	
+	
+		var parameter = JSON.stringify({username:username, password:password, name:name});
+		$http.post(url, parameter).
+		success(function(data, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+			
+			
+			var response=data;
+			
+			$scope.user_id=response["user_id"];
+			
+			
+		}).
+		error(function(data, status, headers, config) {
+			// called asynchronously if an error occurs
+			// or server returns response with an error status.
+		});
+		
+	};
+	
+	$scope.enterProfileDetails=function(){
+		
+
+		var profile_parameter = JSON.stringify({
+									first_name:first_name, 
+									last_name:last_name, 
+									middle_name:middle_name
+								});
+		var address_parameter = JSON.stringify({
+									unit:unit, 
+									street:street, 
+									subdivision:subdivision, 
+									city:city, 
+									zip_code:zip_code, 
+									country_id:country_id, 
+									
+								});
+		var contact_parameter = JSON.stringify({
+									landline:landline, 
+									mobile:mobile, 
+									email:email
+								});
+
+								
+		var url="http://localhost/lnf_api/register/"+$scope.user_id+"/profile";						
+		var url2="http://localhost/lnf_api/register/"+$scope.user_id+"/address";						
+		var url3="http://localhost/lnf_api/register/"+$scope.user_id+"/contact";						
+								
+								
+			
+		$http.post(url, profile_parameter).
+		success(function(data, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+			$scope.profile_message=data["message"];
+		}).
+		error(function(data, status, headers, config) {
+			// called asynchronously if an error occurs
+			// or server returns response with an error status.
+		});
+		$http.post(url2, address_parameter).
+		success(function(data, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+			$scope.address_message=data["message"];
+			
+		}).
+		error(function(data, status, headers, config) {
+			// called asynchronously if an error occurs
+			// or server returns response with an error status.
+			
+		});
+		$http.post(url3, contact_parameter).
+		success(function(data, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+			$scope.contact_message=data["message"];
+		}).
+		error(function(data, status, headers, config) {
+			// called asynchronously if an error occurs
+			// or server returns response with an error status.
+		});
+
+
+		
+	};
+	
+	
+	
+
 }]);
 
 

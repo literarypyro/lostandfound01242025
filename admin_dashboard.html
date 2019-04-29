@@ -19,6 +19,8 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
+  <script src="js/app.js"></script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -32,6 +34,9 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+<div ng-app='loginApp'>
+<div ng-controller='loginController'>
+
 <div class="wrapper">
 
   <header class="main-header">
@@ -390,14 +395,21 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Rendering engine</th>
-                  <th>Browser</th>
-                  <th>Platform(s)</th>
-                  <th>Engine version</th>
-                  <th>CSS grade</th>
+                  <th>Shape</th>
+                  <th>Color</th>
+                  <th>Length</th>
+                  <th>Width</th>
+                  <th>Other Detais</th>
                 </tr>
                 </thead>
                 <tbody>
+                <tr ng-repeat='request in requests'>
+                  <td>{{ request.shape }}</td>
+                  <td>{{ request.color }}</td>
+                  <td>{{ request.length }}</td>
+                  <td>{{ request.width }}</td>
+                  <td>{{ request.other_details }}</td>
+                </tr>
                 <tr>
                   <td>Trident</td>
                   <td>Internet
@@ -1031,7 +1043,8 @@
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-
+</div>
+</div>
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
