@@ -33,10 +33,8 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 
-<div ng-app='loginApp'>
-<div ng-controller='loginController'>
-
-
+<div ng-app="dashboardApp">
+<div ng-controller="dashboardController">
 
 <div class="wrapper">
 
@@ -404,7 +402,7 @@
                 </tr>
                 </thead>
                 <tbody>
-				 <tr ng-repeat='request in requests'>
+				 <tr ng-repeat="request in requests">
                   <td>{{ request.shape }}</td>
                   <td>{{ request.color }}</td>
                   <td>{{ request.length }}</td>

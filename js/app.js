@@ -94,6 +94,54 @@ itemDetailsModule.controller=controller("itemDetailsController",['$compile','$sc
 	
 }]);
 
+/**
+To list all Requests and Items
+*/
+
+var dashboardModule=angular.module('dashboardApp');
+
+dashboardModule.controller=controller("dashboardController",['$compile','$scope',"$http", function dashboardController($compile, $scope,$http){
+
+	var item_id=$scope.item_id;
+	var token=$rootScope.token;
+
+	
+	$http.get("http://localhost/lnf_api/items/all/?api_token="+token).then(function(response) {$scope.items  = response.data; });	
+
+	$scope.retrieveItem=function (){
+		
+		var item_id=$scope.item_id;
+		$http.get("http://localhost/lnf_api/item/"+item_id+"/?api_token="+token).then(function(response) {$scope.items = response.data; });	
+
+	};
+	$scope.retrieveItemStatus=function (){
+		
+		var item_id=$scope.item_id;
+		$http.get("http://localhost/lnf_api/item/"+item_id+"/status/?api_token="+token").then(function(response) {$scope.items = response.requests;});	
+
+	};
+
+	$http.get("http://localhost/lnf_api/requests/all/?api_token="+token).then(function(response) {$scope.requests = response.data; });	
+
+	$scope.retrieveRequest=function (){
+		
+		var request_id=$scope.request_id;
+		$http.get("http://localhost/lnf_api/request/"+request_id+"/status/?api_token="+token").then(function(response) {$scope.requests = response.requests;});	
+
+	};
+	$scope.retrieveRequestStatus=function (){
+		
+		var item_id=$scope.request_id;
+		$http.get("http://localhost/lnf_api/request/"+request_id+"/status/?api_token="+token").then(function(response) {$scope.requests = response.requests;});	
+
+	};
+
+
+	
+}]);
+
+
+
 
 
 /**
@@ -190,11 +238,16 @@ loginModule.controller=controller("loginController",['$compile','$scope',"$http"
 				$rootScope.username=response["username"];
 				$rootScope.name=response["name"];
 				$rootScope.token=response["token"];
+				$rootScope.login_type=response["login_type"];
 				
+				if(response["login_type"]=="user"){
+					window.open("request_list.html");	
+				}
+				else if(response["login_type"]=="administrator"){
+					window.open("admin_dashboard.html");			
+				}
+
 			}
-			
-			
-			
 			//console.log(data);
 		}).
 		error(function(data, status, headers, config) {
