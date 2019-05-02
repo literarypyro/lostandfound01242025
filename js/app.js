@@ -1,9 +1,6 @@
+//Functionality for the Client side of the System
 
-/**
-Functionality for the Client side of the System
-*/
-
-var requestModule=angular.module('requestApp');
+var requestModule=angular.module('requestApp',[]);
 requestModule.controller=controller("requestController",['$compile', '$scope',"$http","$rootScope", function requestController($compile, $scope,$http,$rootScope){
 
 	var request_id=$rootScope.user_id;
@@ -11,30 +8,24 @@ requestModule.controller=controller("requestController",['$compile', '$scope',"$
 	
 	$http.get("http://localhost/lnf_api/requests/userRequests/"+request_id+"/?api_token="+token).then(function(response) {$scope.requests = response.requests;});	
 
-
 	$scope.listUserRequests=function (){
 		var request_id=$scope.request_id;
 		$http.get("http://localhost/lnf_api/requests/userRequests/"+request_id+"/?api_token="+token).then(function(response) {$scope.requests = response.requests;});	
 	
 	};
 	$scope.retrieveItem=function (){
-		
 		var request_id=$scope.request_id;
 		$http.get("http://localhost/lnf_api/request/"+request_id+"/?api_token="+token).then(function(response) {$scope.requests = response.requests;});	
-
 	};
 	
 	$scope.retrieveRequestStatus=function (){
-		
 		var request_id=$scope.request_id;
 		$http.get("http://localhost/lnf_api/request/"+item_id+"/status/?api_token="+token).then(function(response) {$scope.requests = response.requests;});	
-
 	};
 
-		  
 }]);
 
-var requestDetailsModule=angular.module('detailsApp');
+var requestDetailsModule=angular.module('detailsApp',[]);
 requestDetailsModule.controller=controller("requestDetailsController",['$compile','$scope',"$http","$rootScope", function requestDetailsController($compile, $scope,$http,$rootScope){
 
 	var item_id=$scope.item_id;
@@ -43,25 +34,18 @@ requestDetailsModule.controller=controller("requestDetailsController",['$compile
 		  
 }]);
 
-/**
-Admin Side, for Listing of Items
-*/
-
-
-var itemListModule=angular.module('itemListApp');
+//Admin Side, for Listing of Items
+	
+var itemListModule=angular.module('itemListApp',[]);
 itemListModule.controller=controller("itemListController",['$compile','$scope',"$http","$rootScope", function itemListController($compile, $scope,$http,$rootScope){
-
-
+	
 	//Introduce Tagging
 	var token=$rootScope.token;
-
-
 	var category=$scope.category;
 	var search_id=$scope.search_id;
-
-
+	
 	$http.get("http://localhost/lnf_api/items/"+category+"/"+search_id+"/?api_token="+token).then(function(response) {$scope.items = response.data; });	
-
+	
 	$scope.retrieveItemStatus=function (){
 		
 		var item_id=$scope.item_id;
@@ -73,8 +57,7 @@ itemListModule.controller=controller("itemListController",['$compile','$scope',"
 
 
 
-var itemDetailsModule=angular.module('itemDetailsApp');
-
+var itemDetailsModule=angular.module('itemDetailsApp',[]);
 itemDetailsModule.controller=controller("itemDetailsController",['$compile','$scope',"$http", function itemDetailsController($compile, $scope,$http){
 
 	var item_id=$scope.item_id;
@@ -84,78 +67,57 @@ itemDetailsModule.controller=controller("itemDetailsController",['$compile','$sc
 	$http.get("http://localhost/lnf_api/item/"+item_id+"/?api_token="+token).then(function(response) {$scope.requests = response.data; });	
 
 	$scope.retrieveItemStatus=function (){
-		
 		var item_id=$scope.item_id;
-		$http.get("http://localhost/lnf_api/item/"+item_id+"/status/?api_token="+token").then(function(response) {$scope.requests = response.requests;});	
+	//	$http.get("http://localhost/lnf_api/item/"+item_id+"/status/?api_token="+token").then(function(response) {$scope.requests = response.requests;});	
 
 	};
-
-
-	
 }]);
 
-/**
-To list all Requests and Items
-*/
 
-var dashboardModule=angular.module('dashboardApp');
+//To list all Requests and Items
 
+var dashboardModule=angular.module('dashboardApp',[]);
 dashboardModule.controller=controller("dashboardController",['$compile','$scope',"$http", function dashboardController($compile, $scope,$http){
-
 	var item_id=$scope.item_id;
 	var token=$rootScope.token;
-
 	
-	$http.get("http://localhost/lnf_api/items/all/?api_token="+token).then(function(response) {$scope.items  = response.data; });	
-
+	$http.get("http://localhost/lnf_api/items/all/1?api_token="+token).then(function(response) {$scope.items  = response.data; });	
 	$scope.retrieveItem=function (){
-		
-		var item_id=$scope.item_id;
-		$http.get("http://localhost/lnf_api/item/"+item_id+"/?api_token="+token).then(function(response) {$scope.items = response.data; });	
 
+		var item_id=$scope.item_id;
+		//$http.get("http://localhost/lnf_api/item/"+item_id+"/?api_token="+token).then(function(response) {$scope.items = response.data; });	
+	
 	};
 	$scope.retrieveItemStatus=function (){
 		
 		var item_id=$scope.item_id;
-		$http.get("http://localhost/lnf_api/item/"+item_id+"/status/?api_token="+token").then(function(response) {$scope.items = response.requests;});	
-
+		//$http.get("http://localhost/lnf_api/item/"+item_id+"/status/?api_token="+token").then(function(response) {$scope.items = response.requests;});	
+	
 	};
-
-	$http.get("http://localhost/lnf_api/requests/all/?api_token="+token).then(function(response) {$scope.requests = response.data; });	
-
+	
+	$http.get("http://localhost/lnf_api/requests/all/1/?api_token="+token).then(function(response) {$scope.requests = response.data; });	
+	
 	$scope.retrieveRequest=function (){
 		
 		var request_id=$scope.request_id;
-		$http.get("http://localhost/lnf_api/request/"+request_id+"/status/?api_token="+token").then(function(response) {$scope.requests = response.requests;});	
-
+		//$http.get("http://localhost/lnf_api/request/"+request_id+"/status/?api_token="+token").then(function(response) {$scope.requests = response.requests;});	
+		
 	};
 	$scope.retrieveRequestStatus=function (){
 		
 		var item_id=$scope.request_id;
-		$http.get("http://localhost/lnf_api/request/"+request_id+"/status/?api_token="+token").then(function(response) {$scope.requests = response.requests;});	
-
-	};
-
-
+		//$http.get("http://localhost/lnf_api/request/"+request_id+"/status/?api_token="+token").then(function(response) {$scope.requests = response.requests;});	
 	
+	};
 }]);
 
 
+//For both Client Side and Admin side, for adding Items
 
-
-
-/**
-For both Client Side and Admin side, for adding Items
-
-*/
-
-
-var addRequestModule=angular.module('addRequestApp');
+var addRequestModule=angular.module('addRequestApp',[]);
 addRequestModule.controller=controller("addRequestController",['$compile', '$scope',"$http", function addController($compile, $scope,$http){
 
-
 	var url="http://localhost/lnf_api/request/?api_token"+token;
-	
 	var parameter = JSON.stringify({
 						type:"user", 
 						username:user_email, 
@@ -166,23 +128,20 @@ addRequestModule.controller=controller("addRequestController",['$compile', '$sco
         // this callback will be called asynchronously
         // when the response is available
         $scope.response=data;
-      }).
-      error(function(data, status, headers, config) {
+    }).
+    error(function(data, status, headers, config) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
-      });
+    });
 
 		  
 }]);
 
 
-var addItemModule=angular.module('addItemApp');
+var addItemModule=angular.module('addItemApp',[]);
 addItemModule.controller=controller("addController",['$compile', '$scope',"$http", function addController($compile, $scope,$http){
 
-	
-	
 	var url="http://localhost/lnf_api/item/?api_token"+token;
-	
 	var parameter = JSON.stringify({
 						type:"user", 
 						username:user_email, 
@@ -193,35 +152,27 @@ addItemModule.controller=controller("addController",['$compile', '$scope',"$http
         // this callback will be called asynchronously
         // when the response is available
         $scope.response=data;
-      }).
-      error(function(data, status, headers, config) {
+    }).
+    error(function(data, status, headers, config) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
-      });
-
-		  
+    });
+	  
 }]);
 
+//For login/authentication
 
-
-/**
-For login/authentication
-*/
-
-
-var loginModule=angular.module('loginApp');
-
-loginModule.controller=controller("loginController",['$compile','$scope',"$http", function loginController($compile, $scope,$http,$rootScope){
-
+var loginModule=angular.module('loginApp',[]);
+loginModule.controller=controller("loginController",['$compile','$scope',"$http","$rootScope", function loginController($compile, $scope,$http,$rootScope){
 
 	var url="http://localhost/lnf_api/user/login";
 	
-	
 	$scope.loginUser=function (){
-
+		
+		
 		var username=$scope.username;
 		var password=$scope.password;
-	
+		
 		var parameter = JSON.stringify({username:username, password:password});
 		$http.post(url, parameter).
 		success(function(data, status, headers, config) {
@@ -255,24 +206,14 @@ loginModule.controller=controller("loginController",['$compile','$scope',"$http"
 			// or server returns response with an error status.
 		});
 	};
-	
-	
-	
-	
-
-		  
 }]);
 
-var registrationModule=angular.module('registrationApp');
-
+var registrationModule=app.module("registrationApp",[]);
 registrationModule.controller=controller("registrationController",['$compile','$scope',"$http", function registrationController($compile, $scope,$http){
-
-
 
 	$scope.registerUser=function (){
 
 		var url="http://localhost/lnf_api/register";
-	
 		var username=$scope.username;
 		var name=$scope.name;
 		var password=$scope.password;
@@ -283,13 +224,8 @@ registrationModule.controller=controller("registrationController",['$compile','$
 		success(function(data, status, headers, config) {
 			// this callback will be called asynchronously
 			// when the response is available
-			
-			
 			var response=data;
-			
 			$scope.user_id=response["user_id"];
-			
-			
 		}).
 		error(function(data, status, headers, config) {
 			// called asynchronously if an error occurs
@@ -321,13 +257,10 @@ registrationModule.controller=controller("registrationController",['$compile','$
 									email:email
 								});
 
-								
 		var url="http://localhost/lnf_api/register/"+$scope.user_id+"/profile";						
 		var url2="http://localhost/lnf_api/register/"+$scope.user_id+"/address";						
 		var url3="http://localhost/lnf_api/register/"+$scope.user_id+"/contact";						
 								
-								
-			
 		$http.post(url, profile_parameter).
 		success(function(data, status, headers, config) {
 			// this callback will be called asynchronously
@@ -343,12 +276,10 @@ registrationModule.controller=controller("registrationController",['$compile','$
 			// this callback will be called asynchronously
 			// when the response is available
 			$scope.address_message=data["message"];
-			
 		}).
 		error(function(data, status, headers, config) {
 			// called asynchronously if an error occurs
 			// or server returns response with an error status.
-			
 		});
 		$http.post(url3, contact_parameter).
 		success(function(data, status, headers, config) {
@@ -360,14 +291,7 @@ registrationModule.controller=controller("registrationController",['$compile','$
 			// called asynchronously if an error occurs
 			// or server returns response with an error status.
 		});
-
-
-		
 	};
-	
-	
-	
-
 }]);
 
 
