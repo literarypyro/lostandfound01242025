@@ -16,6 +16,12 @@ registrationModule.controller("registrationController",['$compile','$scope',"$ht
 			// when the response is available
 			var response=data;
 			$scope.user_id=response["user_id"];
+			
+			$rootScope.userid=response["user_id"];
+			
+			window.open("details_page.html");
+			
+			
 		}).
 		error(function(data, status, headers, config) {
 			// called asynchronously if an error occurs
@@ -24,8 +30,14 @@ registrationModule.controller("registrationController",['$compile','$scope',"$ht
 		
 	};
 	
+
+}]);
+
+registrationModule.controller("detailsController",['$compile','$scope',"$http","$rootScope", function detailsController($compile, $scope,$http,$rootScope){
+
 	$scope.enterProfileDetails=function(){
 		
+		$scope.user_id=$rootScope.userid;
 
 		var profile_parameter = JSON.stringify({
 									first_name:first_name, 
