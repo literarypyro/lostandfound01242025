@@ -3,18 +3,18 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http", func
 
 	var url="http://localhost/lnf_api/item/?api_token"+token;
 	var parameter = JSON.stringify({
-						found_date:found_date, 
-						color:color,
-						shape:shape,
-						length:length,
-						width:width,
-						other_details:other_details
+						//found_date:found_date, 
+						color:$scope.color,
+						shape:$scope.shape,
+						length:$scope.length,
+						width:$scope.width,
+						other_details:$scope.other_details
 					});
     $http.post(url, parameter).
-    success(function(data, status, headers, config) {
+    success(function(response, status, headers, config) {
         // this callback will be called asynchronously
         // when the response is available
-        $scope.response=data;
+        $scope.response=response.data;
     }).
     error(function(data, status, headers, config) {
         // called asynchronously if an error occurs

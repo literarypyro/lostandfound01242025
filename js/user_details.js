@@ -9,6 +9,9 @@ registrationModule.controller("registrationController",['$compile','$scope',"$ht
 		var password=$scope.password;
 	
 	
+		
+	
+	
 		var parameter = JSON.stringify({username:username, password:password, name:name,user_type:user_type});
 		$http.post(url, parameter).
 		success(function(data, status, headers, config) {
@@ -19,7 +22,7 @@ registrationModule.controller("registrationController",['$compile','$scope',"$ht
 			
 			$rootScope.userid=response["user_id"];
 			
-			window.open("details_page.html");
+			//window.open("details_page.html");
 			
 			
 		}).
@@ -33,66 +36,93 @@ registrationModule.controller("registrationController",['$compile','$scope',"$ht
 
 }]);
 
-registrationModule.controller("detailsController",['$compile','$scope',"$http","$rootScope", function detailsController($compile, $scope,$http,$rootScope){
 
+  
+
+registrationModule.controller("detailsController",['$compile','$scope',"$http","$rootScope","$location", function detailsController($compile, $scope,$http,$rootScope,$location){
+
+	//$scope.user_id=$rootScope.user_id;
+	var user_id = window.location.search.split("user_id=")[1];	
+
+	$scope.user_id=user_id;
 	$scope.enterProfileDetails=function(){
 		
-		$scope.user_id=$rootScope.userid;
+//		$scope.user_id=user_id;
 
 		var profile_parameter = JSON.stringify({
-									first_name:first_name, 
-									last_name:last_name, 
-									middle_name:middle_name
-								});
+									first_name:$scope.first_name, 
+									last_name:$scope.last_name, 
+									middle_name:$scope.middle_name,
+									user_id:$scope.user_id
+		});
 		var address_parameter = JSON.stringify({
-									unit:unit, 
-									street:street, 
-									subdivision:subdivision, 
-									city:city, 
-									zip_code:zip_code, 
-									country_id:country_id, 
+									unit:$scope.unit, 
+									street:$scope.street, 
+									subdivision:$scope.subdivision, 
+									city:$scope.city, 
+									province:$scope.province, 
+									zip_code:$scope.zip_code, 
+									country_id:$scope.country,
+									user_id:$scope.user_id
+									
 									
 								});
 		var contact_parameter = JSON.stringify({
-									landline:landline, 
-									mobile:mobile, 
-									email:email
+									landline:$scope.landline, 
+									mobile:$scope.mobile, 
+									email:$scope.email,
+									user_id:$scope.user_id
 								});
-
-		var url="http://localhost/lnf_api/register/"+$scope.user_id+"/profile";						
-		var url2="http://localhost/lnf_api/register/"+$scope.user_id+"/address";						
-		var url3="http://localhost/lnf_api/register/"+$scope.user_id+"/contact";						
-								
+		var url="http://localhost/lnf_api_old/lnf_api/register/"+$scope.user_id+"/profile";						
+		var url2="http://localhost/lnf_api_old/lnf_api/register/"+$scope.user_id+"/address";						
+		var url3="http://localhost/lnf_api_old/lnf_api/register/"+$scope.user_id+"/contact";						
 		$http.post(url, profile_parameter).
-		success(function(data, status, headers, config) {
+		then(function(response, status, headers, config) {
 			// this callback will be called asynchronously
 			// when the response is available
-			$scope.profile_message=data["message"];
+			var resp=response.data;
+			$scope.profile_message=resp["profile"];
+					$http.post(url2, address_parameter).
+			then(function(response, status, headers, config) {
+				// this callback will be called asynchronously
+				// when the response is available
+
+
+				var resp2=response.data;
+				$scope.address_message=resp2["address"];
+
+				$http.post(url3, contact_parameter).
+				then(function(response, status, headers, config) {
+					// this callback will be called asynchronously
+					// when the response is available
+					var resp3=response.data;
+					$scope.contact_message=resp3["contact"];
+					
+					
+					window.open('index.html','_self');
+
+				}).
+				error(function(data, status, headers, config) {
+					
+					// called asynchronously if an error occurs
+					// or server returns response with an error status.
+				});
+
+			}).
+			error(function(data, status, headers, config) {
+				// called asynchronously if an error occurs
+				// or server returns response with an error status.
+			});
+
+
+
 		}).
 		error(function(data, status, headers, config) {
 			// called asynchronously if an error occurs
 			// or server returns response with an error status.
 		});
-		$http.post(url2, address_parameter).
-		success(function(data, status, headers, config) {
-			// this callback will be called asynchronously
-			// when the response is available
-			$scope.address_message=data["message"];
-		}).
-		error(function(data, status, headers, config) {
-			// called asynchronously if an error occurs
-			// or server returns response with an error status.
-		});
-		$http.post(url3, contact_parameter).
-		success(function(data, status, headers, config) {
-			// this callback will be called asynchronously
-			// when the response is available
-			$scope.contact_message=data["message"];
-		}).
-		error(function(data, status, headers, config) {
-			// called asynchronously if an error occurs
-			// or server returns response with an error status.
-		});
+		
+
 	};
 }]);
 

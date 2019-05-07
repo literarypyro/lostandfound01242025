@@ -26,7 +26,10 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-</head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
+  <script src="js/user_details.js"></script>
+
+  </head>
 <body>
 	<div ng-app='registrationApp'>
 	<div ng-controller='detailsController'>
@@ -61,7 +64,7 @@
                   <label>First Name</label>
 
                   <div class="input-group">
-                    <input type="text" class="form-control timepicker">
+                    <input type="text" class="form-control" ng-model="first_name">
 
                     <div class="input-group-addon">
                       <i class="fa fa-clock-o"></i>
@@ -75,7 +78,7 @@
                   <label>Middle Name</label>
 
                   <div class="input-group">
-                    <input type="text" class="form-control timepicker">
+                    <input type="text" class="form-control timepicker" ng-model="middle_name">
 
                     <div class="input-group-addon">
                       <i class="fa fa-clock-o"></i>
@@ -89,7 +92,7 @@
                   <label>Last Name</label>
 
                   <div class="input-group">
-                    <input type="text" class="form-control timepicker">
+                    <input type="text" class="form-control timepicker" ng-model="last_name">
 
                     <div class="input-group-addon">
                       <i class="fa fa-clock-o"></i>
@@ -100,7 +103,7 @@
                 <!-- /.form group -->
               <div class="form-group">
                 <label>Gender</label>
-                <select class="form-control select2" style="width: 100%;">
+                <select class="form-control select2" style="width: 100%;" ng-model="gender">
                   <option selected="selected">Male</option>
                   <option>Female</option>
                   <option>Other</option>
@@ -108,7 +111,7 @@
               </div>
               <div class="form-group">
                 <label>Civil Status</label>
-                <select class="form-control select2" style="width: 100%;">
+                <select class="form-control select2" style="width: 100%;" ng-model="civil_status">
                   <option selected="selected">Single</option>
                   <option>Married</option>
                   <option>Widowed</option>
@@ -134,7 +137,7 @@
                   <label>Landline</label>
 
                   <div class="input-group">
-                    <input type="text" class="form-control timepicker">
+                    <input type="text" class="form-control" ng-model="landline">
 
                     <div class="input-group-addon">
                       <i class="fa fa-clock-o"></i>
@@ -148,7 +151,7 @@
                   <label>Mobile</label>
 
                   <div class="input-group">
-                    <input type="text" class="form-control timepicker">
+                    <input type="text" class="form-control" ng-model='mobile'>
 
                     <div class="input-group-addon">
                       <i class="fa fa-clock-o"></i>
@@ -162,7 +165,7 @@
                   <label>Email</label>
 
                   <div class="input-group">
-                    <input type="text" class="form-control timepicker">
+                    <input type="text" class="form-control" ng-model='email'>
 
                     <div class="input-group-addon">
                       <i class="fa fa-clock-o"></i>
@@ -189,7 +192,7 @@
                   <label>Number/Block No.</label>
 
                   <div class="input-group">
-                    <input type="text" class="form-control timepicker">
+                    <input type="text" class="form-control" ng-model='unit'>
 
                     <div class="input-group-addon">
                       <i class="fa fa-clock-o"></i>
@@ -203,7 +206,7 @@
                   <label>Street</label>
 
                   <div class="input-group">
-                    <input type="text" class="form-control timepicker">
+                    <input type="text" class="form-control" ng-model='street'>
 
                     <div class="input-group-addon">
                       <i class="fa fa-clock-o"></i>
@@ -216,7 +219,7 @@
                   <label>Subdivision</label>
 
                   <div class="input-group">
-                    <input type="text" class="form-control timepicker">
+                    <input type="text" class="form-control" ng-model='subdivision'>
 
                     <div class="input-group-addon">
                       <i class="fa fa-clock-o"></i>
@@ -227,6 +230,9 @@
 				
               <div class="form-group">
                 <label>City/Municipality</label>
+                <input type="text" class="form-control" ng-model='city'>
+
+				<!--
                 <select class="form-control select2" style="width: 100%;">
                   <option selected="selected">Alabama</option>
                   <option>Alaska</option>
@@ -235,11 +241,18 @@
                   <option>Tennessee</option>
                   <option>Texas</option>
                   <option>Washington</option>
+				  
                 </select>
-              </div>
-
+			-->
+			</div>
+		
               <div class="form-group">
                 <label>Province</label>
+                    <input type="text" class="form-control" ng-model='province'>
+				
+				
+				
+				<!--
                 <select class="form-control select2" style="width: 100%;">
                   <option selected="selected">Alabama</option>
                   <option>Alaska</option>
@@ -248,11 +261,36 @@
                   <option>Tennessee</option>
                   <option>Texas</option>
                   <option>Washington</option>
+				  
                 </select>
+				  -->
+              </div>              
+			  <div class="form-group">
+                <label>Zip Code</label>
+                    <input type="text" class="form-control" ng-model='zip_code'>
+				
+				
+				
+				<!--
+                <select class="form-control select2" style="width: 100%;">
+                  <option selected="selected">Alabama</option>
+                  <option>Alaska</option>
+                  <option>California</option>
+                  <option>Delaware</option>
+                  <option>Tennessee</option>
+                  <option>Texas</option>
+                  <option>Washington</option>
+				  
+                </select>
+				  -->
               </div>
 
               <div class="form-group">
                 <label>Country</label>
+                <input type="text" class="form-control" ng-model='country'>
+
+
+				<!--
                 <select class="form-control select2" style="width: 100%;">
                   <option selected="selected">Alabama</option>
                   <option>Alaska</option>
@@ -261,6 +299,7 @@
                   <option>Tennessee</option>
                   <option>Texas</option>
                   <option>Washington</option>
+				  
                 </select>
               </div>
 
@@ -281,7 +320,15 @@
             </div>
             <!-- /.box-body -->
 			  <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" ng-click='enterProfileDetails()'>Submit</button>
+				
+				<span class='btn btn-primary'>{{ profile_message }}</span>
+				<span class='btn btn-primary'>{{ address_message }}</span>
+				<span class='btn btn-primary'>{{ contact_message }}</span>
+				
+				
+				
+				
               </div>
 
           </div>

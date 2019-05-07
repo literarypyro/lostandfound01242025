@@ -394,23 +394,23 @@
               <div class="box-body">
 				<div class="form-group has-feedback">
 				   <label class="text-muted">Shape</label>
-				   <input class="form-control" type="email" name="account_email" placeholder="Enter email" autocomplete="off" ng-model="reg.account.email" required="" />
+				   <input class="form-control" ng-model="shape" type="email" name="account_email" placeholder="Enter email" autocomplete="off" ng-model="reg.account.email" required="" />
 				</div>
 				<div class="form-group has-feedback">
 				   <label class="text-muted">Color</label>
-				   <input class="form-control" id="id-password" type="password" name="account_password" ng-model="reg.register.password" ng-pattern="/^[a-zA-Z0-9]{6,10}$/" required="" />
+				   <input class="form-control" ng-model="color"  id="id-password" type="password" name="account_password" ng-model="reg.register.password" ng-pattern="/^[a-zA-Z0-9]{6,10}$/" required="" />
 				</div>
 				<div class="form-group has-feedback">
 				   <label class="text-muted">Length</label>
-				   <input class="form-control" type="password" name="account_password_confirm" ng-model="reg.register.account_password_confirm" ui-validate="'$value==reg.register.password'" ui-validate-watch="'password'" />
+				   <input class="form-control" ng-model="length"  type="password" name="account_password_confirm" ng-model="reg.register.account_password_confirm" ui-validate="'$value==reg.register.password'" ui-validate-watch="'password'" />
 				</div>
 				<div class="form-group has-feedback">
 				   <label class="text-muted">Width</label>
-				   <input class="form-control" type="password" name="account_password_confirm" ng-model="reg.register.account_password_confirm" ui-validate="'$value==reg.register.password'" ui-validate-watch="'password'" />
+				   <input class="form-control" ng-model="width"  type="password" name="account_password_confirm" ng-model="reg.register.account_password_confirm" ui-validate="'$value==reg.register.password'" ui-validate-watch="'password'" />
 				</div>
 				<div class="form-group has-feedback">
 				   <label class="text-muted">Other Details</label>
-				   <input class="form-control" type="password" name="account_password_confirm" ng-model="reg.register.account_password_confirm" ui-validate="'$value==reg.register.password'" ui-validate-watch="'password'" />
+				   <input class="form-control" ng-model="other_details"  type="password" name="account_password_confirm" ng-model="reg.register.account_password_confirm" ui-validate="'$value==reg.register.password'" ui-validate-watch="'password'" />
 				</div>
 			</div>
               <!-- /.box-body -->

@@ -1,27 +1,58 @@
-var registrationModule=angular.module("registrationApp",[]);
-registrationModule.controller("registrationController",['$compile','$scope',"$http","$rootScope", function registrationController($compile, $scope,$http,$rootScope){
+var registrationModule=angular.module("registrationApp",["ngRoute"]);
+
+registrationModule.config(['$routeProvider','$locationProvider',
+  function($routeProvider,$locationProvider) {
+     $locationProvider
+	  .html5Mode(false)
+	  .hashPrefix('!');
+    $routeProvider.
+      when('register.html#!/details', {
+        templateUrl: 'details_page.html',
+        controller: 'detailsController'
+      });
+      //when('/showOrders', {
+       // templateUrl: 'templates/show-orders.html',
+       // controller: 'ShowOrdersController'
+      //}).
+//      .otherwise({
+      //  redirectTo: '/addOrder'
+ //       templateUrl: 'register.html',
+  //      controller: 'registrationController'
+      
+	  
+	  
+	//  });
+  }]);
+registrationModule.controller("registrationController",['$compile','$scope',"$http","$rootScope","$window", function registrationController($compile, $scope,$http,$rootScope,$window){
 
 	$scope.registerUser=function (){
-
-		var url="http://localhost/lnf_api/register";
+		
+		
+	
+		var url="http://localhost/lnf_api_old/lnf_api/register";
 		var username=$scope.username;
 		var name=$scope.name;
 		var password=$scope.password;
+		var user_type=$scope.user_type;
 	
 	
 		var parameter = JSON.stringify({username:username, password:password, name:name,user_type:user_type});
 		$http.post(url, parameter).
-		success(function(data, status, headers, config) {
+		then(function(response, status, headers, config) {
 			// this callback will be called asynchronously
 			// when the response is available
-			var response=data;
-			$scope.user_id=response["user_id"];
+			var user=response.data;
+
+
+			$scope.user_id=user["user_id"];
+			
+			$window.open('details_page.html?user_id='+$scope.user_id,'_SELF');
+
 		}).
 		error(function(data, status, headers, config) {
 			// called asynchronously if an error occurs
 			// or server returns response with an error status.
 		});
-		
 	};
 	
 	$scope.enterProfileDetails=function(){
