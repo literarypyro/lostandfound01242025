@@ -31,8 +31,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-<div ng-app='loginApp'>
-<div ng-controller='loginController'>
+<div ng-app='addRequestApp'>
+<div ng-controller="addRequestController">
 <div class="wrapper">
 
   <header class="main-header">
@@ -387,29 +387,31 @@
               <div class="box-body">
 				<div class="form-group has-feedback">
 				   <label class="text-muted">Shape</label>
-				   <input class="form-control" type="email" name="account_email" placeholder="Enter email" autocomplete="off" ng-model="reg.account.email" required="" />
+				   <input class="form-control" type="text" name="shape"  ng-model="shape" required="" />
 				</div>
 				<div class="form-group has-feedback">
 				   <label class="text-muted">Color</label>
-				   <input class="form-control" id="id-password" type="password" name="account_password" ng-model="reg.register.password" ng-pattern="/^[a-zA-Z0-9]{6,10}$/" required="" />
+				   <input class="form-control" id="text" type="text" name="color" ng-model="color"  required="" />
 				</div>
 				<div class="form-group has-feedback">
 				   <label class="text-muted">Length</label>
-				   <input class="form-control" type="password" name="account_password_confirm" ng-model="reg.register.account_password_confirm" ui-validate="'$value==reg.register.password'" ui-validate-watch="'password'" />
+				   <input class="form-control" type="text" name="length" ng-model="length"  />
 				</div>
 				<div class="form-group has-feedback">
 				   <label class="text-muted">Width</label>
-				   <input class="form-control" type="password" name="account_password_confirm" ng-model="reg.register.account_password_confirm" ui-validate="'$value==reg.register.password'" ui-validate-watch="'password'" />
+				   <input class="form-control" type="text" name="width" ng-model="width"  />
 				</div>
 				<div class="form-group has-feedback">
 				   <label class="text-muted">Other Details</label>
-				   <input class="form-control" type="password" name="account_password_confirm" ng-model="reg.register.account_password_confirm" ui-validate="'$value==reg.register.password'" ui-validate-watch="'password'" />
+				   <input class="form-control" type="text" name="other_details" ng-model="other_details"  />
 				</div>
 			</div>
               <!-- /.box-body -->
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+				<span class='btn btn-primary' >{{ message }}</span>
+
+			  <button type="button" ng-click="addRequest()" class="btn btn-primary">Submit</button>
               </div>
             </form>
           </div>
