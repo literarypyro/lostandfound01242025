@@ -27,7 +27,56 @@ requestModule.controller("requestController",['$compile', '$scope','$http', func
 			$scope.requests = response;
 			//console.log(data);
 		});
-//		.error(function(data, status, headers, config) {
+
+		
+		
+	$scope.retrieveRequestStatus=function (id){
+		//var request_id=$scope.request_id;
+		
+		
+		var request_id=id;
+		
+		var token=$scope.token;
+		
+		
+		
+//		$http.get("http://localhost/lnf_api_old/lnf_api/request/"+request_id+"/status/?api_token="+token).then(function(resp, status, headers, config) {
+		$http.get("http://localhost/lnf_api_old/lnf_api/request/"+request_id+"/status").then(function(resp, status, headers, config) {
+			var response=resp.data;
+
+			$scope.statuses = response["status"];
+			
+			
+			
+			
+			
+			
+			
+		});	
+	};
+	$scope.retrieveDetails=function (request){
+		//var request_id=$scope.request_id;
+		
+		
+			$scope.shape=request.shape;
+			$scope.color=request.color;
+			$scope.length=request.length;
+			$scope.width=request.width;
+			$scope.other_details=request.other_details;
+		
+	};
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//		.error(function(data, status, headers, config) {
 			// called asynchronously if an error occurs
 			// or server returns response with an error status.
 //		});	
@@ -51,10 +100,6 @@ requestModule.controller("requestController",['$compile', '$scope','$http', func
 		$http.get("http://localhost/lnf_api/request/"+request_id+"/?api_token="+token).then(function(response) {$scope.requests = response.requests;});	
 	};
 	
-	$scope.retrieveRequestStatus=function (){
-		var request_id=$scope.request_id;
-		$http.get("http://localhost/lnf_api/request/"+item_id+"/status/?api_token="+token).then(function(response) {$scope.requests = response.requests;});	
-	};
 	*/
 
 }]);
