@@ -294,7 +294,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="index.html" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -344,7 +344,7 @@
                 </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="request_list.html"><i class="fa fa-circle-o"></i>Your Requests</a></li>
+            <li><a href="request_list.html?uid={{ request_id }}"><i class="fa fa-circle-o"></i>Your Requests</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -403,7 +403,7 @@
                 <tbody>
                 <tr ng-repeat='request in requests'>
                   <td>{{ request.request_date }}</td>
-                  <td>{{ request.category_id }}</td>
+                  <td>{{ request["category"].type }}</td>
                   <td>{{ request.description }}</td>
                   <td><i class="fa fa-search pull-left" data-toggle="modal" ng-click='retrieveDetails(request["details"])' data-target="#modal-details"></i></td>
 				  <td> <i class="fa fa-search pull-left" data-toggle="modal" ng-click='retrieveRequestStatus(request.id)' data-target="#modal-default"></i></td>

@@ -4,6 +4,7 @@ requestModule.controller("requestController",['$compile', '$scope','$http', func
 	var request_id = window.location.search.split("uid=")[1];	
 	$scope.request_id=request_id;
 
+	
 		//alert(request_id);
 		
 		
