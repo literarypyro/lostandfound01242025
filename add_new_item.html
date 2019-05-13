@@ -20,8 +20,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
   <script src="js/add_new_item.js"></script>
 
-  
-  
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -34,10 +32,7 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div ng-app='addItemApp'>
-<div ng-controller='addItemController'>
-
-
-
+<div ng-controller="addItemController">
 <div class="wrapper">
 
   <header class="main-header">
@@ -330,12 +325,12 @@
       </form>
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
-       <ul class="sidebar-menu" data-widget="tree">
+      <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-pie-chart"></i>
-            <span>Charts</span>
+            <i class="fa fa-clone"></i>
+            <span>Dashboard</span>
             <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
@@ -347,15 +342,14 @@
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-pie-chart"></i>
-            <span>Charts</span>
+            <i class="fa fa-plus"></i>
+            <span>Add Item</span>
             <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
           </a>
           <ul class="treeview-menu">
             <li><a href="add_new_item.html"><i class="fa fa-circle-o"></i> Add Found Item </a></li>
-            <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
           </ul>
         </li>		
       </ul>
@@ -393,30 +387,36 @@
             <form role="form">
               <div class="box-body">
 				<div class="form-group has-feedback">
+				   <label class="text-muted">Description</label>
+				   <textarea class="form-control"  name="description"  ng-model="description" required="" ></textarea>
+				</div>
+				<div class="form-group has-feedback">
 				   <label class="text-muted">Shape</label>
-				   <input class="form-control" ng-model="shape" type="email" name="account_email" placeholder="Enter email" autocomplete="off" ng-model="reg.account.email" required="" />
+				   <input class="form-control" type="text" name="shape"  ng-model="shape" required="" />
 				</div>
 				<div class="form-group has-feedback">
 				   <label class="text-muted">Color</label>
-				   <input class="form-control" ng-model="color"  id="id-password" type="password" name="account_password" ng-model="reg.register.password" ng-pattern="/^[a-zA-Z0-9]{6,10}$/" required="" />
+				   <input class="form-control" id="text" type="text" name="color" ng-model="color"  required="" />
 				</div>
 				<div class="form-group has-feedback">
 				   <label class="text-muted">Length</label>
-				   <input class="form-control" ng-model="length"  type="password" name="account_password_confirm" ng-model="reg.register.account_password_confirm" ui-validate="'$value==reg.register.password'" ui-validate-watch="'password'" />
+				   <input class="form-control" type="text" name="length" ng-model="length"  />
 				</div>
 				<div class="form-group has-feedback">
 				   <label class="text-muted">Width</label>
-				   <input class="form-control" ng-model="width"  type="password" name="account_password_confirm" ng-model="reg.register.account_password_confirm" ui-validate="'$value==reg.register.password'" ui-validate-watch="'password'" />
+				   <input class="form-control" type="text" name="width" ng-model="width"  />
 				</div>
 				<div class="form-group has-feedback">
 				   <label class="text-muted">Other Details</label>
-				   <input class="form-control" ng-model="other_details"  type="password" name="account_password_confirm" ng-model="reg.register.account_password_confirm" ui-validate="'$value==reg.register.password'" ui-validate-watch="'password'" />
+				   <input class="form-control" type="text" name="other_details" ng-model="other_details"  />
 				</div>
 			</div>
               <!-- /.box-body -->
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+				<span class='btn btn-primary' >{{ message }}</span>
+
+			  <button type="button" ng-click="addItem()" class="btn btn-primary">Submit</button>
               </div>
             </form>
           </div>

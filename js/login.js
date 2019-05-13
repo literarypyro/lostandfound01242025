@@ -12,21 +12,25 @@ loginModule.controller('loginController',['$compile','$scope',"$http","$rootScop
 		var parameter = JSON.stringify({username:$scope.username, password:$scope.password});
 		$http.post(url, parameter).
 		then(function(resp, status, headers, config) {
+			
+			
 			// this callback will be called asynchronously
 			// when the response is available
 			var response=resp.data;
 						
 			//if login is illegal
 			
-			
+
 			
 			
 			if(response["confirm"]==false){
 				$scope.error_message=response["message"];
+
 			}
 			else {
-
 				var token=response["token"];
+				
+				
 				var user_id=response["userid"];
 
 				$scope.error_mesage=response["message"];
@@ -36,6 +40,8 @@ loginModule.controller('loginController',['$compile','$scope',"$http","$rootScop
 //				$rootScope.name=response["name"];
 //				$rootScope.token=response["token"];
 //				$rootScope.login_type=response["login_type"];
+	
+				
 	
 				if(response["login_type"]=="user"){
 //					window.open("request_list.html?token="+token+"&uid="+user_id,"_self");	
