@@ -3,7 +3,7 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http", func
 
 		var url="http://localhost/lnf_api_old/lnf_api/item";
 	
-$scope.addItem=function(){
+	$scope.addItem=function(){
 
 	var parameter = JSON.stringify({
 							user_id:$scope.user_id,
