@@ -35,6 +35,7 @@ requestModule.controller("itemsController",['$compile', '$scope','$http', functi
 		//var request_id=$scope.request_id;
 		
 		var request_id=id;
+		$scope.request_status=request_id;
 		
 //		var token=$scope.token;
 		
@@ -67,7 +68,52 @@ requestModule.controller("itemsController",['$compile', '$scope','$http', functi
 	};
 		
 		
+	$scope.addStatus=function (){
+
+		var url="http://localhost/lnf_api_old/lnf_api/item/"+$scope.request_status+"/status";
+
 		
+		var parameter = JSON.stringify({
+							item_id:$scope.request_status,
+							status_type:$scope.status_type,
+							details:$scope.status_details
+						});
+	
+	
+		$http.post(url, parameter).
+		then(function(response, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+			
+			
+			
+			
+			$scope.resp=response.data;
+			
+			var response=$scope.resp;
+			
+			$scope.retrieveItemStatus($scope.request_status);
+			
+			
+			
+			
+//			$scope.message="Item successfully recorded.";
+			
+//			window.open('admin_dashboard.html','_SELF');
+			
+			
+			
+			
+			
+		}).
+		error(function(data, status, headers, config) {
+			// called asynchronously if an error occurs
+			// or server returns response with an error status.
+		});
+	
+	
+	
+	}		
 		
 		
 		
