@@ -108,6 +108,7 @@ requestModule.controller("itemsController",['$compile', '$scope','$http', functi
 			
 			var response=$scope.resp;
 			
+			
 			$scope.retrieveItemStatus($scope.request_status);
 			
 			
