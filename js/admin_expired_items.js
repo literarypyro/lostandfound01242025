@@ -25,25 +25,9 @@ requestModule.controller("itemsController",['$compile', '$scope','$http', functi
 			//if login is illegal
 			
 			
-			$scope.expired_items = response;
-			//console.log(data);
-	});
-	
-		var url="http://localhost/lnf_api_old/lnf_api/items/recent/1";
-	
-	
-		$http.get(url)
-		.then(function(resp, status, headers, config) {
-			// this callback will be called asynchronously
-			// when the response is available
-			var response=resp.data;
-						
-			//if login is illegal
-			
-			
 			$scope.items = response;
 			//console.log(data);
-		});
+	});
 
 		
 		

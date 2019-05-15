@@ -345,6 +345,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="admin_dashboard.html"><i class="fa fa-circle-o"></i> Recently Found Items</a></li>
+            <li><a href="admin_expired_items.html"><i class="fa fa-circle-o"></i> Recently Expired Items</a></li>
             <li><a href="admin_request_list.html"><i class="fa fa-circle-o"></i> Recently Made Requests</a></li>
           </ul>
         </li>
@@ -421,7 +422,7 @@
                   <td>{{ item["items"][0]["item_type"].name }}</td>
                   <td>{{ item["items"][0].description }}</td>
                   <td><i class="fa fa-search pull-left" data-toggle="modal" ng-click='retrieveDetails(item["items"][0]["details"][0])' data-target="#modal-details"></i></td>
-				  <td> <i class="fa fa-search pull-left" data-toggle="modal" ng-click='retrieveItemStatus(item["items"][0].id)' data-target="#modal-default"></i></td>
+				  <td>{{ item["items"][0]["latest_status"]["status_type"]["type"]  }} <i class="fa fa-search pull-right" data-toggle="modal" ng-click='retrieveItemStatus(item["items"][0].id)' data-target="#modal-default"></i></td>
                 </tr>
                 </tbody>
                 <tfoot>
