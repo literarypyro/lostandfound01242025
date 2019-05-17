@@ -39,4 +39,17 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http", func
 			// or server returns response with an error status.
 		});
 }
+	$scope.logout=function (){
+		$http.get("http://localhost/lnf_api_old/lnf_api/logout").
+		then(function(response, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+			window.open("index.html","_SELF");
+			
+			
+			
+			
+		});
+	
+	}	
  }]);
