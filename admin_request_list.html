@@ -420,7 +420,7 @@
                   <td>{{ request["category"].type }}</td>
                   <td>{{ request.description }}</td>
                   <td><i class="fa fa-search pull-left" data-toggle="modal" ng-click='retrieveDetails(request["details"])' data-target="#modal-details"></i></td>
-				  <td> <i class="fa fa-search pull-left" data-toggle="modal" ng-click='retrieveRequestStatus(request.id)' data-target="#modal-default"></i></td>
+				  <td>{{ request["latest_status"]["status_type"]["type"] }} <i class="fa fa-search pull-right" data-toggle="modal" ng-click='retrieveRequestStatus(request.id)' data-target="#modal-default"></i></td>
                 </tr>
                 </tbody>
                 <tfoot>

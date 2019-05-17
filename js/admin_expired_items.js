@@ -95,7 +95,22 @@ requestModule.controller("itemsController",['$compile', '$scope','$http', functi
 			$scope.retrieveItemStatus($scope.request_status);
 			
 			
+
+			var url="http://localhost/lnf_api_old/lnf_api/expired";
 			
+			
+				$http.get(url)
+				.then(function(resp, status, headers, config) {
+					// this callback will be called asynchronously
+					// when the response is available
+					var response=resp.data;
+								
+					//if login is illegal
+					
+					
+					$scope.items = response;
+					//console.log(data);
+			});			
 			
 //			$scope.message="Item successfully recorded.";
 			

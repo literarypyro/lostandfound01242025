@@ -93,7 +93,8 @@ requestModule.controller("requestController",['$compile', '$scope','$http', func
 			var response=$scope.resp;
 			
 			$scope.retrieveRequestStatus($scope.request_status);
-			
+//			alert(response["status_type"]["type"]);
+//			$scope.latest_stat=response["status_type"]["type"];
 			
 			
 			
@@ -102,6 +103,21 @@ requestModule.controller("requestController",['$compile', '$scope','$http', func
 //			window.open('admin_dashboard.html','_SELF');
 			
 			
+			var url="http://localhost/lnf_api_old/lnf_api/requests/recent/1";
+			
+			
+				$http.get(url)
+				.then(function(resp, status, headers, config) {
+					// this callback will be called asynchronously
+					// when the response is available
+					var response=resp.data;
+								
+					//if login is illegal
+					
+					
+					$scope.requests = response;
+					//console.log(data);
+				});
 			
 			
 			
