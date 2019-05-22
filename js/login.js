@@ -34,6 +34,9 @@ loginModule.controller('loginController',['$compile','$scope',"$http","$rootScop
 				var user_id=response["userid"];
 
 				$scope.error_mesage=response["message"];
+				$scope.error_confirm=response["confirm"];
+				
+				
 //				$rootScope.username=response["username"];
 				
 				
@@ -56,6 +59,10 @@ loginModule.controller('loginController',['$compile','$scope',"$http","$rootScop
 		.error(function(data, status, headers, config) {
 			// called asynchronously if an error occurs
 			// or server returns response with an error status.
+			
+			$scope.error_confirm=false;
+			$scope.error_message="Invalid credentials";
+			
 		});
 		
 	};
