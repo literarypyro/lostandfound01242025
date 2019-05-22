@@ -387,27 +387,27 @@
             <!-- form start -->
             <form role="form">
               <div class="box-body">
-				<div class="form-group has-feedback">
+				<div class="form-group has-feedback col-md-12">
 				   <label class="text-muted">Description</label>
 				   <textarea class="form-control"  name="description"  ng-model="description" required="" ></textarea>
 				</div>
-				<div class="form-group has-feedback">
+				<div class="form-group has-feedback col-md-3">
 				   <label class="text-muted">Shape</label>
 				   <input class="form-control" type="text" name="shape"  ng-model="shape" required="" />
 				</div>
-				<div class="form-group has-feedback">
+				<div class="form-group has-feedback col-md-3">
 				   <label class="text-muted">Color</label>
 				   <input class="form-control" id="text" type="text" name="color" ng-model="color"  required="" />
 				</div>
-				<div class="form-group has-feedback">
+				<div class="form-group has-feedback col-md-3">
 				   <label class="text-muted">Length</label>
 				   <input class="form-control" type="text" name="length" ng-model="length"  />
 				</div>
-				<div class="form-group has-feedback">
+				<div class="form-group has-feedback col-md-3">
 				   <label class="text-muted">Width</label>
 				   <input class="form-control" type="text" name="width" ng-model="width"  />
 				</div>
-				<div class="form-group has-feedback">
+				<div class="form-group has-feedback col-md-12">
 				   <label class="text-muted">Other Details</label>
 				   <input class="form-control" type="text" name="other_details" ng-model="other_details"  />
 				</div>
@@ -415,9 +415,15 @@
               <!-- /.box-body -->
 
               <div class="box-footer">
-				<span class='btn btn-primary' >{{ message }}</span>
+			  <div class="col-md-4 center-block">
 
 			  <button type="button" ng-click="addRequest()" class="btn btn-primary">Submit</button>
+			  </div>
+			  <div class="col-md-4 center-block">
+
+			  <span ng-if="message" class='btn btn-primary' >{{ message }}</span>
+
+              </div>
               </div>
             </form>
           </div>
