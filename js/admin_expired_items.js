@@ -4,7 +4,7 @@ requestModule.controller("itemsController",['$compile', '$scope','$http', functi
 //	var request_id = window.location.search.split("uid=")[1];	
 //	$scope.request_id=request_id;
 
-	
+	$scope.assetfolder="http://localhost/lnf_api_old/lnf_api/public/assets/images/items/";	
 		//alert(request_id);
 		
 		
@@ -64,6 +64,7 @@ requestModule.controller("itemsController",['$compile', '$scope','$http', functi
 			$scope.length=request.length;
 			$scope.width=request.width;
 			$scope.other_details=request.other_details;
+			$scope.picture=request.picture;
 		
 	};
 		
