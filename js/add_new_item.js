@@ -8,6 +8,8 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http", func
 	var parameter = JSON.stringify({
 							user_id:$scope.user_id,
 							description:$scope.description,
+							category:$scope.category,
+							item_type:$scope.item_type,
 				//			request_date:$scope.request_date, 
 							color:$scope.color,
 							shape:$scope.shape,

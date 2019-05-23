@@ -14,6 +14,7 @@ addRequestModule.controller("addRequestController",['$compile', '$scope',"$http"
 		var parameter = JSON.stringify({
 							user_id:$scope.user_id,
 							description:$scope.description,
+							category:$scope.category,
 				//			request_date:$scope.request_date, 
 							color:$scope.color,
 							shape:$scope.shape,

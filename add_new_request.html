@@ -388,6 +388,13 @@
             <form role="form">
               <div class="box-body">
 				<div class="form-group has-feedback col-md-12">
+				   <label class="text-muted">Category</label>
+                   <select class="form-control" name='category' ng-model='category'>
+                    <option value='1'>Item (Generic)</option>
+                  </select>
+				</div>
+
+				<div class="form-group has-feedback col-md-12">
 				   <label class="text-muted">Description</label>
 				   <textarea class="form-control"  name="description"  ng-model="description" required="" ></textarea>
 				</div>
