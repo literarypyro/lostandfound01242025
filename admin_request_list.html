@@ -413,6 +413,7 @@
                   <th>Description</th>
                   <th>Details</th>
                   <th>Status</th>
+                  <th>Requested By</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -422,6 +423,7 @@
                   <td>{{ request.description }}</td>
                   <td><i class="fa fa-search pull-left" data-toggle="modal" ng-click='retrieveDetails(request["details"])' data-target="#modal-details"></i></td>
 				  <td>{{ request["latest_status"]["status_type"]["type"] }} <i class="fa fa-search pull-right" data-toggle="modal" ng-click='retrieveRequestStatus(request.id)' data-target="#modal-default"></i></td>
+				  <td>{{ request["user_info"]["name"] }} <i class="fa fa-search pull-right" data-toggle="modal" ng-click='retrieveProfile(request)' data-target=""></i></td>
                 </tr>
                 </tbody>
                 <tfoot>

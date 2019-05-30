@@ -67,6 +67,20 @@ requestModule.controller("requestController",['$compile', '$scope','$http', func
 		
 	};
 		
+	$scope.retrieveProfile=function (request){
+		//var request_id=$scope.request_id;
+
+			alert(request["user_info"]["profile"]["contact"][0]["landline"]);	
+//			alert(request["contact"].landline);
+		
+//			$scope.shape=request.shape;
+//			$scope.color=request.color;
+//			$scope.length=request.length;
+//			$scope.width=request.width;
+//			$scope.other_details=request.other_details;
+		
+	};
+
 		
 	$scope.addStatus=function (){
 
