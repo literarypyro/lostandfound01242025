@@ -70,7 +70,13 @@ requestModule.controller("requestController",['$compile', '$scope','$http', func
 	$scope.retrieveProfile=function (request){
 		//var request_id=$scope.request_id;
 
-			alert(request["user_info"]["profile"]["contact"][0]["landline"]);	
+
+			$scope.first_name=request["user_info"]["profile"]["first_name"];		
+			$scope.last_name=request["user_info"]["profile"]["last_name"];		
+			$scope.landline=request["user_info"]["profile"]["contact"][0]["landline"];		
+			$scope.mobile=request["user_info"]["profile"]["contact"][0]["mobile"];		
+			$scope.email=request["user_info"]["profile"]["contact"][0]["email"];		
+			
 //			alert(request["contact"].landline);
 		
 //			$scope.shape=request.shape;
