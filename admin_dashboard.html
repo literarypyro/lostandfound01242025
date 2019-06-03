@@ -414,6 +414,7 @@
                   <th>Description</th>
                   <th>Details</th>
                   <th>Status</th>
+                  <th>Particulars</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -424,6 +425,7 @@
                   <td>{{ item["items"][0].description }}</td>
                   <td><i class="fa fa-search pull-left" data-toggle="modal" ng-click='retrieveDetails(item["items"][0]["details"][0])' data-target="#modal-details"></i></td>
 				  <td>{{ item["items"][0]["latest_status"]["status_type"]["type"]  }} <i class="fa fa-search pull-right" data-toggle="modal" ng-click='retrieveItemStatus(item["items"][0].id)' data-target="#modal-default"></i></td>
+				  <td><i class="fa fa-search pull-right" data-toggle="modal" ng-click='listParticular(item)' data-target="#modal-particulars"></i></td>
                 </tr>
                 </tbody>
                 <tfoot>
@@ -771,6 +773,117 @@
           </div>
           <!-- /.modal-dialog -->
         </div>		
+		
+	    <div class="modal fade" id="modal-particulars">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Particulars</h4>
+              </div>
+              <div class="modal-body">
+
+			  <div class='col-md-12'>
+				<img src='{{ assetfolder }}{{ picture }}' />
+			  </div>	
+			  <div class='col-md-12'>
+			  
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Shape</th>
+                  <th>Color</th>
+                  <th>Length</th>
+                  <th>Width</th>
+                  <th>Other Details</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in item_particulars | filter: { item_type_id: 3 }">
+				  <td>{{ item.description }}</td>
+				  <td>{{ item["details"][0].shape }}</td>
+                  <td>{{ item["details"][0].color }}</td>
+                  <td>{{ item["details"][0].length }}</td>
+                  <td>{{ item["details"][0].width }}</td>
+                  <td>{{ item["details"][0].other_details }} <i class="fa fa-search pull-right" data-toggle="modal" ng-click="getImage(item['details'][0])" data-target="#modal-image"></i></td>
+                </tr>
+                </tbody>
+			</table>
+			</div>
+			</div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click='addParticular(found_record_id)' data-dismiss="modal">Add Particulars</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+		
+			    <div class="modal fade" id="modal-image">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Item Photo</h4>
+              </div>
+              <div class="modal-body">
+
+			  <div class='col-md-12'>
+				<img src='{{ assetfolder }}{{ picture_part }}' />
+			  </div>	
+			</div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click='addParticular(found_record_id)' data-dismiss="modal">Add Particulars</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+		
+        <div class="modal fade" id="modal-status">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Update Item Status</h4>
+              </div>
+              <div class="modal-body">
+
+				<div class="form-group has-feedback">
+			    <label class="text-muted">Select Status</label>
+                  <select class="form-control" name='status_type' ng-model='status_type'>
+                    <option value='1'>Active</option>
+                    <option value='2'>On Process</option>
+                    <option value='3'>Retrieved</option>
+                    <option value='4'>Expired</option>
+                    <option value='5'>Disposed/Transferred</option>
+
+                  </select>
+				</div>
+				<div class="form-group has-feedback">
+			    <label class="text-muted">Details</label>
+ 			    <textarea class="form-control"  name="status_details"  ng-model="status_details" required="" ></textarea>
+				</div>
+
+				
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click='addStatus()' data-dismiss="modal">Update Status</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>	
 
 </div>
 </div>

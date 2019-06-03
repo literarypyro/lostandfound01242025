@@ -1,7 +1,21 @@
 var addItemModule=angular.module('addItemApp',[]);
 addItemModule.controller("addItemController",['$compile', '$scope',"$http", function addController($compile, $scope,$http){
 
-		var url="http://localhost/lnf_api_old/lnf_api/item";
+	var url="http://localhost/lnf_api_old/lnf_api/item";
+	
+	
+	
+	var found_record_id = window.location.search.split("fr=")[1];	
+	$scope.found_record_id=found_record_id;
+
+	if((found_record_id=="")||(found_record_id==null)){
+		$scope.found_record_id="";
+		
+	}
+	else {
+		url="http://localhost/lnf_api_old/lnf_api/particular/"+found_record_id;
+	}
+
 	
 	$scope.addItem=function(){
 
@@ -43,7 +57,6 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http", func
 		});
 		*/
 		
-		
 			var photo=$scope.file;
 		
 			var payload = new FormData();
@@ -57,7 +70,6 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http", func
 			payload.append('width', $scope.width);
 			payload.append('other_details', $scope.other_details);
 			payload.append('file', $scope.img);
-
 			$http({
 				url: url,
 				method: 'POST',
@@ -90,7 +102,6 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http", func
 				// called asynchronously if an error occurs
 				// or server returns response with an error status.
 			});
-			
 		
 }
 	$scope.logout=function (){

@@ -56,7 +56,6 @@ requestModule.controller("itemsController",['$compile', '$scope','$http', functi
 		
 //		var token=$scope.token;
 		
-		
 //		$http.get("http://localhost/lnf_api_old/lnf_api/request/"+request_id+"/status/?api_token="+token).then(function(resp, status, headers, config) {
 		$http.get("http://localhost/lnf_api_old/lnf_api/item/"+request_id+"/status").then(function(resp, status, headers, config) {
 			
@@ -72,6 +71,59 @@ requestModule.controller("itemsController",['$compile', '$scope','$http', functi
 			
 		});	
 	};
+
+	$scope.listParticular=function (item){
+		//var request_id=$scope.request_id;
+		
+		
+		$scope.found_record_id=item.id;
+		
+		var url="http://localhost/lnf_api_old/lnf_api/items/found_record/"+item.id;
+		$http.get(url)
+		.then(function(resp, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+
+
+			var response=resp.data;
+			//if login is illegal
+			
+			
+			$scope.item_particulars = response[0]["items"];
+			//console.log(data);
+		});
+
+
+
+//		var request_id=id;
+//		$scope.request_status=request_id;
+	
+
+	
+//		var token=$scope.token;
+		
+		
+//		$http.get("http://localhost/lnf_api_old/lnf_api/request/"+request_id+"/status/?api_token="+token).then(function(resp, status, headers, config) {
+
+
+
+//		$http.get("http://localhost/lnf_api_old/lnf_api/item/"+request_id+"/status").then(function(resp, status, headers, config) {
+			
+//			var response=resp.data;
+
+			
+//			$scope.statuses = response["status"];
+			
+//		});		
+			
+			
+			
+	};
+	$scope.addParticular=function (record){
+
+
+			window.open("add_new_item.html?fr="+record,"_SELF");
+	}
 	$scope.retrieveDetails=function (request){
 		//var request_id=$scope.request_id;
 		
@@ -85,6 +137,14 @@ requestModule.controller("itemsController",['$compile', '$scope','$http', functi
 		
 	};
 		
+	$scope.getImage=function (request){
+		//var request_id=$scope.request_id;
+		
+		
+			$scope.picture_part=request.picture;
+		
+	};
+
 		
 	$scope.addStatus=function (){
 
