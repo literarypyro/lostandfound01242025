@@ -28,7 +28,40 @@ requestModule.controller("itemsController",['$compile', '$scope','$http', functi
 			$scope.items = response;
 			//console.log(data);
 	});
+	$scope.getImage=function (request){
+		//var request_id=$scope.request_id;
+		
+		
+			$scope.picture_part=request.picture;
+		
+	};
 
+
+	$scope.listParticular=function (item){
+		//var request_id=$scope.request_id;
+		
+		
+		$scope.found_record_id=item.id;
+		
+		var url="http://localhost/lnf_api_old/lnf_api/items/found_record/"+item.id;
+		$http.get(url)
+		.then(function(resp, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+
+
+			var response=resp.data;
+			//if login is illegal
+			
+			
+			$scope.item_particulars = response[0]["items"];
+			//console.log(data);
+		});
+
+
+
+			
+	};
 		
 		
 	$scope.retrieveItemStatus=function (id){
