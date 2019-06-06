@@ -1,10 +1,13 @@
-var loginModule=angular.module('loginApp',[]);
+var loginModule=angular.module('loginApp',["dbApp"]);
 
 
-loginModule.controller('loginController',['$compile','$scope',"$http","$rootScope", function loginController($compile, $scope,$http,$rootScope){
+loginModule.controller('loginController',['$compile','$scope',"$http","$rootScope", function loginController($compile, $scope,$http,$rootScope,myService){
 
 	$scope.loginUser=function(){
-		var url="http://localhost/lnf_api_old/lnf_api/login";
+		
+		
+		
+		var url="http://192.168.1.11/lnf_api_old/lnf_api/login";
 		
 		var username=$scope.username;
 		var password=$scope.password;
