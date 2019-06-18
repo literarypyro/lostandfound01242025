@@ -1,4 +1,4 @@
-var loginModule=angular.module('loginApp',["dbApp"]);
+var loginModule=angular.module('loginApp',[]);
 
 
 loginModule.controller('loginController',['$compile','$scope',"$http","$rootScope", function loginController($compile, $scope,$http,$rootScope,myService){

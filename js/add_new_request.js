@@ -10,7 +10,7 @@ addRequestModule.controller("addRequestController",['$compile', '$scope',"$http"
 	
 	
 	$scope.addRequest=function(){
-		var url="http://localhost/lnf_api_old/lnf_api/request/"+user_id;
+		var url="http://192.168.1.11/lnf_api_old/lnf_api/request/"+user_id;
 		var parameter = JSON.stringify({
 							user_id:$scope.user_id,
 							description:$scope.description,
@@ -47,7 +47,7 @@ addRequestModule.controller("addRequestController",['$compile', '$scope',"$http"
 		});
 	}
 		$scope.logout=function (){
-		$http.get("http://localhost/lnf_api_old/lnf_api/logout").
+		$http.get("http://192.168.1.11/lnf_api_old/lnf_api/logout").
 		then(function(response, status, headers, config) {
 			// this callback will be called asynchronously
 			// when the response is available

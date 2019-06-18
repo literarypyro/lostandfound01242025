@@ -1,7 +1,7 @@
 var addItemModule=angular.module('addItemApp',[]);
 addItemModule.controller("addItemController",['$compile', '$scope',"$http", function addController($compile, $scope,$http){
 
-	var url="http://localhost/lnf_api_old/lnf_api/item";
+	var url="http://192.168.1.11/lnf_api_old/lnf_api/item";
 	
 	
 	
@@ -13,7 +13,7 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http", func
 		
 	}
 	else {
-		url="http://localhost/lnf_api_old/lnf_api/particular/"+found_record_id;
+		url="http://192.168.1.11/lnf_api_old/lnf_api/particular/"+found_record_id;
 	}
 
 	
