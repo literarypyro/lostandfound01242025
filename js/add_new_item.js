@@ -105,7 +105,7 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http", func
 		
 }
 	$scope.logout=function (){
-		$http.get("http://localhost/lnf_api_old/lnf_api/logout").
+		$http.get("http://192.168.1.11/lnf_api_old/lnf_api/logout").
 		then(function(response, status, headers, config) {
 			// this callback will be called asynchronously
 			// when the response is available
