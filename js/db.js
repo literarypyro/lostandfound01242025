@@ -1,3 +1,7 @@
+
+var hostName="http://192.168.1.11/lnf_api_old/lnf_api/";
+
+
 var dbModule=angular.module('dbApp',[]);
 dbModule.service('myService', function() {
   this.getHost=function(){
