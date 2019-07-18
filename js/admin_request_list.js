@@ -1,5 +1,5 @@
 var requestModule=angular.module('requestApp',[]);
-requestModule.controller("requestController",['$compile', '$scope','$http', function requestController($compile, $scope,$http){
+requestModule.controller("requestController",['$compile', '$scope','$http','$window', function requestController($compile, $scope,$http,$window){
 
 //	var request_id = window.location.search.split("uid=")[1];	
 //	$scope.request_id=request_id;
@@ -12,8 +12,10 @@ requestModule.controller("requestController",['$compile', '$scope','$http', func
 //	var token=window.location.search.split("token=")[1];
 	
 	//$http.get("http://localhost/lnf_api_old/lnf_api/requests/userRequests/"+request_id+"/?api_token="+token)
+	var host=$window.hostName;
+
 	
-	var url="http://192.168.1.11/lnf_api_old/lnf_api/requests/recent/1";
+	var url=host+"requests/recent/1";
 	
 	
 		$http.get(url)
@@ -42,7 +44,7 @@ requestModule.controller("requestController",['$compile', '$scope','$http', func
 		
 		
 //		$http.get("http://localhost/lnf_api_old/lnf_api/request/"+request_id+"/status/?api_token="+token).then(function(resp, status, headers, config) {
-		$http.get("http://192.168.1.11/lnf_api_old/lnf_api/request/"+request_id+"/status").then(function(resp, status, headers, config) {
+		$http.get(host+"request/"+request_id+"/status").then(function(resp, status, headers, config) {
 			var response=resp.data;
 
 			$scope.statuses = response["status"];
@@ -90,7 +92,7 @@ requestModule.controller("requestController",['$compile', '$scope','$http', func
 		
 	$scope.addStatus=function (){
 
-		var url="http://192.168.1.11/lnf_api_old/lnf_api/request/"+$scope.request_status+"/status";
+		var url=host+"request/"+$scope.request_status+"/status";
 
 		
 		var parameter = JSON.stringify({
@@ -123,7 +125,7 @@ requestModule.controller("requestController",['$compile', '$scope','$http', func
 //			window.open('admin_dashboard.html','_SELF');
 			
 			
-			var url="http://192.168.1.11/lnf_api_old/lnf_api/requests/recent/1";
+			var url=host+"requests/recent/1";
 			
 			
 				$http.get(url)
@@ -149,7 +151,7 @@ requestModule.controller("requestController",['$compile', '$scope','$http', func
 
 	}	
 	$scope.logout=function (){
-		$http.get("http://192.168.1.11/lnf_api_old/lnf_api/logout").
+		$http.get(host+"logout").
 		then(function(response, status, headers, config) {
 			// this callback will be called asynchronously
 			// when the response is available

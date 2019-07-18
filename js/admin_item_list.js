@@ -4,7 +4,6 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 //	var request_id = window.location.search.split("uid=")[1];	
 //	$scope.request_id=request_id;
 
-	$scope.assetfolder=host+"public/assets/images/items/";
 	
 		//alert(request_id);
 		
@@ -18,6 +17,8 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 
 
 	var host=$window.hostName;
+
+	$scope.assetfolder=host+"public/assets/images/items/";
 
 
 	var url=host+"expired";

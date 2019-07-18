@@ -20,7 +20,9 @@
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
-   <script src="js/admin_expired_items.js"></script>
+   <script src="js/db.js"></script>
+
+ <script src="js/admin_expired_items.js"></script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -420,12 +422,12 @@
                 <tbody>
                 <tr ng-repeat='item in items'>
                   <td>{{ item.found_date }}</td>
-                  <td><span ng-repeat="ex_item in item['expired_items'] | limitTo:1">{{ ex_item["category"].type }}</span></td>
-                  <td><span ng-repeat="ex_item in item['expired_items'] | limitTo:1">{{ ex_item["item_type"].name }}</span></td>
-                  <td><span ng-repeat="ex_item in item['expired_items'] | limitTo:1">{{ ex_item.description }}</span></td>
-                  <td><span ng-repeat="ex_item in item['expired_items'] | limitTo:1"><i class="fa fa-search pull-left" data-toggle="modal" ng-click='retrieveDetails(ex_item["details"][0])' data-target="#modal-details"></i></span></td>
-				  <td><span ng-repeat="ex_item in item['expired_items'] | limitTo:1">{{ ex_item["latest_status"]["status_type"]["type"]  }} <i class="fa fa-search pull-right" data-toggle="modal" ng-click='retrieveItemStatus(ex_item.id)' data-target="#modal-default"></i></span></td>
-				  <td><span ng-repeat="ex_item in item['expired_items'] | limitTo:1"><i class="fa fa-search pull-right" data-toggle="modal" ng-click='listParticular(item)' data-target="#modal-particulars"></i></span></td>
+                  <td><span ng-repeat="ex_item in item['items'] | limitTo:1">{{ ex_item["category"].type }}</span></td>
+                  <td><span ng-repeat="ex_item in item['items'] | limitTo:1">{{ ex_item["item_type"].name }}</span></td>
+                  <td><span ng-repeat="ex_item in item['items'] | limitTo:1">{{ ex_item.description }}</span></td>
+                  <td><span ng-repeat="ex_item in item['items'] | limitTo:1"><i class="fa fa-search pull-left" data-toggle="modal" ng-click='retrieveDetails(ex_item["details"][0])' data-target="#modal-details"></i></span></td>
+				  <td><span ng-repeat="ex_item in item['items'] | limitTo:1">{{ ex_item["latest_status"]["status_type"]["type"]  }} <i class="fa fa-search pull-right" data-toggle="modal" ng-click='retrieveItemStatus(ex_item.id)' data-target="#modal-default"></i></span></td>
+				  <td><span ng-repeat="ex_item in item['items'] | limitTo:1"><i class="fa fa-search pull-right" data-toggle="modal" ng-click='listParticular(item)' data-target="#modal-particulars"></i></span></td>
                 </tr>
                 </tbody>
                 <tfoot>

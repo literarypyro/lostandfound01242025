@@ -1,10 +1,12 @@
 var requestModule=angular.module('itemsApp',[]);
-requestModule.controller("itemsController",['$compile', '$scope','$http', function itemsController($compile, $scope,$http){
+requestModule.controller("itemsController",['$compile', '$scope','$http','$window', function itemsController($compile, $scope,$http,$window){
 
 //	var request_id = window.location.search.split("uid=")[1];	
 //	$scope.request_id=request_id;
 
-	$scope.assetfolder="http://192.168.1.11/lnf_api_old/lnf_api/public/assets/images/items/";	
+	var host=$window.hostName;
+
+	$scope.assetfolder=host+"public/assets/images/items/";	
 		//alert(request_id);
 		
 		
@@ -13,7 +15,7 @@ requestModule.controller("itemsController",['$compile', '$scope','$http', functi
 	
 	//$http.get("http://localhost/lnf_api_old/lnf_api/requests/userRequests/"+request_id+"/?api_token="+token)
 
-	var url="http://192.168.1.11/lnf_api_old/lnf_api/expired";
+	var url=host+"expired";
 	
 	
 		$http.get(url)
@@ -43,7 +45,7 @@ requestModule.controller("itemsController",['$compile', '$scope','$http', functi
 		
 		$scope.found_record_id=item.id;
 		
-		var url="http://192.168.1.11/lnf_api_old/lnf_api/items/found_record/"+item.id;
+		var url=host+"items/found_record/"+item.id;
 		$http.get(url)
 		.then(function(resp, status, headers, config) {
 			// this callback will be called asynchronously
@@ -74,7 +76,7 @@ requestModule.controller("itemsController",['$compile', '$scope','$http', functi
 		
 		
 //		$http.get("http://localhost/lnf_api_old/lnf_api/request/"+request_id+"/status/?api_token="+token).then(function(resp, status, headers, config) {
-		$http.get("http://192.168.1.11/lnf_api_old/lnf_api/item/"+request_id+"/status").then(function(resp, status, headers, config) {
+		$http.get(host+"item/"+request_id+"/status").then(function(resp, status, headers, config) {
 			
 			var response=resp.data;
 
@@ -104,7 +106,7 @@ requestModule.controller("itemsController",['$compile', '$scope','$http', functi
 		
 	$scope.addStatus=function (){
 
-		var url="http://192.168.1.11/lnf_api_old/lnf_api/item/"+$scope.request_status+"/status";
+		var url=host+"item/"+$scope.request_status+"/status";
 
 		
 		var parameter = JSON.stringify({
@@ -130,7 +132,7 @@ requestModule.controller("itemsController",['$compile', '$scope','$http', functi
 			
 			
 
-			var url="http://192.168.1.11/lnf_api_old/lnf_api/expired";
+			var url=host+"expired";
 			
 			
 				$http.get(url)
@@ -165,7 +167,7 @@ requestModule.controller("itemsController",['$compile', '$scope','$http', functi
 	}		
 		
 	$scope.logout=function (){
-		$http.get("http://192.168.1.11/lnf_api_old/lnf_api/logout").
+		$http.get(host+"logout").
 		then(function(response, status, headers, config) {
 			// this callback will be called asynchronously
 			// when the response is available
