@@ -52,7 +52,13 @@ requestModule.controller("searchController",['$compile', '$scope','$http','$wind
 		$http.get(url).then(function(resp, status, headers, config) {
 			var response=resp.data;
 
-			$scope.items=response;			
+			if(search_type=="search"){
+				$scope.items=response;		
+			}			
+			else {
+				var res=response;
+				$scope.items=res[0]["items"];
+			}
 			
 
 			//$scope.statuses = response["status"];
