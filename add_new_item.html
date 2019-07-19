@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css"">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -19,6 +20,7 @@
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
   <script src="js/add_new_item.js"></script>
+
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -403,7 +405,7 @@
               <div class="box-body">
   				<div class="form-group has-feedback col-md-12">
 				   <label class="text-muted">Item Type</label>
-                   <select class="form-control" name='item_type' ng-model='item_type'>
+                   <select class="form-control select2" name='item_type' ng-model='item_type'>
                     <option ng-if="found_record_id==''" value='1'>Perishables</option>
                     <option ng-if="found_record_id==''" value='2'>Special Items</option>
                     <option ng-if="found_record_id!==''" value='3'>Particulars</option>
@@ -413,7 +415,7 @@
 				</div>
   				<div class="form-group has-feedback col-md-12">
 				   <label class="text-muted">Category</label>
-                   <select class="form-control" name='category' ng-model='category'>
+                   <select class="form-control select2" name='category' ng-model='category'>
                     <option value='1'>Item (Generic)</option>
                     <option value='2'>Food</option>
                     <option value='3'>Stored Value Cards</option>
@@ -736,9 +738,18 @@
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
+  <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
+
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+  <script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+	})
+	</script>
+
 </body>
 </html>
