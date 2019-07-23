@@ -1,7 +1,9 @@
 var addItemModule=angular.module('addItemApp',[]);
-addItemModule.controller("addItemController",['$compile', '$scope',"$http", function addController($compile, $scope,$http){
+addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$window', function addController($compile, $scope,$http,$window){
 
-	var url="http://192.168.1.11/lnf_api_old/lnf_api/item";
+	var host=$window.hostName;
+
+	var url=host+"item";
 	
 	
 	
@@ -13,7 +15,7 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http", func
 		
 	}
 	else {
-		url="http://192.168.1.11/lnf_api_old/lnf_api/particular/"+found_record_id;
+		url=host+"particular/"+found_record_id;
 	}
 
 	
@@ -60,6 +62,7 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http", func
 			var photo=$scope.file;
 		
 			var payload = new FormData();
+			payload.append("found_date", $scope.found_date);
 			payload.append("user_id", $scope.user_id);
 			payload.append('description', $scope.description);
 			payload.append('category', $scope.category);
@@ -105,7 +108,7 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http", func
 		
 }
 	$scope.logout=function (){
-		$http.get("http://192.168.1.11/lnf_api_old/lnf_api/logout").
+		$http.get(host+"logout").
 		then(function(response, status, headers, config) {
 			// this callback will be called asynchronously
 			// when the response is available

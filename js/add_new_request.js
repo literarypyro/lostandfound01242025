@@ -1,21 +1,22 @@
 var addRequestModule=angular.module('addRequestApp',[]);
-addRequestModule.controller("addRequestController",['$compile', '$scope',"$http","$rootScope", function addRequestController($compile, $scope,$http,$rootScope){
+addRequestModule.controller("addRequestController",['$compile', '$scope',"$http","$rootScope",'$window', function addRequestController($compile, $scope,$http,$rootScope,$window){
 	var user_id = window.location.search.split("uid=")[1];	
 	$scope.user_id=user_id;
 	
-	
+	var host=$window.hostName;
+
 
 	var request_id = user_id;	
 	$scope.request_id=request_id;
 	
 	
 	$scope.addRequest=function(){
-		var url="http://192.168.1.11/lnf_api_old/lnf_api/request/"+user_id;
+		var url=host+"request/"+user_id;
 		var parameter = JSON.stringify({
 							user_id:$scope.user_id,
 							description:$scope.description,
 							category:$scope.category,
-				//			request_date:$scope.request_date, 
+							request_date:$scope.request_date, 
 							color:$scope.color,
 							shape:$scope.shape,
 							length:$scope.length,
@@ -47,7 +48,7 @@ addRequestModule.controller("addRequestController",['$compile', '$scope',"$http"
 		});
 	}
 		$scope.logout=function (){
-		$http.get("http://192.168.1.11/lnf_api_old/lnf_api/logout").
+		$http.get(host+"logout").
 		then(function(response, status, headers, config) {
 			// this callback will be called asynchronously
 			// when the response is available
