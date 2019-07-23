@@ -1,4 +1,4 @@
-var requestModule=angular.module('itemsApp',[]);
+var requestModule=angular.module('itemsApp',['datatables']);
 requestModule.controller("itemsController",['$compile', '$scope','$http','$window', function itemsController($compile, $scope,$http,$window){
 
 //	var request_id = window.location.search.split("uid=")[1];	

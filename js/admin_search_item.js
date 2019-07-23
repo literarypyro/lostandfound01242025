@@ -1,4 +1,4 @@
-var requestModule=angular.module('searchApp',[]);
+var requestModule=angular.module('searchApp',['datatables']);
 requestModule.controller("searchController",['$compile', '$scope','$http','$window', function searchController($compile, $scope,$http,$window){
 
 	var host=$window.hostName;
