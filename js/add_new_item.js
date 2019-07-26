@@ -1,4 +1,4 @@
-var addItemModule=angular.module('addItemApp',[]);
+var addItemModule=angular.module('addItemApp',['ui.select2']);
 addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$window', function addController($compile, $scope,$http,$window){
 
 	var host=$window.hostName;
@@ -59,6 +59,16 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 		});
 		*/
 		
+		
+		if(($scope.item_type=="")||($scope.item_type==null)){
+			alert("Error: Item Type Missing");
+			
+		}
+		else if(($scope.category=="")||($scope.category==null)){
+			alert("Error: Category Missing");
+		}
+		else {
+		
 			var photo=$scope.file;
 		
 			var payload = new FormData();
@@ -105,6 +115,7 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 				// called asynchronously if an error occurs
 				// or server returns response with an error status.
 			});
+		}
 		
 }
 	$scope.logout=function (){
