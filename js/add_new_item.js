@@ -162,6 +162,108 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 		});
 	
 	}	
+
+
+
+	$scope.addCategory=function (){
+	var url=host+"category";		
+	var parameter = JSON.stringify({
+							type:$scope.category_add
+						});
+		$http.post(url, parameter).
+		then(function(response, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+			
+			
+			
+			
+			$scope.resp=response.data;
+			
+			$scope.message="Category successfully recorded.";
+			
+			//window.open('admin_dashboard.html','_SELF');
+		var url=host+"category";
+		$http.get(url)
+		.then(function(resp, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+			var response=resp.data;
+						
+			//if login is illegal
+			
+			
+			$scope.categories = response;
+			//console.log(data);
+		});	
+			
+			
+			
+			
+			
+		}).
+		error(function(data, status, headers, config) {
+			// called asynchronously if an error occurs
+			// or server returns response with an error status.
+		});
+	
+	}	
+
+
+
+	$scope.addItemType=function (){
+	var url=host+"itemType";		
+	var parameter = JSON.stringify({
+							name:$scope.itemtype_add,
+							duration:$scope.duration_add
+						});
+		$http.post(url, parameter).
+		then(function(response, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+			
+			
+			
+			
+			$scope.resp=response.data;
+			
+			$scope.message="Item Type successfully recorded.";
+			
+			//window.open('admin_dashboard.html','_SELF');
+		var url=host+"itemType";
+		$http.get(url)
+		.then(function(resp, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+			var response=resp.data;
+						
+			//if login is illegal
+			
+			
+			$scope.item_types = response;
+			//console.log(data);
+		});	
+			
+			
+			
+			
+			
+		}).
+		error(function(data, status, headers, config) {
+			// called asynchronously if an error occurs
+			// or server returns response with an error status.
+		});
+	
+	}	
+
+
+
+
+
+
+
+
+
 	$scope.image = "";
 
 	$scope.imageUpload = function(event){
