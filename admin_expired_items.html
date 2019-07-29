@@ -427,6 +427,8 @@
                   <th>Details</th>
                   <th>Status</th>
                   <th>Particulars</th>
+                 <th>User that Recorded Item</th>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -438,6 +440,8 @@
                   <td><span ng-repeat="ex_item in item['items'] | limitTo:1"><i class="fa fa-search pull-left" data-toggle="modal" ng-click='retrieveDetails(ex_item["details"][0])' data-target="#modal-details"></i></span></td>
 				  <td><span ng-repeat="ex_item in item['items'] | limitTo:1">{{ ex_item["latest_status"]["status_type"]["type"]  }} <i class="fa fa-search pull-right" data-toggle="modal" ng-click='retrieveItemStatus(ex_item.id)' data-target="#modal-default"></i></span></td>
 				  <td><span ng-repeat="ex_item in item['items'] | limitTo:1"><i class="fa fa-search pull-right" data-toggle="modal" ng-click='listParticular(item)' data-target="#modal-particulars"></i></span></td>
+                  <td><span ng-repeat="ex_item in item['items'] | limitTo:1">{{ ex_item["user"][0]["name"] }}</span></td>
+
                 </tr>
                 </tbody>
                 <tfoot>
@@ -882,8 +886,9 @@
       'info'        : true,
       'autoWidth'   : false
     })
-  })
   */
+
+  })
 </script>
 
 </body>

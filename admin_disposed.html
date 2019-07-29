@@ -426,6 +426,8 @@
                   <th>Details</th>
                   <th>Status</th>
                   <th>Particulars</th>
+                 <th>User that Recorded Item</th>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -437,6 +439,8 @@
                   <td><i class="fa fa-search pull-left" data-toggle="modal" ng-click='retrieveDetails(item["details"])' data-target="#modal-details"></i></td>
 				  <td>{{ item["latest_status"]["status_type"]["type"]  }} <i class="fa fa-search pull-right" data-toggle="modal" ng-click='retrieveItemStatus(item.id)' data-target="#modal-default"></i></td>
 				  <td><i class="fa fa-search pull-right" data-toggle="modal" ng-click='listParticular(item)' data-target="#modal-particulars"></i></td>
+                  <td>{{ item["user"]["name"] }}</td>
+
                 </tr>
                 </tbody>
                 <tfoot>
