@@ -9,8 +9,28 @@ addRequestModule.controller("addRequestController",['$compile', '$scope',"$http"
 	var request_id = user_id;	
 	$scope.request_id=request_id;
 	
+	var url=host+"category";
+		$http.get(url)
+		.then(function(resp, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+			var response=resp.data;
+						
+			//if login is illegal
+			
+			
+			$scope.categories = response;
+			//console.log(data);
+		});	
+
+
+
 	
 	$scope.addRequest=function(){
+
+
+
+
 		var url=host+"request/"+user_id;
 		var parameter = JSON.stringify({
 							user_id:$scope.user_id,

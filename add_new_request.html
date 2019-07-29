@@ -20,6 +20,16 @@
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="js/bootstrap-datepicker.js"></script>
+<!-- FastClick -->
+<script src="bower_components/fastclick/lib/fastclick.js"></script>
+  <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
   <script src="js/add_new_request.js"></script>
@@ -406,6 +416,11 @@
 				<div class="form-group has-feedback col-md-12">
 				   <label class="text-muted">Category</label>
                    <select class="form-control select2" name='category' ng-model='category'>
+				   <option ng-repeat="category in categories" ng-if="category.id!==14" value='{{ category.id }}'>{{ category.type }}<option>
+
+<!--
+
+
                     <option value='1'>Item (Generic)</option>
                     <option value='2'>Food</option>
                     <option value='3'>Stored Value Cards</option>
@@ -419,11 +434,14 @@
                     <option value='11'>Bags</option>
                     <option value='12'>Documents</option>
                     <option value='13'>Animals</option>
+
+-->
 					<!--
                     <option value='14'>Valuable Documents</option>
                     -->
 
-                    <option value='15'>Weapons</option>
+<!--  
+                  <option value='15'>Weapons</option>
                     <option value='16'>Locked Cash Boxes</option>
                     <option value='17'>Umbrellas</option>
                     <option value='18'>Watches</option>
@@ -431,7 +449,7 @@
                     <option value='20'>ATMs, Debit Cards, Credit Cards</option>
                     <option value='21'>Passport</option>
                     <option value='22'>Other Cards</option>
-
+-->
 					</select>
 
 				</div>
@@ -698,14 +716,6 @@
 </div>
 
 <!-- jQuery 3 -->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- FastClick -->
-<script src="bower_components/fastclick/lib/fastclick.js"></script>
-  <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
   <script>
   $(function () {
     //Initialize Select2 Elements

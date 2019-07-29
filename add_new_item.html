@@ -430,17 +430,26 @@
   				<div class="form-group has-feedback col-md-12">
 				   <label class="text-muted">Item Type</label>
                    <select ui-select2  class="form-control" name='item_type' ng-model='item_type'>
-                    <option ng-if="found_record_id==''" value='1'>Perishables</option>
+					<option ng-repeat="item_type in item_types" ng-if="found_record_id=='' && item_type.id!==3" value='{{ item_type.id }}'>{{ item_type.name }}<option>
+                    <option ng-repeat="item_type in item_types" ng-if="found_record_id!=='' && item_type.id==3" value='{{ item_type.id }}'>{{ item_type.name }}</option>
+
+<!--
+
+				   <option ng-if="found_record_id==''" value='1'>Perishables</option>
                     <option ng-if="found_record_id==''" value='2'>Special Items</option>
                     <option ng-if="found_record_id!==''" value='3'>Particulars</option>
                     <option ng-if="found_record_id==''" value='4'>Valuable Non-Perishables</option>
                     <option ng-if="found_record_id==''" value='5'>Non-Valuable Non-Perishables</option>
+					-->
                   </select>
 				</div>
   				<div class="form-group has-feedback col-md-12">
 				   <label class="text-muted">Category</label>
                    <select ui-select2  class="form-control" name='category' ng-model='category'>
-                    <option value='1'>Item (Generic)</option>
+				   <option ng-repeat="category in categories" value='{{ category.id }}'>{{ category.type }}<option>
+
+				   <!--
+   				    <option value='1'>Item (Generic)</option>
                     <option value='2'>Food</option>
                     <option value='3'>Stored Value Cards</option>
                     <option value='4'>Identification Cards</option>
@@ -453,10 +462,11 @@
                     <option value='11'>Bags</option>
                     <option value='12'>Documents</option>
                     <option value='13'>Animals</option>
+					-->
 					<!--
                     <option value='14'>Valuable Documents</option>
                     -->
-					
+					<!--
 					<option value='15'>Weapons</option>
                     <option value='16'>Locked Cash Boxes</option>
                     <option value='17'>Umbrellas</option>
@@ -465,8 +475,8 @@
                     <option value='20'>ATMs, Debit Cards, Credit Cards</option>
                     <option value='21'>Passport</option>
                     <option value='22'>Other Cards</option>
-
-                  </select>
+					-->
+				  </select>
 				</div>
 
 				<div class="form-group has-feedback col-md-12">

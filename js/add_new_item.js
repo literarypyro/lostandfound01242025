@@ -3,7 +3,9 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 
 	var host=$window.hostName;
 
-	var url=host+"item";
+	
+	
+	var addToggle=false;
 	
 	
 	
@@ -18,10 +20,40 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 		url=host+"particular/"+found_record_id;
 	}
 
+	var url=host+"category";
+		$http.get(url)
+		.then(function(resp, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+			var response=resp.data;
+						
+			//if login is illegal
+			
+			
+			$scope.categories = response;
+			//console.log(data);
+		});	
+	var url=host+"itemType";
+	
+	
+		$http.get(url)
+		.then(function(resp, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+			var response=resp.data;
+						
+			//if login is illegal
+			
+			
+			$scope.item_types = response;
+			//console.log(data);
+	});	
 	
 	$scope.addItem=function(){
+	var url=host+"item";
 
-	/*
+		addToggle=true;
+		/*
 	var parameter = JSON.stringify({
 							user_id:$scope.user_id,
 							description:$scope.description,
@@ -58,8 +90,6 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 			// or server returns response with an error status.
 		});
 		*/
-		
-		
 		if(($scope.item_type=="")||($scope.item_type==null)){
 			alert("Error: Item Type Missing");
 			
@@ -69,6 +99,7 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 		}
 		else {
 		
+		if($scope.found_date!==""){
 			var photo=$scope.file;
 		
 			var payload = new FormData();
@@ -116,7 +147,7 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 				// or server returns response with an error status.
 			});
 		}
-		
+		}
 }
 	$scope.logout=function (){
 		$http.get(host+"logout").
