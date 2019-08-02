@@ -39,9 +39,11 @@ requestModule.controller("searchController",['$compile', '$scope','$http','$wind
 		var search_term=$scope.search_term;
 		
 		
+		var range=$scope.daterange;
 		
+		var url=host+"items/"+search_type+"/"+search_term+"/range/"+range;
+
 		
-		var url=host+"items/"+search_type+"/"+search_term;
 	
 //		var request_id=id;
 		

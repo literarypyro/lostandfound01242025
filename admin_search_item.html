@@ -26,6 +26,9 @@
 <!-- DataTables -->
 <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
    <script src="js/angular-datatables.js"></script>
@@ -416,10 +419,15 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-				<div class='col-md-4'>
+				<div class='col-md-3'>
+				<input class="form-control" id="daterange" type="text" name="daterange" ng-model="daterange"  required="" />
+				</div>
+
+
+				<div class='col-md-2'>
 				<input class="form-control" id="search_term" type="text" name="search_term" ng-model="search_term"  required="" />
 				</div>
-				<div class='col-md-3'>
+				<div class='col-md-2'>
                   <select class="form-control" name='search_type' ng-model='search_type'>
                     <option value='category'>Category</option>
                     <option value='itemType'>Item Type</option>
@@ -835,6 +843,54 @@
 <!-- page script -->
 <script>
   $(function () {
+ $('#daterange').daterangepicker({
+    ranges: {
+        'Today': [moment(), moment()],
+        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+        'This Month': [moment().startOf('month'), moment().endOf('month')],
+        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+    },    
+	"locale": {
+        "format": "YYYY-MM-DD",
+        "separator": " to ",
+        "applyLabel": "Apply",
+        "cancelLabel": "Cancel",
+        "fromLabel": "From",
+        "toLabel": "To",
+        "customRangeLabel": "Custom",
+        "weekLabel": "W",
+        "daysOfWeek": [
+            "Su",
+            "Mo",
+            "Tu",
+            "We",
+            "Th",
+            "Fr",
+            "Sa"
+        ],
+        "monthNames": [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ],
+        "firstDay": 1
+    },
+    "startDate": "2019-07-27",
+    "endDate": "2019-08-02"
+}, function(start, end, label) {
+  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+});
   /*
     $('#example1').DataTable()
     $('#example2').DataTable({
