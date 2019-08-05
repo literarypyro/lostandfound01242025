@@ -899,6 +899,50 @@
           <!-- /.modal-dialog -->
         </div>	
 
+
+        <div class="modal fade" id="modal-edit">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Update Item Field</h4>
+              </div>
+              <div class="modal-body">
+
+				<div class="form-group has-feedback">
+			    <label class="text-muted">Select Status</label>
+                
+				   <input class="form-control" type="text" name="other_details" ng-model="other_details"  />
+				<!--
+				<select class="form-control" name='status_type' ng-model='status_type'>
+                    <option value='1'>Active</option>
+                    <option value='2'>On Process</option>
+                    <option value='3'>Retrieved</option>
+                    <option value='4'>Expired</option>
+                    <option value='5'>Disposed/Transferred</option>
+
+                  </select>
+				-->
+				</div>
+				<div class="form-group has-feedback">
+			    <label class="text-muted">Details</label>
+ 			    <textarea class="form-control"  name="status_details"  ng-model="status_details" required="" ></textarea>
+				</div>
+
+				
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click='addStatus()' data-dismiss="modal">Update Status</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>		
+
+		
 </div>
 </div>
 <!-- ./wrapper -->
