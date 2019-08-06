@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap-datepicker.css"">
+
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -28,7 +30,10 @@
 <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
- <script src="js/angular-datatables.js"></script>
+  <script src="js/bootstrap-datepicker.js"></script>
+
+  <script src="js/angular-datatables.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.7.8/angular-sanitize.js"></script>
    <script src="js/db.js"></script>
    <script src="js/admin_item_list.js"></script>
 
@@ -432,11 +437,11 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat='item in items'>
-                  <td>{{ item.found_date }}</td>
-                  <td>{{ item["items"][0]["category"].type }}</td>
-                  <td>{{ item["items"][0]["item_type"].name }}</td>
-                  <td>{{ item["items"][0].description }}</td>
-                  <td><i class="fa fa-search pull-left" data-toggle="modal" ng-click='retrieveDetails(item["items"][0]["details"][0])' data-target="#modal-details"></i></td>
+                  <td><span data-toggle="modal" ng-click='initiateEdit("found_date",item.id)' data-target="#modal-edit">{{ item.found_date }}</span></td>
+                  <td><span data-toggle="modal" ng-click='initiateEdit("category_id",item["items"][0]["id"])' data-target="#modal-edit">{{ item["items"][0]["category"].type }}</span></td>
+                  <td><span data-toggle="modal" ng-click='initiateEdit("item_type_id",item["items"][0]["id"])' data-target="#modal-edit">{{ item["items"][0]["item_type"].name }}</span></td>
+                  <td><span data-toggle="modal" ng-click='initiateEdit("description",item["items"][0]["id"])' data-target="#modal-edit">{{ item["items"][0].description }}</span></td>
+                  <td><i class="fa fa-search pull-left" data-toggle="modal" ng-click='retrieveDetails(item["items"][0]["details"][0],item["items"][0]["id"])' data-target="#modal-details"></i></td>
 				  <td>{{ item["items"][0]["latest_status"]["status_type"]["type"]  }} <i class="fa fa-search pull-right" data-toggle="modal" ng-click='retrieveItemStatus(item["items"][0].id)' data-target="#modal-default"></i></td>
 				  <td><i class="fa fa-search pull-right" data-toggle="modal" ng-click='listParticular(item)' data-target="#modal-particulars"></i></td>
                   <td>{{ item["items"][0]["user"][0]["name"] }}</td>
@@ -732,11 +737,11 @@
                 </thead>
                 <tbody>
                 <tr>
-                  <td>{{ shape }}</td>
-                  <td>{{ color }}</td>
-                  <td>{{ length }}</td>
-                  <td>{{ width }}</td>
-                  <td>{{ other_details }}</td>
+                  <td><span data-toggle="modal" data-target="#modal-edit" ng-click='initiateEdit("shape",details_id)'>{{ shape }}</span></td>
+                  <td><span data-toggle="modal" data-target="#modal-edit" ng-click='initiateEdit("color",details_id)'>{{ color }}</span></td>
+                  <td><span data-toggle="modal" data-target="#modal-edit" ng-click='initiateEdit("length",details_id)'>{{ length }}</span></td>
+                  <td><span data-toggle="modal" data-target="#modal-edit" ng-click='initiateEdit("width",details_id)'>{{ width }}</span></td>
+                  <td><span data-toggle="modal" data-target="#modal-edit" ng-click='initiateEdit("other_details",details_id)'>{{ other_details }}</span></td>
                 </tr>
                 </tbody>
 			</table>
@@ -910,10 +915,12 @@
               </div>
               <div class="modal-body">
 
-				<div class="form-group has-feedback">
-			    <label class="text-muted">Select Status</label>
+				<div class="form-group has-feedback" id="edit_content" ng-bind-html="edit_content">
+					<!--
+					<label class="text-muted">Select Status</label>
                 
-				   <input class="form-control" type="text" name="other_details" ng-model="other_details"  />
+				   <input class="form-control" type="text" name="modify_value" ng-model="modify_value"  />
+					-->
 				<!--
 				<select class="form-control" name='status_type' ng-model='status_type'>
                     <option value='1'>Active</option>
@@ -925,16 +932,17 @@
                   </select>
 				-->
 				</div>
+				<!--
 				<div class="form-group has-feedback">
 			    <label class="text-muted">Details</label>
  			    <textarea class="form-control"  name="status_details"  ng-model="status_details" required="" ></textarea>
 				</div>
-
+				-->
 				
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" ng-click='addStatus()' data-dismiss="modal">Update Status</button>
+                <button type="button" class="btn btn-primary" ng-click='editField()' data-dismiss="modal">Edit Entry</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -958,7 +966,7 @@
 <!-- page script -->
 <script>
   $(function () {
-  
+
   /*
     $('#example1').DataTable()
     $('#example2').DataTable({

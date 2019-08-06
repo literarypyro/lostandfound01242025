@@ -1,5 +1,8 @@
-var requestModule=angular.module('itemsApp',['datatables']);
+var requestModule=angular.module('itemsApp',['datatables','ngSanitize']);
 requestModule.controller("itemsController",['$compile', '$scope','$http','$window', function itemsController($compile, $scope,$http,$window){
+
+	var editHTML="";
+
 
 //	var request_id = window.location.search.split("uid=")[1];	
 //	$scope.request_id=request_id;
@@ -16,6 +19,12 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 	//$http.get("http://localhost/lnf_api_old/lnf_api/requests/userRequests/"+request_id+"/?api_token="+token)
 
 
+	
+	
+	
+	
+	
+	
 	var host=$window.hostName;
 
 	$scope.assetfolder=host+"public/assets/images/items/";
@@ -53,7 +62,222 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 			//console.log(data);
 		});
 
+	$scope.editField=function (){
+		var edit_id=$scope.edit_id
+		var edit_type=$scope.edit_type;
+		var edit_field=$scope.edit_field;
 		
+		var edit_value="";
+		if(edit_field=="found_date"){
+			edit_value=$('#datepicker_edit').val();
+		}
+		else {
+			edit_value=$('#edit_value').val();
+			
+		}
+		
+		
+		var url=host+"item/"+edit_id+"/edit/"+edit_type;		
+		
+	
+		var parameter = JSON.stringify({
+							editField:edit_field,
+							editValue:edit_value
+						});
+		$http.post(url, parameter).
+		then(function(response, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+
+			
+			resp=response.data;
+
+			alert("Entry modification successful");		
+
+			
+			
+			var url=host+"items/recent/1";
+		
+		
+			$http.get(url)
+			.then(function(resp, status, headers, config) {
+				// this callback will be called asynchronously
+				// when the response is available
+				var response=resp.data;
+							
+				//if login is illegal
+				
+				
+				$scope.items = response;
+				//console.log(data);
+			});
+
+			
+			
+		});
+		/*.
+		error(function(data, status, headers, config) {
+			// called asynchronously if an error occurs
+			// or server returns response with an error status.
+		});
+	*/
+	}
+
+	$scope.initiateEdit=function (elem,elem_id){
+
+		$scope.edit_id=elem_id;
+
+		$scope.edit_field=elem;
+		$('#edit_content').html("");
+
+	
+		$scope.edit_type="item";
+		if(elem=="found_date"){
+			$scope.edit_type="found_record";
+			
+			editHTML="<label>Date Item was Found</label>";
+			editHTML+="<div class=\"input-group date\">";
+            editHTML+="<div class=\"input-group-addon\">";
+            editHTML+="<i class=\"fa fa-calendar\"></i></div>";
+            editHTML+="<input name='edit_value' ng-model='edit_value'  type=\"text\" class=\"form-control pull-right\" id=\"datepicker_edit\">";
+			editHTML+="</div></div>"
+			
+			$('#edit_content').html(editHTML);
+					
+				
+  		    $('#datepicker_edit').datepicker({
+				autoclose: true
+			});
+			
+
+
+		}
+		else if(elem=="description"){
+			
+			editHTML="<label class='text-muted'>Edit Description</label>";
+			editHTML+="<input class='form-control' type='text' id='edit_value' name='edit_value' ng-model='edit_value'  />";
+	
+	
+			$('#edit_content').html(editHTML);
+	
+//			$scope.edit_content="<input type='text' />";
+			
+			
+		}
+		else if(elem=="category_id"){
+
+
+			var url=host+"category";
+			$http.get(url)
+			.then(function(resp, status, headers, config) {
+				// this callback will be called asynchronously
+				// when the response is available
+				var response=resp.data;
+							
+				//if login is illegal
+				
+				
+				$scope.categories = response;
+				//console.log(data);
+				
+				editHTML="<label class='text-muted'>Edit Category</label>";
+
+				editHTML+="<select ui-select2  class=\"form-control\" id='edit_value' name='edit_value' ng-model='edit_value'>";
+				
+				
+				
+				
+				var categories=response;
+				for(var i=0;i<categories.length;i++){
+					
+					editHTML+="<option value='"+categories[i]['id']+"'>"+categories[i]['type']+"</option>";		
+					
+
+				
+				}
+				
+				
+				editHTML+="</select>";
+				
+				$('#edit_content').html(editHTML);
+				
+				
+			});	
+
+			
+		}
+		else if(elem=="item_type_id"){
+
+
+			var url=host+"itemType";
+			$http.get(url)
+			.then(function(resp, status, headers, config) {
+				// this callback will be called asynchronously
+				// when the response is available
+				var response=resp.data;
+							
+				//if login is illegal
+				
+				
+				$scope.item_types = response;
+				//console.log(data);
+				
+				editHTML="<label class='text-muted'>Edit Item Type</label>";
+
+				editHTML+="<select ui-select2  class=\"form-control\" id='edit_value' name='edit_value' ng-model='edit_value'>";
+				
+				
+				
+				
+				var item_types=response;
+				for(var i=0;i<item_types.length;i++){
+					if(item_types[i]['id']==3){
+					}
+					else {
+						editHTML+="<option value='"+item_types[i]['id']+"'>"+item_types[i]['name']+"</option>";		
+					}
+
+				
+				}
+				
+				
+				editHTML+="</select>";
+				
+				$('#edit_content').html(editHTML);
+				
+			});	
+			
+		}
+		else if((elem=="color")||(elem=="shape")||(elem=="length")||(elem=="width")||(elem=="other_details")) {
+			$scope.edit_type="details";
+			var label="";
+			if(elem=="other_details")
+			{
+				label="other details";
+				
+			}
+			else {
+				label=elem;
+				
+			}
+			
+			
+			editHTML="<label class='text-muted'>Edit Detail ("+label+")</label>";
+			editHTML+="<input class='form-control' type='text' id='edit_value' name='edit_value' ng-model='edit_value'  />";
+	
+	
+			$('#edit_content').html(editHTML);
+	
+//			$scope.edit_content="<input type='text' />";
+			
+			
+		}
+		
+		
+		
+
+
+	};
 		
 	$scope.retrieveItemStatus=function (id){
 		//var request_id=$scope.request_id;
@@ -131,9 +355,13 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 
 			window.open("add_new_item.html?fr="+record,"_SELF");
 	}
-	$scope.retrieveDetails=function (request){
+	$scope.retrieveDetails=function (request,item_id){
 		//var request_id=$scope.request_id;
 		
+			$scope.details_id=item_id;
+
+
+
 		
 			$scope.shape=request.shape;
 			$scope.color=request.color;

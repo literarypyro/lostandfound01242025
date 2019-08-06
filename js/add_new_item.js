@@ -164,7 +164,6 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 	}	
 
 
-
 	$scope.addCategory=function (){
 	var url=host+"category";		
 	var parameter = JSON.stringify({
