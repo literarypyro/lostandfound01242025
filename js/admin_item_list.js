@@ -62,7 +62,83 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 			//console.log(data);
 		});
 
+		
 	$scope.editField=function (){
+		if($scope.edit_field=="picture"){
+			$scope.submitPhoto();
+			
+		}		
+		else {
+			$scope.submitValue();
+		}
+	
+	}
+	$scope.submitPhoto=function(){
+
+		var edit_id=$scope.edit_id
+		var edit_type=$scope.edit_type;
+		var edit_field=$scope.edit_field;
+
+		var edit_value="";
+		
+
+		edit_value=$scope.img;
+		
+		if(edit_value==""){ alert("Image not loaded"); }
+		var url=host+"item/"+edit_id+"/edit/"+edit_type;		
+
+		var photo=$scope.file;
+			var payload = new FormData();
+			payload.append("editField", edit_field);
+			payload.append("editValue", edit_value);
+			$http({
+				url: url,
+				method: 'POST',
+				data: payload,
+				//assign content-type as undefined, the browser
+				//will assign the correct boundary for us
+				headers: { 'Content-Type': undefined},
+				//prevents serializing payload.  don't do it.
+				transformRequest: angular.identity
+			})
+			.then(function(response, status, headers, config) {
+					// this callback will be called asynchronously
+					// when the response is available
+					
+				
+
+
+				
+						
+				resp=response.data;
+
+				alert("Entry modification successful");		
+
+				
+				var url=host+"items/recent/1";
+			
+			
+				$http.get(url)
+				.then(function(resp, status, headers, config) {
+					// this callback will be called asynchronously
+					// when the response is available
+					var response=resp.data;
+								
+					//if login is illegal
+					
+					
+					$scope.items = response;
+					//console.log(data);
+				});
+					
+				$('#modal-details').modal('hide');
+
+			});
+
+	}
+
+	
+	$scope.submitValue=function (){
 		var edit_id=$scope.edit_id
 		var edit_type=$scope.edit_type;
 		var edit_field=$scope.edit_field;
@@ -248,6 +324,43 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 			});	
 			
 		}
+
+		else if(elem=="picture"){
+			$scope.edit_type="details";
+			
+			
+//			editHTML="<img class=\"thumb\" width=50% height=50% ng-src=\"{{ image }}\" />"
+			
+			editHTML=" <label class=\"text-muted\">Edit Image</label>";
+			editHTML+="<input type='file' ng-model-instant ng-model=\"file\" onchange=\"angular.element(this).scope().imageUpload(event)\" />"; 	
+
+
+	
+			$('#edit_content').html(editHTML);
+	
+//			$scope.edit_content="<input type='text' />";
+			
+			
+		}
+
+
+
+
+				  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		else if((elem=="color")||(elem=="shape")||(elem=="length")||(elem=="width")||(elem=="other_details")) {
 			$scope.edit_type="details";
 			var label="";
@@ -359,7 +472,7 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 		//var request_id=$scope.request_id;
 		
 			$scope.details_id=item_id;
-
+			$scope.saved_request=request;
 
 
 		
@@ -457,6 +570,28 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 	
 	}			
 		
+	$scope.image = "";
+
+	$scope.imageUpload = function(event){
+		 var files = event.target.files; //FileList object
+
+
+		 var file = files[0];
+		
+		 $scope.img=files[0];
+		
+		 var reader = new FileReader();
+		 reader.onload = $scope.imageIsLoaded; 
+		 reader.readAsDataURL(file);
+		 
+		 
+	}
+
+	$scope.imageIsLoaded = function(e){
+		$scope.$apply(function() {
+			$scope.image=e.target.result;
+		});
+	}	
 		
 		
 		

@@ -721,7 +721,7 @@
               <div class="modal-body">
 
 			  <div class='col-md-12'>
-				<img src='{{ assetfolder }}{{ picture }}' />
+				<img data-toggle="modal" data-target="#modal-edit" ng-click='initiateEdit("picture",details_id)' src='{{ assetfolder }}{{ picture }}' />
 			  </div>	
 			  <div class='col-md-12'>
 			  
