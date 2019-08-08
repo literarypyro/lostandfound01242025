@@ -7,7 +7,8 @@ loginModule.controller('loginController',['$compile','$scope',"$http","$rootScop
 		
 		
 		
-		var url="http://192.168.1.11/lnf_api_old/lnf_api/login";
+		//var url="http://192.168.1.11/lnf_api_old/lnf_api/login";
+		var url="http://10.20.5.11/lnf_api_old/lnf_api/login";
 		
 		var username=$scope.username;
 		var password=$scope.password;
@@ -58,7 +59,8 @@ loginModule.controller('loginController',['$compile','$scope',"$http","$rootScop
 				}
 			}
 			//console.log(data);
-		})
+		});
+/*
 		.error(function(data, status, headers, config) {
 			// called asynchronously if an error occurs
 			// or server returns response with an error status.
@@ -67,7 +69,7 @@ loginModule.controller('loginController',['$compile','$scope',"$http","$rootScop
 			$scope.error_message="Invalid credentials";
 			
 		});
-		
+		*/
 	};
 }]);
 

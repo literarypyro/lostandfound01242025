@@ -56,7 +56,7 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 			var response=resp.data;
 						
 			//if login is illegal
-			
+			alert(response["numCount"]);
 			
 			$scope.items = response;
 			//console.log(data);
