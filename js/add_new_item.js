@@ -49,9 +49,52 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 			//console.log(data);
 	});	
 	
-	$scope.addItem=function(){
-	var url=host+"item";
+	
+	$scope.$watch('category', function (newVal, oldVal) {
+		if (oldVal == newVal){
+			return;
+		}
+		else if(newVal==""){
+			return;
+		}
+		else if((newVal=="4")||(newVal=="21")){
+			$('#modal-identification').modal("show");
+//			alert("Identification");
+			
+			
+		}
+		else {
+			return;
+		}
 
+		}, true);	
+	
+	$scope.enterIdentification=function(){
+		$scope.ref_identification=$scope.identification_ref_no;
+		$scope.id_type=$scope.identification_type;
+	
+	
+	
+	}	
+	
+	$scope.addItem=function(){
+		var url=host+"item";
+		
+		var newVal=$scope.category;
+		
+		if((newVal=="4")||(newVal=="21")){
+			
+			if(($scope.ref_identification==null)||($scope.id_type==null)){
+				alert("Specify Identification Details first");
+				$('#modal-identification').modal("show");
+				return false;
+				
+			}
+		
+		}
+		
+		
+		
 		addToggle=true;
 		/*
 	var parameter = JSON.stringify({
@@ -132,6 +175,9 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 					
 					
 				$scope.resp=response.data;
+
+				$scope.ref_identification="";
+				$scope.id_type="";
 				
 				$scope.message="Item successfully recorded.";
 					
