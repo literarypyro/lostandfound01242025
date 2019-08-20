@@ -157,6 +157,19 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 			payload.append('width', $scope.width);
 			payload.append('other_details', $scope.other_details);
 			payload.append('file', $scope.img);
+			
+			if((newVal=="4")||(newVal=="21")){
+				payload.append('identification_ref_no', $scope.ref_identification);
+				payload.append('identification_type', $scope.id_type);
+
+				
+			}			
+			
+			
+			
+			
+			
+			
 			$http({
 				url: url,
 				method: 'POST',
