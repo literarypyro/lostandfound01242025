@@ -97,7 +97,7 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 		
 		addToggle=true;
 		/*
-	var parameter = JSON.stringify({
+		var parameter = JSON.stringify({
 							user_id:$scope.user_id,
 							description:$scope.description,
 							category:$scope.category,
@@ -164,51 +164,48 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 				payload.append('identification_type', $scope.id_type);
 
 				
-			}			
-			
-			
-			
-			
-			
-			
-			$http({
-				url: url,
-				method: 'POST',
-				data: payload,
-				//assign content-type as undefined, the browser
-				//will assign the correct boundary for us
-				headers: { 'Content-Type': undefined},
-				//prevents serializing payload.  don't do it.
-				transformRequest: angular.identity
-			})
-			.then(function(response, status, headers, config) {
-					// this callback will be called asynchronously
-					// when the response is available
-					
-					
-					
-					
-				$scope.resp=response.data;
-
-				$scope.ref_identification="";
-				$scope.id_type="";
 				
-				$scope.message="Item successfully recorded.";
+				
+				
+				
+				$http({
+					url: url,
+					method: 'POST',
+					data: payload,
+					//assign content-type as undefined, the browser
+					//will assign the correct boundary for us
+					headers: { 'Content-Type': undefined},
+					//prevents serializing payload.  don't do it.
+					transformRequest: angular.identity
+				})
+				.then(function(response, status, headers, config) {
+						// this callback will be called asynchronously
+						// when the response is available
+						
+						
+						
+						
+					$scope.resp=response.data;
+
+					$scope.ref_identification="";
+					$scope.id_type="";
 					
-				window.open('admin_dashboard.html','_SELF');
-					
-					
-					
-					
-					
-			}).
-			error(function(data, status, headers, config) {
-				// called asynchronously if an error occurs
-				// or server returns response with an error status.
-			});
+					$scope.message="Item successfully recorded.";
+						
+					window.open('admin_dashboard.html','_SELF');
+						
+						
+						
+						
+						
+				}).
+				error(function(data, status, headers, config) {
+					// called asynchronously if an error occurs
+					// or server returns response with an error status.
+				});
+			}
 		}
-		}
-}
+	}
 	$scope.logout=function (){
 		$http.get(host+"logout").
 		then(function(response, status, headers, config) {
@@ -233,10 +230,6 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 		then(function(response, status, headers, config) {
 			// this callback will be called asynchronously
 			// when the response is available
-			
-			
-			
-			
 			$scope.resp=response.data;
 			
 			$scope.message="Category successfully recorded.";
@@ -268,8 +261,6 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 	
 	}	
 
-
-
 	$scope.addItemType=function (){
 	var url=host+"itemType";		
 	var parameter = JSON.stringify({
@@ -289,24 +280,20 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 			$scope.message="Item Type successfully recorded.";
 			
 			//window.open('admin_dashboard.html','_SELF');
-		var url=host+"itemType";
-		$http.get(url)
-		.then(function(resp, status, headers, config) {
-			// this callback will be called asynchronously
-			// when the response is available
-			var response=resp.data;
-						
-			//if login is illegal
-			
-			
-			$scope.item_types = response;
-			//console.log(data);
-		});	
-			
-			
-			
-			
-			
+			var url=host+"itemType";
+			$http.get(url)
+			.then(function(resp, status, headers, config) {
+				// this callback will be called asynchronously
+				// when the response is available
+				var response=resp.data;
+							
+				//if login is illegal
+				
+				
+				$scope.item_types = response;
+				//console.log(data);
+			});	
+
 		}).
 		error(function(data, status, headers, config) {
 			// called asynchronously if an error occurs
@@ -314,14 +301,6 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 		});
 	
 	}	
-
-
-
-
-
-
-
-
 
 	$scope.image = "";
 
