@@ -12,8 +12,6 @@ loginModule.controller('loginController',['$compile','$scope',"$http","$rootScop
 		//var url=host+"login";
 		//var url="http://10.20.5.11/lnf_api_old/lnf_api/login";
 		var url="http://192.168.1.11/lnf_api_old/lnf_api/login";
-//		var url="http://192.168.10.7/lnf_api_old/lnf_api/login";
-//		var url="http://localhost/lnf_api_old/lnf_api/login";
 		
 		var username=$scope.username;
 		var password=$scope.password;
@@ -42,6 +40,9 @@ loginModule.controller('loginController',['$compile','$scope',"$http","$rootScop
 				
 				var user_id=response["userid"];
 
+				
+				
+				
 				$scope.error_mesage=response["message"];
 				$scope.error_confirm=response["confirm"];
 				
@@ -60,8 +61,14 @@ loginModule.controller('loginController',['$compile','$scope',"$http","$rootScop
 					window.open("request_list.html?uid="+user_id,"_self");	
 				}
 				else if(response["login_type"]=="administrator"){
-					window.open("admin_dashboard.html?token="+token+"&uid="+user_id,"_self");			
+					window.open("admin_dashboard.html?token="+token+"&uid="+user_id+"&b=N","_self");			
 				}
+				else if(response["login_type"]=="station_base"){
+					window.open("admin_dashboard.html?token="+token+"&uid="+user_id+"&b=Y","_self");			
+				}
+				
+				
+				
 			}
 			//console.log(data);
 		});

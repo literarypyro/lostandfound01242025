@@ -3,7 +3,21 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 
 	var editHTML="";
 
+	var isBase=$window.isBase;
+	
 
+	if(isBase==""){
+		var baseCheck = window.location.search.split("b=")[1];	
+		$window.isBase=baseCheck;
+		isBase=baseCheck;
+		
+	}
+	
+	
+	$scope.isBase=isBase;
+	
+	
+	
 //	var request_id = window.location.search.split("uid=")[1];	
 //	$scope.request_id=request_id;
 
