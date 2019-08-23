@@ -2,8 +2,7 @@ var addItemModule=angular.module('addItemApp',['ui.select2']);
 addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$window', function addController($compile, $scope,$http,$window){
 
 	var host=$window.hostName;
-
-	
+	$scope.receiver=null;
 	
 	var addToggle=false;
 	
@@ -160,7 +159,8 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 	
 	
 	$scope.addReceiverDetails=function(){
-		$scope.receiver=receiver_details;
+		
+		$scope.receiver=$scope.receiver_details;
 
 
 		

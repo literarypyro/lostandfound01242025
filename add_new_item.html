@@ -521,7 +521,7 @@
 				</div>
 			</div>
               <!-- /.box-body -->
-              <div ng-if="receiver_name==null" class="box-footer">
+              <div ng-if="receiver==null" class="box-footer">
 
 			  <div class="col-md-12">
 			  <button type="button" data-toggle="modal" ng-click='listReceivers()' data-target="#modal-receiver" class="btn btn-primary col-md-4 " >Add Person who Received Item</button>
@@ -529,7 +529,7 @@
 
 			  </div>
 
-              <div ng-if="receiver_name" class="box-footer">
+              <div ng-if="receiver!==null" class="box-footer">
 
 			  <div class="col-md-4">
 			  <button type="button" ng-click="addItem()" class="btn btn-primary col-md-4 " >Submit</button>
