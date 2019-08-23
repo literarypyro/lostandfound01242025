@@ -277,7 +277,6 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 							// when the response is available
 							
 							
-					alert("A");
 							
 							
 						$scope.resp=response.data;
