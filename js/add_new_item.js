@@ -169,7 +169,6 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 	}		
 	$scope.addItem=function(){
 		var url=host+"item";
-		
 		var newVal=$scope.category;
 		
 		if((newVal=="4")||(newVal=="21")){
@@ -233,6 +232,7 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 		else {
 		
 			if($scope.found_date!==""){
+
 				var photo=$scope.file;
 			
 				var payload = new FormData();
@@ -250,13 +250,15 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 				payload.append('receiver_id', $scope.receiver);
 
 				
+				
+				
 				if((newVal=="4")||(newVal=="21")){
 					
 					payload.append('identification_ref_no', $scope.ref_identification);
 					payload.append('identification_type', $scope.id_type);
 
 					
-					
+				}	
 					
 					
 					
@@ -275,6 +277,7 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 							// when the response is available
 							
 							
+					alert("A");
 							
 							
 						$scope.resp=response.data;
@@ -295,7 +298,7 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 						// called asynchronously if an error occurs
 						// or server returns response with an error status.
 					});
-				}
+				
 			}
 		}
 	}
