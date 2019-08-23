@@ -44,6 +44,14 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
+<style type='text/css'>
+#modal-receiver {
+    z-index: 1999; 
+}
+#modal-add-receiver {
+    z-index: 2000; 
+}
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div ng-app='addItemApp'>
 <div ng-controller="addItemController">
@@ -513,8 +521,15 @@
 				</div>
 			</div>
               <!-- /.box-body -->
+              <div ng-if="receiver_name==null" class="box-footer">
 
-              <div class="box-footer">
+			  <div class="col-md-12">
+			  <button type="button" data-toggle="modal" ng-click='listReceivers()' data-target="#modal-receiver" class="btn btn-primary col-md-4 " >Add Person who Received Item</button>
+			  </div>
+
+			  </div>
+
+              <div ng-if="receiver_name" class="box-footer">
 
 			  <div class="col-md-4">
 			  <button type="button" ng-click="addItem()" class="btn btn-primary col-md-4 " >Submit</button>
@@ -859,6 +874,75 @@
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" ng-click='enterIdentification()' data-dismiss="modal">Enter Identification</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>			
+
+		<div class="modal fade" id="modal-receiver">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Receiver Details</h4>
+              </div>
+              <div class="modal-body">
+			  
+  				<div class="form-group has-feedback col-md-12">
+				   <label class="text-muted">Receiver</label>
+                   <select ui-select2  class="form-control" on-select="testChange()" name='receiver_details' ng-model='receiver_details'>
+				   <option ng-repeat="receiver in receivers" value='{{ receiver.id }}'>{{ receiver.lastName }}, {{ receiver.firstName }}<option>
+
+				  </select>
+					<div class="input-group-addon pull right">
+                    <i ng-click="" class="fa fa-plus-circle" data-toggle="modal" data-target="#modal-add-receiver"></i>
+                  </div>
+				</div>
+
+				
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click='addReceiverDetails()' data-dismiss="modal">Enter Person Who Received Item</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>		
+		
+		
+		<div class="modal fade" id="modal-add-receiver">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Receiver Details</h4>
+              </div>
+              <div class="modal-body">
+
+				<div class="form-group has-feedback">
+				   <label class="text-muted">First Name</label>
+				   <input class="form-control" type="text" name="receiver_firstName"  ng-model="receiver_firstName" required="" />
+				</div>
+				<div class="form-group has-feedback">
+				   <label class="text-muted">Last Name</label>
+				   <input class="form-control" type="text" name="receiver_lastName"  ng-model="receiver_lastName" required="" />
+				</div>
+				<div class="form-group has-feedback">
+				   <label class="text-muted">Position</label>
+				   <input class="form-control" type="text" name="receiver_position"  ng-model="receiver_position" required="" />
+				</div>
+
+				
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click='addReceiver()' data-dismiss="modal">Enter Receiver</button>
               </div>
             </div>
             <!-- /.modal-content -->

@@ -76,7 +76,97 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 	
 	
 	}	
+	$scope.addReceiver=function(){
+
+		var url=host+"receivers";		
+
+
 	
+		var payload = new FormData();
+		payload.append("firstName", $scope.receiver_firstName);
+		payload.append("lastName", $scope.receiver_lastName);
+		payload.append('position', $scope.receiver_position);
+					
+		$http({
+			url: url,
+			method: 'POST',
+			data: payload,
+						//assign content-type as undefined, the browser
+						//will assign the correct boundary for us
+			headers: { 'Content-Type': undefined},
+						//prevents serializing payload.  don't do it.
+			transformRequest: angular.identity
+		})
+		.then(function(response, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+							
+
+			var url2=host+"receivers";
+			
+			
+				$http.get(url2)
+				.then(function(resp, status, headers, config) {
+					// this callback will be called asynchronously
+					// when the response is available
+					var response=resp.data;
+								
+					//if login is illegal
+					
+					
+					$scope.receivers = response;
+					//console.log(data);
+			});	
+
+							
+			$scope.resp=response.data;
+
+
+
+
+			//$scope.ref_identification="";
+			//$scope.id_type="";
+			//$scope.message="Item successfully recorded.";
+			//window.open('admin_dashboard.html','_SELF');
+							
+		}).
+		error(function(data, status, headers, config) {
+			// called asynchronously if an error occurs
+			// or server returns response with an error status.
+		});
+	
+	
+	
+	}	
+	$scope.listReceivers=function(){
+		var url2=host+"receivers";
+			
+			
+		$http.get(url2)
+		.then(function(resp, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+			var response=resp.data;
+								
+			//if login is illegal
+					
+					
+			$scope.receivers = response;
+			//console.log(data);
+		});	
+
+
+	}
+	
+	
+	$scope.addReceiverDetails=function(){
+		$scope.receiver=receiver_details;
+
+
+		
+	
+	
+	}		
 	$scope.addItem=function(){
 		var url=host+"item";
 		
@@ -142,67 +232,70 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 		}
 		else {
 		
-		if($scope.found_date!==""){
-			var photo=$scope.file;
-		
-			var payload = new FormData();
-			payload.append("found_date", $scope.found_date);
-			payload.append("user_id", $scope.user_id);
-			payload.append('description', $scope.description);
-			payload.append('category', $scope.category);
-			payload.append('item_type', $scope.item_type);
-			payload.append('color', $scope.color);
-			payload.append('shape', $scope.shape);
-			payload.append('length', $scope.length);
-			payload.append('width', $scope.width);
-			payload.append('other_details', $scope.other_details);
-			payload.append('file', $scope.img);
+			if($scope.found_date!==""){
+				var photo=$scope.file;
 			
-			if((newVal=="4")||(newVal=="21")){
-				
-				payload.append('identification_ref_no', $scope.ref_identification);
-				payload.append('identification_type', $scope.id_type);
+				var payload = new FormData();
+				payload.append("found_date", $scope.found_date);
+				payload.append("user_id", $scope.user_id);
+				payload.append('description', $scope.description);
+				payload.append('category', $scope.category);
+				payload.append('item_type', $scope.item_type);
+				payload.append('color', $scope.color);
+				payload.append('shape', $scope.shape);
+				payload.append('length', $scope.length);
+				payload.append('width', $scope.width);
+				payload.append('other_details', $scope.other_details);
+				payload.append('file', $scope.img);
+				payload.append('receiver_id', $scope.receiver);
 
 				
-				
-				
-				
-				
-				$http({
-					url: url,
-					method: 'POST',
-					data: payload,
-					//assign content-type as undefined, the browser
-					//will assign the correct boundary for us
-					headers: { 'Content-Type': undefined},
-					//prevents serializing payload.  don't do it.
-					transformRequest: angular.identity
-				})
-				.then(function(response, status, headers, config) {
-						// this callback will be called asynchronously
-						// when the response is available
-						
-						
-						
-						
-					$scope.resp=response.data;
-
-					$scope.ref_identification="";
-					$scope.id_type="";
+				if((newVal=="4")||(newVal=="21")){
 					
-					$scope.message="Item successfully recorded.";
+					payload.append('identification_ref_no', $scope.ref_identification);
+					payload.append('identification_type', $scope.id_type);
+
+					
+					
+					
+					
+					
+					$http({
+						url: url,
+						method: 'POST',
+						data: payload,
+						//assign content-type as undefined, the browser
+						//will assign the correct boundary for us
+						headers: { 'Content-Type': undefined},
+						//prevents serializing payload.  don't do it.
+						transformRequest: angular.identity
+					})
+					.then(function(response, status, headers, config) {
+							// this callback will be called asynchronously
+							// when the response is available
+							
+							
+							
+							
+						$scope.resp=response.data;
+
+						$scope.ref_identification="";
+						$scope.id_type="";
 						
-					window.open('admin_dashboard.html','_SELF');
-						
-						
-						
-						
-						
-				}).
-				error(function(data, status, headers, config) {
-					// called asynchronously if an error occurs
-					// or server returns response with an error status.
-				});
+						$scope.message="Item successfully recorded.";
+							
+						window.open('admin_dashboard.html','_SELF');
+							
+							
+							
+							
+							
+					}).
+					error(function(data, status, headers, config) {
+						// called asynchronously if an error occurs
+						// or server returns response with an error status.
+					});
+				}
 			}
 		}
 	}
