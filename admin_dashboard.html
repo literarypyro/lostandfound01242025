@@ -424,7 +424,8 @@
               <table id="example1" datatable="ng" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Date Item Found</th>
+                  <th>Reference Number</th>
+   				  <th>Date Item Found</th>
                   <th>Location</th>
                   <th>Category</th>
                   <th>Item Type</th>
@@ -440,6 +441,7 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat='item in items'>
+                  <td>{{ item.reference_number }}</td>
                   <td><span data-toggle="modal" ng-click='initiateEdit("found_date",item.id)' data-target="#modal-edit">{{ item.found_date }}</span></td>
                   <td><span data-toggle="modal" ng-click='initiateEdit("location_id",item.id)' data-target="#modal-edit">{{ item["location"]["location"] }}</span></td>
 
@@ -457,7 +459,9 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                  <th>Date Item Found</th>
+                  <th>Reference Number</th>
+
+				<th>Date Item Found</th>
                   <th>Location</th>
 
                   <th>Category</th>
