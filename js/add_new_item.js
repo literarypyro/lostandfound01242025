@@ -248,6 +248,7 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 				payload.append('other_details', $scope.other_details);
 				payload.append('file', $scope.img);
 				payload.append('receiver_id', $scope.receiver);
+				payload.append('location_id', $scope.item_location);
 
 				
 				
