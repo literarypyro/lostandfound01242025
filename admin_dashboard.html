@@ -425,6 +425,7 @@
                 <thead>
                 <tr>
                   <th>Date Item Found</th>
+                  <th>Location</th>
                   <th>Category</th>
                   <th>Item Type</th>
                   <th>Description</th>
@@ -440,6 +441,8 @@
                 <tbody>
                 <tr ng-repeat='item in items'>
                   <td><span data-toggle="modal" ng-click='initiateEdit("found_date",item.id)' data-target="#modal-edit">{{ item.found_date }}</span></td>
+                  <td><span data-toggle="modal" ng-click='initiateEdit("location_id",item.id)' data-target="#modal-edit">{{ item["location"]["location"] }}</span></td>
+
                   <td><span data-toggle="modal" ng-click='initiateEdit("category_id",item["items"][0]["id"])' data-target="#modal-edit">{{ item["items"][0]["category"].type }}</span></td>
                   <td><span data-toggle="modal" ng-click='initiateEdit("item_type_id",item["items"][0]["id"])' data-target="#modal-edit">{{ item["items"][0]["item_type"].name }}</span></td>
                   <td><span data-toggle="modal" ng-click='initiateEdit("description",item["items"][0]["id"])' data-target="#modal-edit">{{ item["items"][0].description }}</span></td>
@@ -455,6 +458,8 @@
                 <tfoot>
                 <tr>
                   <th>Date Item Found</th>
+                  <th>Location</th>
+
                   <th>Category</th>
                   <th>Description</th>
                   <th>Details</th>

@@ -296,6 +296,50 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 
 			
 		}
+		else if(elem=="location_id"){
+			$scope.edit_type="found_record";
+
+
+			var url=host+"location";
+			$http.get(url)
+			.then(function(resp, status, headers, config) {
+				// this callback will be called asynchronously
+				// when the response is available
+				var response=resp.data;
+							
+				//if login is illegal
+				
+				
+				$scope.locations = response;
+				//console.log(data);
+				
+				editHTML="<label class='text-muted'>Edit Category</label>";
+
+				editHTML+="<select ui-select2  class=\"form-control\" id='edit_value' name='edit_value' ng-model='edit_value'>";
+				
+				
+				
+				
+				var locations=response;
+				for(var i=0;i<locations.length;i++){
+					
+					editHTML+="<option value='"+locations[i]['id']+"'>"+locations[i]['location']+"</option>";		
+					
+
+				
+				}
+				
+				
+				editHTML+="</select>";
+				
+				$('#edit_content').html(editHTML);
+				
+				
+			});	
+
+			
+		}
+
 		else if(elem=="item_type_id"){
 
 
