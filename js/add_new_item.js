@@ -157,6 +157,24 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 
 	}
 	
+		var url2=host+"location";
+			
+			
+		$http.get(url2)
+		.then(function(resp, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+			var response=resp.data;
+								
+			//if login is illegal
+					
+					
+			$scope.locations = response;
+			//console.log(data);
+		});	
+
+
+
 	
 	$scope.addReceiverDetails=function(){
 		
