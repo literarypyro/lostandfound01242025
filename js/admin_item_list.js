@@ -557,10 +557,18 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 		var url=host+"item/"+$scope.request_status+"/status";
 
 		
+		var received_by="";
+		if($scope.status_type==6){
+			received_by=$scope.base_receiver;
+			
+			
+		}
+		
 		var parameter = JSON.stringify({
 							item_id:$scope.request_status,
 							status_type:$scope.status_type,
-							details:$scope.status_details
+							details:$scope.status_details,
+							received_by:received_by
 						});
 	
 	
