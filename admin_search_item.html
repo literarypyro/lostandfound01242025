@@ -19,16 +19,16 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
-<!-- jQuery 3 -->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables -->
-<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+	<!-- jQuery 3 -->
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap 3.3.7 -->
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- DataTables -->
+	<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
    <script src="js/angular-datatables.js"></script>
@@ -468,6 +468,7 @@
                 <tr>
                   <th>Date Item Found</th>
                   <th>Category</th>
+				  <th>Item Type</th>
                   <th>Description</th>
                   <th>Details</th>
                   <th>Status</th>
@@ -760,28 +761,6 @@
           </div>
           <!-- /.modal-dialog -->
         </div>		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
         <div class="modal fade" id="modal-details">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -795,7 +774,6 @@
 				<img src='{{ assetfolder }}{{ picture }}' />
 			  </div>	
 			  <div class='col-md-12'>
-			  
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -827,8 +805,7 @@
           </div>
           <!-- /.modal-dialog -->
         </div>
-
-</div>
+	</div>
 </div>
 <!-- ./wrapper -->
 
