@@ -699,7 +699,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-status" >Add Status</button>
+                <button type="button" class="btn btn-primary" ng-click='prepareStatus()' data-toggle="modal" data-target="#modal-status" >Add Status</button>
                </div>
             </div>
             <!-- /.modal-content -->
@@ -769,6 +769,17 @@
 					
                   </select>
 				</div>
+				
+				<div class="form-group has-feedback">
+			    <label class="text-muted">Donated to</label>
+                  <select class="form-control" name='status_type' ng-model='foundation'>
+                    <option value=''>Item was Disposed</option>
+					<option ng-repeat="foundation in foundations" value="foundation.id">{{ foundation.name }}</option>
+                  </select>
+				  <div class="input-group-addon pull right">
+                    <i ng-click="" class="fa fa-plus-circle" data-toggle="modal" data-target="#modal-foundation"></i>
+                  </div>
+				</div>				
 				<div class="form-group has-feedback">
 			    <label class="text-muted">Details</label>
  			    <textarea class="form-control"  name="status_details"  ng-model="status_details" required="" ></textarea>
@@ -785,6 +796,50 @@
           </div>
           <!-- /.modal-dialog -->
         </div>		
+
+        <div class="modal fade" id="modal-foundation">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Add Foundation/Charity</h4>
+              </div>
+              <div class="modal-body">
+
+				<div class="form-group has-feedback">
+				   <label class="text-muted">Name of Foundation</label>
+				   <input class="form-control" type="text" name="foundation_name"  ng-model="foundation_name" required="" />
+				</div>
+				<div class="form-group has-feedback">
+			    <label class="text-muted">Address</label>
+ 			    <textarea class="form-control"  name="foundation_address"  ng-model="foundation_address" required="" ></textarea>
+				</div>
+				<div class="form-group has-feedback">
+				   <label class="text-muted">Contact Number</label>
+				   <input class="form-control" type="text" name="foundation_number"  ng-model="foundation_number" required="" />
+				</div>
+				<div class="form-group has-feedback">
+				   <label class="text-muted">Email</label>
+				   <input class="form-control" type="text" name="foundation_email"  ng-model="foundation_email" required="" />
+				</div>
+
+
+				
+
+				
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click='addFoundation()' data-dismiss="modal">Add Foundation</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>		
+
+
 	    <div class="modal fade" id="modal-particulars">
           <div class="modal-dialog">
             <div class="modal-content">

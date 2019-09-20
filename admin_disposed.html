@@ -437,7 +437,7 @@
                   <td>{{ item["item_type"].name }}</td>
                   <td>{{ item.description }}</td>
                   <td><i class="fa fa-search pull-left" data-toggle="modal" ng-click='retrieveDetails(item["details"])' data-target="#modal-details"></i></td>
-				  <td>{{ item["latest_status"]["status_type"]["type"]  }} <i class="fa fa-search pull-right" data-toggle="modal" ng-click='retrieveItemStatus(item.id)' data-target="#modal-default"></i></td>
+				  <td>{{ item["latest_status"]["details"]  }} <i class="fa fa-search pull-right" data-toggle="modal" ng-click='retrieveItemStatus(item.id)' data-target="#modal-default"></i></td>
 				  <td><i class="fa fa-search pull-right" data-toggle="modal" ng-click='listParticular(item)' data-target="#modal-particulars"></i></td>
                   <td>{{ item["user"]["name"] }}</td>
 

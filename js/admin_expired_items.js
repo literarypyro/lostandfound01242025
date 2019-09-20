@@ -64,7 +64,17 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 
 			
 	};
+
+	$scope.prepareStatus=function (id){
 		
+		$http.get(host+"foundations").then(function(resp, status, headers, config) {
+			
+			var response=resp.data;
+			$scope.foundations = response;
+			
+		});	
+		
+	};	
 		
 	$scope.retrieveItemStatus=function (id){
 		//var request_id=$scope.request_id;
@@ -83,36 +93,83 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 			
 			$scope.statuses = response["status"];
 			
-			
-			
-			
-			
-			
 		});	
 	};
 	$scope.retrieveDetails=function (request){
 		//var request_id=$scope.request_id;
-		
-		
-			$scope.shape=request.shape;
-			$scope.color=request.color;
-			$scope.length=request.length;
-			$scope.width=request.width;
-			$scope.other_details=request.other_details;
-			$scope.picture=request.picture;
-		
+
+		$scope.shape=request.shape;
+		$scope.color=request.color;
+		$scope.length=request.length;
+		$scope.width=request.width;
+		$scope.other_details=request.other_details;
+		$scope.picture=request.picture;
 	};
-		
+	$scope.addFoundation=function (){
+
+		var url=host+"foundations/new";
+
+		alert(url);
+		var parameter = JSON.stringify({
+							name:$scope.foundation_name,
+							address:$scope.foundation_address,
+							email:$scope.foundation_email,
+							contact_no:$scope.foundation_number
+						});
+	
+		alert("ASD");
+		$http.post(url, parameter).then(function(response, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+			
+			alert("Here");
+			
+			
+			$scope.resp=response.data;
+			
+			var response=$scope.resp;
+			
+			$scope.message=response;
+			
+			
+			$http.get(host+"foundations").then(function(resp, status, headers, config) {
+				
+				var response2=resp.data;
+				$scope.foundations = response2;
+				
+			});	
+				
+			
+			
+		}).
+		error(function(data, status, headers, config) {
+					alert("ASD");
+
+			// called asynchronously if an error occurs
+			// or server returns response with an error status.
+		});
+	
+
+
+
+	}	
 		
 	$scope.addStatus=function (){
 
 		var url=host+"item/"+$scope.request_status+"/status";
 
+		var foundation="null";
+		if($scope.foundation==""){
+		}
+		else {
+			foundation=$scope.foundation;
+		}
 		
 		var parameter = JSON.stringify({
 							item_id:$scope.request_status,
 							status_type:$scope.status_type,
-							details:$scope.status_details
+							details:$scope.status_details,
+							foundation_id:foundation
 						});
 	
 	
