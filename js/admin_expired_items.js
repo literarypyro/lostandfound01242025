@@ -107,7 +107,7 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 	};
 	$scope.addFoundation=function (){
 
-		var url=host+"foundations/new";
+		var url=host+"found/new";
 
 		alert(url);
 		var parameter = JSON.stringify({
@@ -118,37 +118,12 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 						});
 	
 		alert("ASD");
-		$http.post(url, parameter).then(function(response, status, headers, config) {
-			// this callback will be called asynchronously
-			// when the response is available
-			
-			alert("Here");
-			
-			
-			$scope.resp=response.data;
-			
-			var response=$scope.resp;
-			
-			$scope.message=response;
-			
-			
-			$http.get(host+"foundations").then(function(resp, status, headers, config) {
-				
-				var response2=resp.data;
-				$scope.foundations = response2;
-				
-			});	
-				
-			
-			
-		}).
-		error(function(data, status, headers, config) {
-					alert("ASD");
-
-			// called asynchronously if an error occurs
-			// or server returns response with an error status.
+		$http.post(url, parameter).
+		then(function(response, status, headers, config) {
+		
 		});
 	
+		alert("A");
 
 
 
