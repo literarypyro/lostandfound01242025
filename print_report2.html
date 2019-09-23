@@ -114,18 +114,22 @@
 <body onclick='window.print()'>
          <table class="table table-bordered table-striped">
          <thead>
-            <tr>
-            <th>Details</th>
-            <th>Category</th>
-            <th>Total</th>
-            </tr>
+         <tr>
+             <th>Date Item Found</th>
+             <th>Station</th>
+             <th>Item No.</th>
+             <th>Description/Particulars</th>
+             <th>Remarks</th>
+        </tr>
         </thead>
         <tbody>
-			<tr>
+		<tr ng-repeat="item in items">
+            <td>{{ item["found_record"].found_date }}</td>
+            <td>{{ item["found_record"].location }}</td>
+            <td>{{ item["found_record"].reference_number }}</td>
+            <td>{{ item.description }}</td>
 			<td></td>
-			<td></td>
-			<td></td>
-			</tr>
+		</tr>
 		</tbody>
 	</table>
 </body>
