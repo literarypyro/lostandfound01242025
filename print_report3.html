@@ -101,6 +101,18 @@
 		margin-left: 2cm;
 		margin-right:2cm;
 	}
+	
+	hr {
+		margin-left: 2cm;
+		margin-right:2cm;
+	}
+	
+	table {
+		margin-left: 2cm;
+		margin-right:2cm;
+	}
+
+	
 }
 </style>
 
@@ -115,26 +127,46 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
 <script src="js/angular-datatables.js"></script>
 <script src="js/db.js"></script>
- <script src="js/admin_print_report2.js"></script>
+ <script src="js/admin_print_report3.js"></script>
 
 </head>
 <body onclick='window.print()'>
 <div ng-app='itemsApp'>
 
 <div ng-controller='itemsController'>
-<div align=center>
 <p>
 <b>
-DEPARTMENT OF TRANSPORTATION
+01 September 2019<br>
 <br>
-LOST AND FOUND MONITORING
+MEMORANDUM
+<br><br>
+FOR			: 	RODOLFO J. GARCIA
 <br>
 </b>
-For the period of {{ period | date: "MM/yyyy" }} to {{ period2 | date: "MM/yyyy" }} 
+
+				General Manager<br>
+				DOTr-MRT3
+
+<b><br>
 <br>
+THRU		:	MICHAEL J. CAPATI
+</b><br>
+				Director for Operations		
+				
+				
+<br><br>				
+<b>				
+SUBJECT		:  Station Base Daily Monitoring Report of Lost and Found Items on Saturday, 31 August 2019
+</b>
 <br>
 </p>
-</div>
+<hr />
+<p>
+
+Hereunder is the list of Lost and Found items submitted to Station Base on Saturday, 31 August 2019 revenue operations
+from North Avenue to Taft Avenue Stations.
+<br>
+<br>
 
 
          <table class="table table-bordered table-striped">
@@ -157,7 +189,9 @@ For the period of {{ period | date: "MM/yyyy" }} to {{ period2 | date: "MM/yyyy"
 		</tr>
 		</tbody>
 	</table>
-</div>
+</p>
+
+	</div>
 </div>
 </body>
 </html>
