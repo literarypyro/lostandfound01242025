@@ -215,8 +215,8 @@ Relative thereto, an inventory was conducted for all items gathered for  and the
         </tr>
         </thead>
         <tbody>
-		<tr ng-repeat="item in items">
-            <td>{{ item["found_record"].location_id }}</td>
+		<tr ng-repeat="item in expired_items">
+            <td>{{ item }}</td>
             <td>{{ item["found_record"].reference_number }}</td>
 		</tr>
 		</tbody>
