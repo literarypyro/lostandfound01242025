@@ -109,7 +109,6 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 
 		var url=host+"found/new";
 
-		alert(url);
 		var parameter = JSON.stringify({
 							name:$scope.foundation_name,
 							address:$scope.foundation_address,
@@ -117,13 +116,17 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 							contact_no:$scope.foundation_number
 						});
 	
-		alert("ASD");
 		$http.post(url, parameter).
 		then(function(response, status, headers, config) {
-		
+			$http.get(host+"foundations").then(function(resp, status, headers, config) {
+				
+				var response=resp.data;
+				$scope.foundations = response;
+				
+			});	
+			
 		});
 	
-		alert("A");
 
 
 
