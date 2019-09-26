@@ -6,7 +6,6 @@
 
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 
-
 <style type='text/css' media='print'>
 @media print {
 	@page { margin: 0; }
@@ -94,31 +93,89 @@
 		margin-left: 2cm;
 		margin-right:2cm;
 	}
+	
+	hr {
+		margin-left: 2cm;
+		margin-right:2cm;
+	}
+	
+	table {
+		margin-left: 2cm;
+		margin-right:2cm;
+	}
+
+	
 }
 </style>
-
 </head>
 <body onclick='window.print()'>
+<p>
+<b>
+06 June 2019<br>
+<br>
+FR. ANTON C.T. PASCUAL
+</b>
+<br>
+Executive Director
+<br>
+Caritas Manila, Inc.
+2002 Jesus Street
+Pandacan, Manila
+</p>
+<br>
+<br>
+<p>
 
+Dear <b>Mr. Pascual</b>
+<br>
+<br>
+We refer to the Lost and Found items retrieved from North to Taft Avenue Stations of DOTr-MRT3 for the 
+Year January to March 2019 on which approval was given to dispose non valuable and non-perishable items to a 
+reputed foundation/organization.
+<br>
+<br>
+Relative thereto, Caritas Manila, Inc. was chosen as the organization where these items shall be donated.
+<br>
+<br>
+As such, we are forwarding the following items in good condition for your use.
 
-                <table class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Date Item Found</th>
-                  <th>Category</th>
-                  <th>Item Type</th>
-                  <th>Description</th>
-                  <th>Details</th>
-                  <th>Status</th>
-                </tr>
-                </thead>
-                <tbody>
-				
-				
-				
-				</tbody>
-				</table>
+<br>
+<br>
+		<div align=center>
+         <table class="table table-bordered table-striped">
+         <thead>
+         <tr>
+             <th width=30%>Item</th>
+             <th width=70%>Quantity</th>
+             
+        </tr>
+        </thead>
+        <tbody>
+		<tr ng-repeat="item in items">
+            <td>{{ item["found_record"].location_id }}</td>
+            <td>{{ item["found_record"].reference_number }}</td>
+		</tr>
+		</tbody>
+	</table>
+	</div>
+	<p>
+	In view of the above, the undersigned hereby seeks your approval for the disposal of the above items through donation to  .
+	<br><br>
+	Should you approve the above, attached is a letter addressed to for your approval and signature.
+	<br>
+	<br>
+	<br><br>
+	</p>
 
+	<p>
+	<b>GEN. RODOLFO J. GARCIA</b>
+	<br>
+	General Manager<br>
+	DOTr-MRT3
+	</p>
+	
+	
+	</div>
 
 
 
