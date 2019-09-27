@@ -16,8 +16,8 @@
 
 <style type='text/css' media='print'>
 @media print {
-	@page { margin: 0; }
-	body { margin-top: 2in; 
+	@page { margin-top: 1in; }
+	body { margin-top: 1in; 
 		text-align:justify;
 		font-size: 13pt;
 		font-family: "Segoe UI";
@@ -136,7 +136,7 @@
 <div ng-controller='itemsController'>
 <p>
 <b>
-01 September 2019<br>
+{{ date | date: "MMMM dd, yyyy" }}<br>
 <br>
 MEMORANDUM
 </b>
@@ -188,7 +188,7 @@ MEMORANDUM
 <b>				
 <tr>
 <td>
-<b>SUBJECT</b></td>		<td><b>:</b></td><td>  <b>Request for clearance to dispose unclaimed lost and found items for </b>
+<b>SUBJECT</b></td>		<td><b>:</b></td><td>  <b>Request for clearance to dispose unclaimed lost and found items for {{ period | date: "MMMM" }} to {{ period2 | date: "MMMM yyyy" }}</b>
 </td>
 </tr>
 </b>
@@ -201,7 +201,7 @@ MEMORANDUM
 We refer to the provision of Office Order No.2017-0559 on the Guidelines of Lost and Found items specifying the turn-over of non-valuable and non-perishable items to a reputable 
 foundation after securing clearance from the DOTr-MRT3 management.
 <br><br>
-Relative thereto, an inventory was conducted for all items gathered for  and the following items were found to be in good condition and can be donated to .
+Relative thereto, an inventory was conducted for all items gathered for {{ period | date: "MMMM" }} to {{ period2 | date: "MMMM yyyy" }}  and the following items were found to be in good condition and can be donated to .
 <br>
 <br>
 
@@ -215,17 +215,17 @@ Relative thereto, an inventory was conducted for all items gathered for  and the
         </tr>
         </thead>
         <tbody>
-		<tr ng-repeat="item in expired_items">
-            <td>{{ item }}</td>
-            <td>{{ item["found_record"].reference_number }}</td>
+		<tr ng-repeat="item in items">
+            <td>{{ item.name }}</td>
+            <td>{{ item.count }}</td>
 		</tr>
 		</tbody>
 	</table>
 	</div>
 	<p>
-	In view of the above, the undersigned hereby seeks your approval for the disposal of the above items through donation to  .
+	In view of the above, the undersigned hereby seeks your approval for the disposal of the above items through donation to Caritas Manila.
 	<br><br>
-	Should you approve the above, attached is a letter addressed to for your approval and signature.
+	Should you approve the above, attached is a letter addressed to Caritas Manila for your approval and signature.
 	<br>
 	<br>
 	<br><br>

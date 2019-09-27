@@ -8,8 +8,8 @@
 
 <style type='text/css' media='print'>
 @media print {
-	@page { margin: 0; }
-	body { margin-top: 2in; 
+	@page { margin-top: 1in; }
+	body { margin-top: 1in; 
 		text-align:justify;
 		font-size: 13pt;
 		font-family: "Segoe UI";
@@ -108,10 +108,28 @@
 }
 </style>
 </head>
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
+<script src="js/angular-datatables.js"></script>
+<script src="js/db.js"></script>
+ <script src="js/admin_print_report4.js"></script>
+
+</head>
 <body onclick='window.print()'>
+<div ng-app='itemsApp'>
+
+<div ng-controller='itemsController'>
 <p>
 <b>
-06 June 2019<br>
+{{ date | date: "dd MMMM yyyy" }}<br>
 <br>
 FR. ANTON C.T. PASCUAL
 </b>
@@ -119,7 +137,8 @@ FR. ANTON C.T. PASCUAL
 Executive Director
 <br>
 Caritas Manila, Inc.
-2002 Jesus Street
+<br>
+2002 Jesus Street<br>
 Pandacan, Manila
 </p>
 <br>
@@ -130,7 +149,7 @@ Dear <b>Mr. Pascual</b>
 <br>
 <br>
 We refer to the Lost and Found items retrieved from North to Taft Avenue Stations of DOTr-MRT3 for the 
-Year January to March 2019 on which approval was given to dispose non valuable and non-perishable items to a 
+Year {{ period | date: "MMMM" }} to {{ period2 | date: "MMMM yyyy" }} on which approval was given to dispose non valuable and non-perishable items to a 
 reputed foundation/organization.
 <br>
 <br>
@@ -152,8 +171,8 @@ As such, we are forwarding the following items in good condition for your use.
         </thead>
         <tbody>
 		<tr ng-repeat="item in items">
-            <td>{{ item["found_record"].location_id }}</td>
-            <td>{{ item["found_record"].reference_number }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.count }}</td>
 		</tr>
 		</tbody>
 	</table>
@@ -176,5 +195,8 @@ As such, we are forwarding the following items in good condition for your use.
 	
 	
 	</div>
-</body>
+	</div>
+	</div>
+
+	</body>
 </html>

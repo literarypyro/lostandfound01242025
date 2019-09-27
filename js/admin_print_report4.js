@@ -11,11 +11,13 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 	var dateTo=request_id.split("to")[1];
 	
 	
-	$scope.period=$filter('date')(dateFrom.replace("%20"," "), "MM/yyyy");
+	$scope.period=new Date(dateFrom.replace("%20"," "));
+	$scope.period2=new Date(dateTo.replace("%20"," "));
+//	$scope.period=$filter('date')(dateFrom.replace("%20"," "), "MM/yyyy");
 	
-	$scope.period2=$filter('date')(dateTo.replace("%20"," "), "MM/yyyy");
+//	$scope.period2=$filter('date')(dateTo.replace("%20"," "), "MM/yyyy");
 
-		var url2=host+"items/expired/1";
+		var url2=host+"items/expired/1/range/"+request_id;
 
 		$http.get(url2).then(function(resp, status, headers, config) {
 			var response=resp.data;
@@ -29,17 +31,23 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 			})			
 			
 			*/
+			$scope.date=new Date();
+
 			
 			var res=[];
+			var category=[];
 
-
+			var items=[];
 			Object.keys(response).forEach(function (key){
 
 				i=0;
 				Object.keys(response[key]["items"]).forEach(function (key2){
 					if(i==0){
+						if(res[response[key]["items"][key2]["category_id"]]==null){
+							res[response[key]["items"][key2]["category_id"]]=0;
+						}
 						res[response[key]["items"][key2]["category_id"]]++;
-						
+						category[response[key]["items"][key2]["category_id"]]=response[key]["items"][key2]["category"]["type"];
 						
 						
 						
@@ -55,13 +63,27 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 
 
 			});			
-			alert(res["1"]);
 
 			Object.keys(res).forEach(function (key){
-//				alert(key);
-			//alert(res[key]*1);
+				var item={ name: category[key], count:res[key] }
+				items.push(item);
+
+
+
 			});
 			
+			
+			$scope.items=items;	
+			
+			
+				
+			
+//			$scope.res=res;
+//			$scope.category=category;
+//			$scope.keys=keys;
+			
+			
+
 			
 			
 //			$scope.expired_items=response;		

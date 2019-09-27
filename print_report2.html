@@ -16,8 +16,8 @@
 
 <style type='text/css' media='print'>
 @media print {
-	@page { margin: 0; }
-	body { margin-top: 2in; 
+	@page { margin-top: 1in; }
+	body { margin-top: 1in; 
 		text-align:justify;
 		font-size: 13pt;
 		font-family: "Segoe UI";
@@ -130,7 +130,7 @@ DEPARTMENT OF TRANSPORTATION
 LOST AND FOUND MONITORING
 <br>
 </b>
-For the period of {{ period | date: "MM/yyyy" }} to {{ period2 | date: "MM/yyyy" }} 
+For the month of {{ period | date: "MMMM" }}  
 <br>
 <br>
 </p>
@@ -149,7 +149,7 @@ For the period of {{ period | date: "MM/yyyy" }} to {{ period2 | date: "MM/yyyy"
         </thead>
         <tbody>
 		<tr ng-repeat="item in items">
-            <td>{{ item["found_record"].found_date | date: 'MM/dd/YYYY' }}</td>
+            <td>{{ item["found_record"].found_date | date: "MM/dd/YYYY" }}</td>
             <td>{{ item["found_record"].location_id }}</td>
             <td>{{ item["found_record"].reference_number }}</td>
             <td>{{ item.description }}</td>

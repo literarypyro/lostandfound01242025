@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Lost and Found | Expired Items</title>
+  <title>Lost and Found | Search for Item</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -19,19 +19,21 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
-<!-- jQuery 3 -->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables -->
-<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<!-- jQuery 3 -->
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap 3.3.7 -->
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- DataTables -->
+	<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
    <script src="js/angular-datatables.js"></script>
    <script src="js/db.js"></script>
-
- <script src="js/admin_expired_items.js"></script>
+   <script src="js/admin_generate_report.js"></script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -45,9 +47,9 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-<div ng-app='itemsApp'>
+<div ng-app='searchApp'>
 
-<div ng-controller='itemsController'>
+<div ng-controller='searchController'>
 <div class="wrapper">
 
   <header class="main-header">
@@ -56,7 +58,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Lost and Found</b></span>
+      <span class="logo-lg"><b>Lost and Found System</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -346,7 +348,7 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="treeview">
+         <li class="treeview">
           <a href="#">
             <i class="fa fa-clone"></i>
             <span>Dashboard</span>
@@ -372,7 +374,7 @@
           <ul class="treeview-menu">
             <li><a href="add_new_item.html"><i class="fa fa-circle-o"></i> Add Found Item </a></li>
           </ul>
-        </li>
+        </li>	
         <li class="treeview">
           <a href="#">
             <i class="fa fa-search"></i>
@@ -426,48 +428,29 @@
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Recently Expired Items</h3>
+              <h3 class="box-title">Generate Reports:</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example1" datatable="ng" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Date Item Found</th>
-                  <th>Category</th>
-                  <th>Item Type</th>
-                  <th>Description</th>
-                  <th>Details</th>
-                  <th>Status</th>
-                  <th>Particulars</th>
-                 <th>User that Recorded Item</th>
+				<div class='col-md-3'>
+				<input class="form-control" id="daterange" type="text" name="daterange" ng-model="daterange"  required="" />
+				</div>
 
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat='item in items'>
-                  <td>{{ item.found_date }}</td>
-                  <td><span ng-repeat="ex_item in item['items'] | limitTo:1">{{ ex_item["category"].type }}</span></td>
-                  <td><span ng-repeat="ex_item in item['items'] | limitTo:1">{{ ex_item["item_type"].name }}</span></td>
-                  <td><span ng-repeat="ex_item in item['items'] | limitTo:1">{{ ex_item.description }}</span></td>
-                  <td><span ng-repeat="ex_item in item['items'] | limitTo:1"><i class="fa fa-search pull-left" data-toggle="modal" ng-click='retrieveDetails(ex_item["details"][0])' data-target="#modal-details"></i></span></td>
-				  <td><span ng-repeat="ex_item in item['items'] | limitTo:1">{{ ex_item["latest_status"]["status_type"]["type"]  }} <i class="fa fa-search pull-right" data-toggle="modal" ng-click='retrieveItemStatus(ex_item.id)' data-target="#modal-default"></i></span></td>
-				  <td><span ng-repeat="ex_item in item['items'] | limitTo:1"><i class="fa fa-search pull-right" data-toggle="modal" ng-click='listParticular(item)' data-target="#modal-particulars"></i></span></td>
-                  <td><span ng-repeat="ex_item in item['items'] | limitTo:1">{{ ex_item["user"][0]["name"] }}</span></td>
 
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr>
-                  <th>Date Item Found</th>
-                  <th>Category</th>
-                  <th>Description</th>
-                  <th>Details</th>
-                  <th>Status</th>
-                  <th>Particulars</th>
-                </tr>
-                </tfoot>
-              </table>
+				<div class='col-md-2'>
+                  <select class="form-control" name='search_type' ng-model='search_type'>
+                    <option value='monthly'>Monthly Report</option>
+                    <option value='daily'>Daily Report</option>
+                    <option value='charity'>Letter to Charity</option>
+                    <option value='disposal'>Letter for Disposal of Items</option>
+                  </select>
+				</div>
+				<div class='col-md-2'>
+		          <button type="button" ng-click='generateReport()' class="btn btn-primary btn-block btn-flat">Search Item</button>
+
+				</div>
+				<br>
+				<br>
             </div>
             <!-- /.box-body -->
           </div>
@@ -712,14 +695,48 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" ng-click='prepareStatus()' data-toggle="modal" data-target="#modal-status" >Add Status</button>
-               </div>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-status" >Add Status</button>
+              </div>
             </div>
             <!-- /.modal-content -->
           </div>
           <!-- /.modal-dialog -->
         </div>
 
+        <div class="modal fade" id="modal-status">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Update Item Status</h4>
+              </div>
+              <div class="modal-body">
+
+				<div class="form-group has-feedback">
+			    <label class="text-muted">Select Status</label>
+                  <select class="form-control" name='status_type' ng-model='status_type'>
+                    <option value='1'>Active</option>
+                    <option value='2'>On Process</option>
+                    <option value='3'>Retrieved</option>
+                  </select>
+				</div>
+				<div class="form-group has-feedback">
+			    <label class="text-muted">Details</label>
+ 			    <textarea class="form-control"  name="status_details"  ng-model="status_details" required="" ></textarea>
+				</div>
+
+				
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click='addStatus()' data-dismiss="modal">Update Status</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>		
         <div class="modal fade" id="modal-details">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -733,7 +750,6 @@
 				<img src='{{ assetfolder }}{{ picture }}' />
 			  </div>	
 			  <div class='col-md-12'>
-			  
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -765,167 +781,7 @@
           </div>
           <!-- /.modal-dialog -->
         </div>
-        <div class="modal fade" id="modal-status">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Update Item Status</h4>
-              </div>
-              <div class="modal-body">
-
-				<div class="form-group has-feedback">
-			    <label class="text-muted">Select Status</label>
-                  <select class="form-control" name='status_type' ng-model='status_type'>
-                    <option value='5'>Disposed/Transferred</option>
-					
-                  </select>
-				</div>
-				
-				<div class="form-group has-feedback">
-			    <label class="text-muted">Donated to</label>
-                  <select class="form-control" name='status_type' ng-model='foundation'>
-                    <option value=''>Item was Disposed</option>
-					<option ng-repeat="foundation in foundations" value="foundation.id">{{ foundation.name }}</option>
-                  </select>
-				  <div class="input-group-addon pull right">
-                    <i ng-click="" class="fa fa-plus-circle" data-toggle="modal" data-target="#modal-foundation"></i>
-                  </div>
-				</div>				
-				<div class="form-group has-feedback">
-			    <label class="text-muted">Details</label>
- 			    <textarea class="form-control"  name="status_details"  ng-model="status_details" required="" ></textarea>
-				</div>
-
-				
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" ng-click='addStatus()' data-dismiss="modal">Update Status</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>		
-
-        <div class="modal fade" id="modal-foundation">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add Foundation/Charity</h4>
-              </div>
-              <div class="modal-body">
-
-				<div class="form-group has-feedback">
-				   <label class="text-muted">Name of Foundation</label>
-				   <input class="form-control" type="text" name="foundation_name"  ng-model="foundation_name" required="" />
-				</div>
-				<div class="form-group has-feedback">
-			    <label class="text-muted">Address</label>
- 			    <textarea class="form-control"  name="foundation_address"  ng-model="foundation_address" required="" ></textarea>
-				</div>
-				<div class="form-group has-feedback">
-				   <label class="text-muted">Contact Number</label>
-				   <input class="form-control" type="text" name="foundation_number"  ng-model="foundation_number" required="" />
-				</div>
-				<div class="form-group has-feedback">
-				   <label class="text-muted">Email</label>
-				   <input class="form-control" type="text" name="foundation_email"  ng-model="foundation_email" required="" />
-				</div>
-
-
-				
-
-				
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" ng-click='addFoundation()' data-dismiss="modal">Add Foundation</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>		
-
-
-	    <div class="modal fade" id="modal-particulars">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Particulars</h4>
-              </div>
-              <div class="modal-body">
-
-			  <div class='col-md-12'>
-				<img src='{{ assetfolder }}{{ picture }}' />
-			  </div>	
-			  <div class='col-md-12'>
-			  
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Description</th>
-                  <th>Shape</th>
-                  <th>Color</th>
-                  <th>Length</th>
-                  <th>Width</th>
-                  <th>Other Details</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="item in item_particulars | filter: { item_type_id: 3 }">
-				  <td>{{ item.description }}</td>
-				  <td>{{ item["details"][0].shape }}</td>
-                  <td>{{ item["details"][0].color }}</td>
-                  <td>{{ item["details"][0].length }}</td>
-                  <td>{{ item["details"][0].width }}</td>
-                  <td>{{ item["details"][0].other_details }} <i class="fa fa-search pull-right" data-toggle="modal" ng-click="getImage(item['details'][0])" data-target="#modal-image"></i></td>
-                </tr>
-                </tbody>
-			</table>
-			</div>
-			</div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-		<div class="modal fade" id="modal-image">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Item Photo</h4>
-              </div>
-              <div class="modal-body">
-
-			  <div class='col-md-12'>
-				<img src='{{ assetfolder }}{{ picture_part }}' />
-			  </div>	
-			</div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-		
-		
-		
-</div>
+	</div>
 </div>
 <!-- ./wrapper -->
 
@@ -940,6 +796,54 @@
 <!-- page script -->
 <script>
   $(function () {
+ $('#daterange').daterangepicker({
+    ranges: {
+        'Today': [moment(), moment()],
+        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+        'This Month': [moment().startOf('month'), moment().endOf('month')],
+        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+    },    
+	"locale": {
+        "format": "YYYY-MM-DD",
+        "separator": " to ",
+        "applyLabel": "Apply",
+        "cancelLabel": "Cancel",
+        "fromLabel": "From",
+        "toLabel": "To",
+        "customRangeLabel": "Custom",
+        "weekLabel": "W",
+        "daysOfWeek": [
+            "Su",
+            "Mo",
+            "Tu",
+            "We",
+            "Th",
+            "Fr",
+            "Sa"
+        ],
+        "monthNames": [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ],
+        "firstDay": 1
+    },
+    "startDate": "2019-07-27",
+    "endDate": "2019-08-02"
+}, function(start, end, label) {
+  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+});
   /*
     $('#example1').DataTable()
     $('#example2').DataTable({
@@ -950,8 +854,7 @@
       'info'        : true,
       'autoWidth'   : false
     })
-  */
-
+	*/
   })
 </script>
 

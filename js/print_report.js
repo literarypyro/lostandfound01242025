@@ -18,6 +18,8 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 
 	var host=$window.hostName;
 
+	
+	$scope.date=new Date();
 	$scope.assetfolder=host+"public/assets/images/items/";
 
 
@@ -33,7 +35,46 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 			//if login is illegal
 			
 			
-			$scope.expired_items = response;
+			var res=[];
+			var category=[];
+
+			var items=[];
+			Object.keys(response).forEach(function (key){
+
+				i=0;
+				Object.keys(response[key]["items"]).forEach(function (key2){
+					if(i==0){
+						if(res[response[key]["items"][key2]["category_id"]]==null){
+							res[response[key]["items"][key2]["category_id"]]=0;
+						}
+						res[response[key]["items"][key2]["category_id"]]++;
+						category[response[key]["items"][key2]["category_id"]]=response[key]["items"][key2]["category"]["type"];
+						
+						
+						
+						
+						
+						i++;
+					}
+					
+					
+				});
+		
+
+
+
+			});			
+
+			Object.keys(res).forEach(function (key){
+				var item={ name: category[key], count:res[key] }
+				items.push(item);
+
+
+
+			});
+			
+			
+			$scope.items=items;	
 			//console.log(data);
 	});
 	
