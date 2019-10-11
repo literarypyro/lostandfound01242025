@@ -119,10 +119,6 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 
 							
 			$scope.resp=response.data;
-
-
-
-
 			//$scope.ref_identification="";
 			//$scope.id_type="";
 			//$scope.message="Item successfully recorded.";
