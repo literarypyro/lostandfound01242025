@@ -217,7 +217,7 @@ from North Avenue to Taft Avenue Stations.
         <tbody>
 		<tr ng-repeat="item in items">
             <td>{{ item["found_record"].found_date | date: 'MM/dd/yyyy' }}</td>
-            <td>{{ item["found_record"].location_id }}</td>
+            <td>{{ item["location"].code }}</td>
             <td>{{ item["found_record"].reference_number }}</td>
             <td>{{ item.description }}</td>
 			<td></td>
