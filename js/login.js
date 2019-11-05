@@ -71,6 +71,9 @@ loginModule.controller('loginController',['$compile','$scope',"$http","$rootScop
 				
 			}
 			//console.log(data);
+		})
+		.catch(function(error){
+			console.log(error);
 		});
 /*
 		.error(function(data, status, headers, config) {

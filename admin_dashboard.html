@@ -464,7 +464,7 @@
                   <td><i class="fa fa-search pull-left" data-toggle="modal" ng-click='retrieveDetails(item["items"][0]["details"][0],item["items"][0]["id"])' data-target="#modal-details"></i></td>
 				  <td>{{ item["items"][0]["latest_status"]["status_type"]["type"]  }} <i class="fa fa-search pull-right" data-toggle="modal" ng-click='retrieveItemStatus(item["items"][0].id)' data-target="#modal-default"></i></td>
 				  <td><i class="fa fa-search pull-right" data-toggle="modal" ng-click='listParticular(item)' data-target="#modal-particulars"></i></td>
-                  <td>{{ item["items"][0]["user"][0]["name"] }}</td>
+                  <td>{{ item["items"][0]["user"][0]["last_name"] }}, {{ item["items"][0]["user"][0]["first_name"] }}</td>
                    <td><span ng-if="item['receiver']['lastName']!==null">{{ item["receiver"]["firstName"] }} {{ item["receiver"]["lastName"]  }}</span></td>
 
 
