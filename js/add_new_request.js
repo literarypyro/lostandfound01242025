@@ -1,7 +1,7 @@
 var addRequestModule=angular.module('addRequestApp',[]);
 addRequestModule.controller("addRequestController",['$compile', '$scope',"$http","$rootScope",'$window', function addRequestController($compile, $scope,$http,$rootScope,$window){
-	var user_id = window.location.search.split("uid=")[1];	
-	$scope.user_id=user_id;
+//	var user_id = window.location.search.split("uid=")[1];	
+	$scope.user_id=$window.user_id;
 	
 	var host=$window.hostName;
 

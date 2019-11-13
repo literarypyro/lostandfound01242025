@@ -27,6 +27,7 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
+  <script src="js/db.js"></script>
   <script src="js/user_details.js"></script>
 
   </head>
@@ -284,10 +285,12 @@
                 </select>
 				  -->
               </div>
-
               <div class="form-group col-md-4">
                 <label>Country</label>
-                <input type="text" class="form-control" ng-model='country'>
+                <select class="form-control select2" ng-model='country' style="width: 100%;" ng-model="country" ng-options="state.id as state.name for state in countries">
+                </select>
+              </div>
+
 
 
 				<!--
@@ -314,7 +317,6 @@
                     </div>
                   </div>
                   <!-- /.input group -->
-                </div>
 			  
 
             </div>

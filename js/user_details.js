@@ -39,11 +39,23 @@ registrationModule.controller("registrationController",['$compile','$scope',"$ht
 
   
 
-registrationModule.controller("detailsController",['$compile','$scope',"$http","$rootScope","$location", function detailsController($compile, $scope,$http,$rootScope,$location){
+registrationModule.controller("detailsController",['$compile','$scope',"$http","$rootScope","$location","$window", function detailsController($compile, $scope,$http,$rootScope,$location,$window){
+	var host=$window.hostName;
 
 	//$scope.user_id=$rootScope.user_id;
 	var user_id = window.location.search.split("user_id=")[1];	
 
+	var url=host+"country";
+
+	$http.get(url)
+		.then(function(resp, status, headers, config) {
+		var response=resp.data;
+							
+				
+		$scope.countries = response;
+	});	
+	
+	
 	$scope.user_id=user_id;
 	$scope.enterProfileDetails=function(){
 		
