@@ -57,6 +57,10 @@ registrationModule.controller("detailsController",['$compile','$scope',"$http","
 	
 	
 	$scope.user_id=user_id;
+	
+	
+	
+	
 	$scope.enterProfileDetails=function(){
 		
 //		$scope.user_id=user_id;

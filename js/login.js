@@ -10,8 +10,8 @@ loginModule.controller('loginController',['$compile','$scope',"$http","$rootScop
 
 		
 		//var url=host+"login";
-		//var url="http://10.20.5.11/lnf_api_old/lnf_api/login";
-		var url="http://192.168.1.11/lnf_api_old/lnf_api/login";
+		var url="http://10.20.5.11/lnf_api_old/lnf_api/login";
+		//var url="http://192.168.1.11/lnf_api_old/lnf_api/login";
 		
 		var username=$scope.username;
 		var password=$scope.password;
@@ -58,7 +58,10 @@ loginModule.controller('loginController',['$compile','$scope',"$http","$rootScop
 	
 				if(response["login_type"]=="user"){
 //					window.open("request_list.html?token="+token+"&uid="+user_id,"_self");	
-					window.open("request_list.html?uid="+user_id,"_self");	
+					//window.open("request_list.html?uid="+user_id,"_self");	
+				
+					alert("Forbidden. You are not allowed to enter this site.");
+				
 				}
 				else if(response["login_type"]=="administrator"){
 					window.open("admin_dashboard.html?token="+token+"&uid="+user_id+"&b=N","_self");			
