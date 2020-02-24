@@ -1,5 +1,5 @@
-var requestModule=angular.module('requestApp',['datatables']);
-requestModule.controller("requestController",['$compile', '$scope','$http','$window', function requestController($compile, $scope,$http,$window){
+var requestModule=angular.module('requestApp',['datatables','ngCookies']);
+requestModule.controller("requestController",['$compile', '$scope','$http','$window','$cookies', function requestController($compile, $scope,$http,$window,$cookies){
 
 //	var request_id = window.location.search.split("uid=")[1];	
 //	$scope.request_id=request_id;
@@ -13,6 +13,7 @@ requestModule.controller("requestController",['$compile', '$scope','$http','$win
 	
 	//$http.get("http://localhost/lnf_api_old/lnf_api/requests/userRequests/"+request_id+"/?api_token="+token)
 	var host=$window.hostName;
+	$scope.user_name=$cookies.get("user_name");
 
 	
 	var url=host+"requests/recent/1";

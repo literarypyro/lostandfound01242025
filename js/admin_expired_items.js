@@ -1,5 +1,5 @@
-var requestModule=angular.module('itemsApp',['datatables']);
-requestModule.controller("itemsController",['$compile', '$scope','$http','$window', function itemsController($compile, $scope,$http,$window){
+var requestModule=angular.module('itemsApp',['datatables','ngCookies']);
+requestModule.controller("itemsController",['$compile', '$scope','$http','$window','$cookies', function itemsController($compile, $scope,$http,$window,$cookies){
 
 //	var request_id = window.location.search.split("uid=")[1];	
 //	$scope.request_id=request_id;
@@ -8,7 +8,8 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 
 	$scope.assetfolder=host+"public/assets/images/items/";	
 		//alert(request_id);
-		
+		$scope.user_name=$cookies.get("user_name");
+	
 		
 //	var request_id=$rootScope.user_id;
 //	var token=window.location.search.split("token=")[1];

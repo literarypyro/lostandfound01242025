@@ -6,13 +6,14 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 	var isBase=$window.isBase;
 	//alert($window.sessionStorage.getItem("user"));
 
+//	$cookies.put("A","a");
 	if(isBase==""){
 		var baseCheck = window.location.search.split("b=")[1];	
 		$window.isBase=baseCheck;
 		isBase=baseCheck;
 		
 	}
-	
+	$scope.user_name=$cookies.get("user_name");
 	
 	$scope.isBase=isBase;
 	

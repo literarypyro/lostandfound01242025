@@ -1,9 +1,9 @@
-var addItemModule=angular.module('addItemApp',['ui.select2']);
-addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$window', function addController($compile, $scope,$http,$window){
+var addItemModule=angular.module('addItemApp',['ui.select2','ngCookies']);
+addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$window','$cookies', function addController($compile, $scope,$http,$window,$cookies){
 
 	var host=$window.hostName;
 	$scope.receiver=null;
-	
+	$scope.user_name=$cookies.get("user_name");
 	var addToggle=false;
 	
 	

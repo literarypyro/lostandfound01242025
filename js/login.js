@@ -1,15 +1,13 @@
 var loginModule=angular.module('loginApp',['ngCookies']);
 
 
-loginModule.controller('loginController',['$compile','$scope',"$http","$rootScope",'$window','$cookies', function loginController($compile, $scope,$http,$rootScope,myService,$window,$cookies){
+loginModule.controller('loginController',['$compile','$scope',"$http","$rootScope",'$window','$cookies', function loginController($compile, $scope,$http,$rootScope,$window,$cookies){
 
 //	var host=$window.hostName;
-	//$cookies.put("user","A");
-
-	$scope.loginUser=function($cookies){
+	$scope.loginUser=function(){
 		
 
-		
+
 		//var url=host+"login";
 		var url="http://10.20.5.11/lnf_api_old/lnf_api/login";
 		//var url="http://192.168.1.11/lnf_api_old/lnf_api/login";
@@ -43,13 +41,14 @@ loginModule.controller('loginController',['$compile','$scope',"$http","$rootScop
 				var user_id=response["userid"];
 				
 				$window.user_id=user_id;	
-//				$cookies["user"]=user_id;
-//				$cookies.put("user",user_id);
+//				this.$cookies["user"]=user_id;
 //				$window.user_name=response["username"];
 				
 				$scope.error_mesage=response["message"];
 				$scope.error_confirm=response["confirm"];
-				
+				$cookies.put("user",user_id);
+				$cookies.put("user_name",response["name"]);
+
 				//$cookies["user"]=user_id;
 				
 //				$rootScope.username=response["username"];

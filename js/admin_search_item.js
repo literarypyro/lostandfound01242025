@@ -1,12 +1,12 @@
-var requestModule=angular.module('searchApp',['datatables']);
-requestModule.controller("searchController",['$compile', '$scope','$http','$window', function searchController($compile, $scope,$http,$window){
+var requestModule=angular.module('searchApp',['datatables','ngCookies']);
+requestModule.controller("searchController",['$compile', '$scope','$http','$window','$cookies', function searchController($compile, $scope,$http,$window,$cookies){
 
 	var host=$window.hostName;
 
 	var request_id = window.location.search.split("uid=")[1];	
 	$scope.request_id=request_id;
 	$scope.assetfolder=host+"public/assets/images/items/";	
-
+	$scope.user_name=$cookies.get("user_name");
 	
 		//alert(request_id);
 		
