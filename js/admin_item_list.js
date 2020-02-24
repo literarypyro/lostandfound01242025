@@ -1,10 +1,10 @@
-var requestModule=angular.module('itemsApp',['datatables','ngSanitize']);
-requestModule.controller("itemsController",['$compile', '$scope','$http','$window', function itemsController($compile, $scope,$http,$window){
+var requestModule=angular.module('itemsApp',['datatables','ngSanitize','ngCookies']);
+requestModule.controller("itemsController",['$compile', '$scope','$http','$window','$cookies', function itemsController($compile, $scope,$http,$window,$cookies){
 
 	var editHTML="";
 
 	var isBase=$window.isBase;
-	
+	//alert($window.sessionStorage.getItem("user"));
 
 	if(isBase==""){
 		var baseCheck = window.location.search.split("b=")[1];	

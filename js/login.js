@@ -1,11 +1,12 @@
-var loginModule=angular.module('loginApp',[]);
+var loginModule=angular.module('loginApp',['ngCookies']);
 
 
-loginModule.controller('loginController',['$compile','$scope',"$http","$rootScope", function loginController($compile, $scope,$http,$rootScope,myService){
+loginModule.controller('loginController',['$compile','$scope',"$http","$rootScope",'$window','$cookies', function loginController($compile, $scope,$http,$rootScope,myService,$window,$cookies){
 
 //	var host=$window.hostName;
+	//$cookies.put("user","A");
 
-	$scope.loginUser=function(){
+	$scope.loginUser=function($cookies){
 		
 
 		
@@ -15,7 +16,8 @@ loginModule.controller('loginController',['$compile','$scope',"$http","$rootScop
 		
 		var username=$scope.username;
 		var password=$scope.password;
-		
+
+				
 		var parameter = JSON.stringify({username:$scope.username, password:$scope.password});
 		$http.post(url, parameter).
 		then(function(resp, status, headers, config) {
@@ -39,13 +41,16 @@ loginModule.controller('loginController',['$compile','$scope',"$http","$rootScop
 				
 				
 				var user_id=response["userid"];
-
 				
-				
+				$window.user_id=user_id;	
+//				$cookies["user"]=user_id;
+//				$cookies.put("user",user_id);
+//				$window.user_name=response["username"];
 				
 				$scope.error_mesage=response["message"];
 				$scope.error_confirm=response["confirm"];
 				
+				//$cookies["user"]=user_id;
 				
 //				$rootScope.username=response["username"];
 				
