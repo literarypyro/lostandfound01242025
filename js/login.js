@@ -9,7 +9,8 @@ loginModule.controller('loginController',['$compile','$scope',"$http","$rootScop
 
 
 		//var url=host+"login";
-		var url="http://10.20.5.11/lnf_api_old/lnf_api/login";
+		//var url="http://10.20.5.11/lnf_api_old/lnf_api/login";
+		var url="http://localhost/lnf_api_old/lnf_api/login";
 		//var url="http://192.168.1.11/lnf_api_old/lnf_api/login";
 		
 		var username=$scope.username;
