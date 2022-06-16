@@ -1,9 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="application/pdf; charset=UTF-8">
-<meta http-equiv="Content-Disposition" content="inline;filename='report.pdf'" charset=UTF-8">
-
+<meta http-equiv="Content-Type" content="application/xls; charset=UTF-8">
+<meta http-equiv="Content-Disposition" content="attachment; filename=report.xls" charset=UTF-8">
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
@@ -13,28 +12,52 @@
   <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-
 <style type='text/css' media='print'>
 @media print {
-	@page { margin-top: 1in; }
-	body { margin-top: 1in; 
+	@page { 
+	
+	
+	margin-top:0mm;
+	margin-bottom:0mm;
+	
+	}
+	body { margin-top: 2in; 
+		margin-bottom:2in;
 		text-align:justify;
 		font-size: 13pt;
 		font-family: "Segoe UI";
-		table #training{
+		table #training {
 			
 			font-size: 11pt;
 			font-family: "Segoe UI";
 			
 			td {
 				vertical-align: text-top;
-				
 			}
+			
 			
 		}
 		table  #signatory {
 			font-size: 13pt;
 			font-family: "Segoe UI";
+		}
+		
+		table #items {
+			font-size: 11pt;
+			font-family: "Segoe UI";
+		
+			tr td {
+				border:1pt solid black;
+			}
+			tr th {
+				border:1pt solid black;
+			}
+		
+		}
+		
+		hr {
+			border:1pt solid black;
+		
 		}
 	}
 
@@ -68,6 +91,7 @@
 
 @page {
 	size: 5.5in 8.5in;
+
 }
 
 
@@ -115,7 +139,6 @@
 	
 }
 </style>
-
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -128,10 +151,24 @@
 <script src="js/angular-datatables.js"></script>
 <script src="js/db.js"></script>
  <script src="js/admin_print_report3.js"></script>
+<script language='javascript'>
 
+function printDiv(){
+  var divToPrint=document.getElementById('itemsApp');
+  newWin= window.open("");
+  newWin.document.write(divToPrint.outerHTML);
+  newWin.print();
+  newWin.close();
+
+}
+</script>
 </head>
-<body onclick='window.print()'>
-<div ng-app='itemsApp'>
+<body onclick='printDiv()'>
+
+<div ng-app='itemsApp' id='itemsApp'>
+<br>
+<br>
+<br>
 
 <div ng-controller='itemsController'>
 <p>
@@ -143,32 +180,10 @@ MEMORANDUM
 </p>
 
 <table>
-<tr>
-
-<td width=10%><b>FOR</b></td>			<td width=5%><b>:</b></td><td width=85%><b> 	RODOLFO J. GARCIA</b></td>
-</tr>
-<tr>
-<td colspan=2>
-</td>
-<td>
-				General Manager<br>
-</td>
-</tr>
-<tr>
-<td colspan=2>
-</td>
-
-<td>
-				DOTr-MRT3
-</td>
-</tr>
-<tr>
-<td colspan=3>&nbsp;</td>
-</tr>
 
 <tr>
 <td>
-<b>THRU</b>		</td><td><b>:</b></td><td><b>	MICHAEL J. CAPATI</b></td>
+<b>FOR</b>		</td><td><b>:</b></td><td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MICHAEL J. CAPATI</b></td>
 </b><br>
 </td>
 </tr>
@@ -177,8 +192,8 @@ MEMORANDUM
 <td colspan=2>
 </td>
 
-<td>
-				Director for Operations		
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					Director for Operations		
 </td>
 </tr>
 <tr>
@@ -187,8 +202,8 @@ MEMORANDUM
 				
 <b>				
 <tr>
-<td>
-<b>SUBJECT</b></td>		<td><b>:</b></td><td>  <b>Station Base Daily Monitoring Report of Lost and Found Items on {{ period | date: "EEEE" }}, {{ period | date: "dd MMMM yyyy" }}</b>
+<td style='vertical-align:top'>
+<b>SUBJECT</b></td>		<td style='vertical-align:top'><b>:</b></td><td style='vertical-align:top'>  <b>&nbsp;&nbsp;&nbsp;&nbsp;Station Base Daily Monitoring Report of Lost and Found Items on <span ng-if="period2==''">{{ period | date: "EEEE" }}, </span>{{ period | date: "dd MMMM yyyy" }} {{ conjunct }} <span ng-if="period2!==''">{{ period2 | date: "dd MMMM yyyy" }}</span></b>
 </td>
 </tr>
 </b>
@@ -198,29 +213,29 @@ MEMORANDUM
 <hr />
 <p>
 
-Hereunder is the list of Lost and Found items submitted to Station Base on Saturday, {{ period | date: "dd MMMM yyyy" }} revenue operations
+Hereunder is the list of Lost and Found items submitted to Station Base on <span ng-if="period2==''">{{ period | date: "EEEE" }}, </span>{{ period | date: "dd MMMM yyyy" }} {{ conjunct }} <span ng-if="period2!==''">{{ period2 | date: "dd MMMM yyyy" }}</span> revenue operations
 from North Avenue to Taft Avenue Stations.
 <br>
 <br>
 
 
-         <table class="table table-bordered table-striped">
+         <table id='items' border=0  class="table table-bordered table-striped">
          <thead>
          <tr>
-             <th>Date Item Found</th>
-             <th>Station</th>
-             <th>Item No.</th>
-             <th>Description/Particulars</th>
-             <th>Remarks</th>
+             <th style='border:1px solid black;'>Date Item Found</th>
+             <th style='border:1px solid black;'>Station</th>
+             <th style='border:1px solid black;'>Item No.</th>
+             <th style='border:1px solid black;'>Description/Particulars</th>
+             <th style='border:1px solid black;'>Remarks</th>
         </tr>
         </thead>
         <tbody>
 		<tr ng-repeat="item in items">
-            <td>{{ item["found_record"].found_date | date: 'MM/dd/yyyy' }}</td>
-            <td>{{ item["location"].code }}</td>
-            <td>{{ item["found_record"].reference_number }}</td>
-            <td>{{ item.description }}</td>
-			<td></td>
+            <td style='border:1px solid black;'>{{ item["found_record"].found_date.replace(" 00:00:00","") | date: 'MM/dd/yyyy' }}</td>
+            <td style='border:1px solid black;'>{{ item["location"].code }}</td>
+            <td style='border:1px solid black;'>{{ item.item_no }}</td>
+            <td style='border:1px solid black;'>{{ item.description }}</td>
+			<td style='border:1px solid black;'><span ng-if="item.status_type_id==3">Claimed</span><span ng-if="item.status_type_id!=3">Unclaimed</span></td>
 		</tr>
 		</tbody>
 	</table>
@@ -253,7 +268,7 @@ from North Avenue to Taft Avenue Stations.
 
 	<tr>
 	<td>
-	<b>CLARISSA M.<br> MANCENIDO</b>
+	<b>{{ prepared_by }}</b>
 	</td>
 	<td>
 	<b>EMMA E. MORALES/<br>JANE A. ABIERA</b>
@@ -265,7 +280,7 @@ from North Avenue to Taft Avenue Stations.
 
 	<tr>
 	<td>
-	STDO, Station<br> Division
+	{{ prepared_position }}
 	</td>
 	<td>
 	SVTDO, Station<br> Division
@@ -275,7 +290,12 @@ from North Avenue to Taft Avenue Stations.
 	</td>
 	
 	</tr>
-
+	<tr>
+	<td colspan=3 style='font:8px;'>
+	cc: Station Base, File<br>
+	Ref No. {{ ref_no }}
+	</td>
+	</tr>
 	</table>
 	
 	

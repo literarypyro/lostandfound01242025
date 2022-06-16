@@ -3,7 +3,15 @@ dashboardModule.controller('dashboardController',['$compile','$scope',"$http", f
 	var item_id=$scope.item_id;
 	var token=$rootScope.token;
 	
-	$http.get("http://192.168.1.11/lnf_api/items/all/1?api_token="+token).then(function(response) {$scope.items  = response.data; });	
+//	$http.get("http://192.168.1.163/lnf_api/items/all/1?api_token="+token).then(function(response) {$scope.items  = response.data; });	
+
+
+	$http.get("http://127.0.0.1/lnf_api/items/all/1?api_token="+token).then(function(response) {$scope.items  = response.data; });	
+
+
+
+
+
 	$scope.retrieveItem=function (){
 
 		var item_id=$scope.item_id;
@@ -16,8 +24,17 @@ dashboardModule.controller('dashboardController',['$compile','$scope',"$http", f
 		//$http.get("http://localhost/lnf_api/item/"+item_id+"/status/?api_token="+token").then(function(response) {$scope.items = response.requests;});	
 	
 	};
+
 	
-	$http.get("http://192.168.1.11/lnf_api/requests/all/1/?api_token="+token).then(function(response) {$scope.requests = response.data; });	
+	$http.get("http://192.168.1.163/lnf_api/requests/all/1/?api_token="+token).then(function(response) {$scope.requests = response.data; });	
+
+
+
+
+
+
+
+
 	
 	$scope.retrieveRequest=function (){
 		

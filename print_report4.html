@@ -16,7 +16,13 @@
 
 <style type='text/css' media='print'>
 @media print {
-	@page { margin-top: 1in; }
+	@page { 
+	
+	
+	margin-top:0mm;
+	margin-bottom:0mm;
+	
+	}
 	body { margin-top: 1in; 
 		text-align:justify;
 		font-size: 13pt;
@@ -31,6 +37,18 @@
 				
 			}
 			
+		}
+				table #items {
+			font-size: 11pt;
+			font-family: "Segoe UI";
+		
+			tr td {
+				border:1px solid black;
+			}
+			tr th {
+				border:1px solid black;
+			}
+		
 		}
 		table  #signatory {
 			font-size: 13pt;
@@ -128,7 +146,16 @@
 <script src="js/angular-datatables.js"></script>
 <script src="js/db.js"></script>
  <script src="js/admin_print_report4.js"></script>
+<script language='javascript'>
+function printDiv(){
+  var divToPrint=document.getElementById('itemsApp');
+  newWin= window.open("");
+  newWin.document.write(divToPrint.outerHTML);
+  newWin.print();
+  newWin.close();
 
+}
+</script>
 </head>
 <body onclick='window.print()'>
 <div ng-app='itemsApp'>

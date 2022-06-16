@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="application/pdf; charset=UTF-8">
+<meta http-equiv="Content-Disposition" content="inline;filename='report.pdf'" charset=UTF-8">
+
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+
+<style type='text/css' media='print'>
+@media print {
+	@page { 
+	
+	
+	margin-top:0mm;
+	margin-bottom:0mm;
+	
+	
+	}
+	body { margin-top: 1in; 
+		text-align:justify;
+		font-size: 13pt;
+		font-family: "Segoe UI";
+		table #training {
+			
+			font-size: 11pt;
+			font-family: "Segoe UI";
+			
+			td {
+				vertical-align: text-top;
+				
+			}
+			
+		}
+		table  #signatory {
+			font-size: 13pt;
+			font-family: "Segoe UI";
+		}
+		
+		table #items {
+			font-size: 11pt;
+			font-family: "Segoe UI";
+		
+		
+		}
+	}
+
+
+	
+	table  #signatory {
+	font-size: 13pt;
+	font-family: "Segoe UI";
+	}
+	p {
+	font-size: 13pt;
+	font-family: "Segoe UI";
+	}
+
+
+	#header {
+	font-size: 16pt;
+	font-family: "Segoe UI";
+	}
+
+	
+}	
+
+
+	#header {
+	font-size: 16pt;
+	font-family: "Segoe UI";
+	}
+
+
+
+@page {
+	size: 5.5in 8.5in;
+
+}
+
+
+@page {
+	size: A4 portrait;
+}
+
+@page :left {
+    margin-left: 1in;
+	margin-right: 1in;
+}
+
+@page :right {
+    margin-left: 1in;
+	margin-right: 1in;
+
+ }
+
+@page :first {
+
+}
+
+@page :blank {
+	@top-center { content: "This page is intentionally left blank." }
+}
+</style>
+<style type='text/css' media='screen'>
+
+@media screen {
+	p {
+		margin-left: 2cm;
+		margin-right:2cm;
+	}
+	
+	hr {
+		margin-left: 2cm;
+		margin-right:2cm;
+	}
+	
+	table {
+		margin-left: 2cm;
+		margin-right:2cm;
+	}
+
+	
+}
+</style>
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
+<script src="js/angular-datatables.js"></script>
+<script src="js/db.js"></script>
+ <script src="js/admin_print_report3.js"></script>
+
+</head>
+<body onclick='window.print()'>
+<div ng-app='itemsApp'>
+
+<div ng-controller='itemsController'>
+<p>
+<b>
+{{ date | date: "dd MMMM yyyy" }} <br>
+<br>
+MEMORANDUM
+</b>
+</p>
+
+<table>
+
+<tr>
+<td>
+<b>FOR</b>		</td><td><b>:</b></td><td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MICHAEL J. CAPATI</b></td>
+</b><br>
+</td>
+</tr>
+
+<tr>
+<td colspan=2>
+</td>
+
+<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					Director for Operations		
+</td>
+</tr>
+<tr>
+<td colspan=3>&nbsp;</td>
+</tr>
+				
+<b>				
+<tr>
+<td style='vertical-align:top'>
+<b>SUBJECT</b></td>		<td style='vertical-align:top'><b>:</b></td><td style='vertical-align:top'>  <b>&nbsp;&nbsp;&nbsp;&nbsp;Station Base Daily Monitoring Report of Lost and Found Items on {{ period | date: "EEEE" }}, {{ period | date: "dd MMMM yyyy" }}</b>
+</td>
+</tr>
+</b>
+<br>
+</table>				
+
+<hr />
+<p>
+
+Hereunder is the list of Lost and Found items submitted to Station Base on {{ period | date: "EEEE" }}, {{ period | date: "dd MMMM yyyy" }} revenue operations
+from North Avenue to Taft Avenue Stations.
+<br>
+<br>
+
+
+         <table id='items' class="table table-bordered table-striped">
+         <thead>
+         <tr>
+             <th>Date Item Found</th>
+             <th>Station</th>
+             <th>Item No.</th>
+             <th>Description/Particulars</th>
+             <th>Remarks</th>
+        </tr>
+        </thead>
+        <tbody>
+		<tr ng-repeat="item in items">
+            <td>{{ item["found_record"].found_date.replace(" 00:00:00","") | date: 'MM/dd/yyyy' }}</td>
+            <td>{{ item["location"].code }}</td>
+            <td>{{ item.item_no }}</td>
+            <td>{{ item.description }}</td>
+			<td><span ng-if="item.status_type_id==3">Claimed</span><span ng-if="item.status_type_id!=3">Unclaimed</span></td>
+		</tr>
+		</tbody>
+	</table>
+	<p>
+	For your information and appropriate action.
+	
+	
+	</p>
+
+	<table width=100% id='signatory'>
+	<tr>
+	<td width=30%>
+	Prepared by:
+	</td>
+	<td width=40%>
+	Checked and Verified by:
+	</td>
+	<td width=30%>
+	Noted by:
+	</td>
+	
+	</tr>
+	</tr>
+		<tr rows=2>
+		
+	<td colspan=3><br><br>
+	</td>
+	
+	</tr>
+
+	<tr>
+	<td>
+	<b>{{ prepared_by }}</b>
+	</td>
+	<td>
+	<b>EMMA E. MORALES/<br>JANE A. ABIERA</b>
+	</td>
+	<td>
+	<b>RODA B. ESPEJO<br></b>
+	</td>
+	
+
+	<tr>
+	<td>
+	{{ prepared_position }}
+	</td>
+	<td>
+	SVTDO, Station<br> Division
+	</td>
+	<td>
+	Chief, Station<br> Division
+	</td>
+	
+	</tr>
+	<tr>
+	<td colspan=3 style='font:8px;'>
+	cc: Station Base, File<br>
+	Ref No. {{ ref_no }}
+	</td>
+	</tr>
+	</table>
+	
+	
+	</div>
+</div>
+</body>
+</html>

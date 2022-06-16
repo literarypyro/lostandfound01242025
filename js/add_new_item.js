@@ -1,6 +1,7 @@
 var addItemModule=angular.module('addItemApp',['ui.select2','ngCookies']);
 addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$window','$cookies', function addController($compile, $scope,$http,$window,$cookies){
 
+	var submitToggle=false;
 	var host=$window.hostName;
 	$scope.receiver=null;
 	$scope.user_name=$cookies.get("user_name");
@@ -174,6 +175,7 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 	
 	$scope.addReceiverDetails=function(){
 		
+
 		$scope.receiver=$scope.receiver_details;
 
 
@@ -182,139 +184,143 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 	
 	}		
 	$scope.addItem=function(){
-		var url=host+"item";
-		var newVal=$scope.category;
 		
-		if((newVal=="4")||(newVal=="21")){
+		if(!submitToggle){
+			var url=host+"item";
+			var newVal=$scope.category;
 			
-			if(($scope.ref_identification==null)||($scope.id_type==null)){
-				alert("Specify Identification Details first");
-				$('#modal-identification').modal("show");
-				return false;
+			if((newVal=="4")||(newVal=="21")){
 				
+				if(($scope.ref_identification==null)||($scope.id_type==null)){
+					alert("Specify Identification Details first");
+					$('#modal-identification').modal("show");
+					return false;
+					
+				}
+			
 			}
-		
-		}
-		
-		
-		
-		addToggle=true;
+			
+			
+			addToggle=true;
+			
 		/*
-		var parameter = JSON.stringify({
-							user_id:$scope.user_id,
-							description:$scope.description,
-							category:$scope.category,
-							item_type:$scope.item_type,
-				//			request_date:$scope.request_date, 
-							color:$scope.color,
-							shape:$scope.shape,
-							length:$scope.length,
-							width:$scope.width,
-							other_details:$scope.other_details
-						});
-		$http.post(url, parameter).
-		then(function(response, status, headers, config) {
-			// this callback will be called asynchronously
-			// when the response is available
-			
-			
-			
-			
-			$scope.resp=response.data;
-			
-			$scope.message="Item successfully recorded.";
-			
-			window.open('admin_dashboard.html','_SELF');
-			
-			
-			
-			
-			
-		}).
-		error(function(data, status, headers, config) {
-			// called asynchronously if an error occurs
-			// or server returns response with an error status.
-		});
-		*/
-		if(($scope.item_type=="")||($scope.item_type==null)){
-			alert("Error: Item Type Missing");
-			
-		}
-		else if(($scope.category=="")||($scope.category==null)){
-			alert("Error: Category Missing");
-		}
-		else {
-		
-			if($scope.found_date!==""){
-
-				var photo=$scope.file;
-			
-				var payload = new FormData();
-				payload.append("found_date", $scope.found_date);
-				payload.append("user_id", $scope.user_id);
-				payload.append('description', $scope.description);
-				payload.append('category', $scope.category);
-				payload.append('item_type', $scope.item_type);
-				payload.append('color', $scope.color);
-				payload.append('shape', $scope.shape);
-				payload.append('length', $scope.length);
-				payload.append('width', $scope.width);
-				payload.append('other_details', $scope.other_details);
-				payload.append('file', $scope.img);
-				payload.append('receiver_id', $scope.receiver);
-				payload.append('location_id', $scope.item_location);
-
+			var parameter = JSON.stringify({
+								user_id:$scope.user_id,
+								description:$scope.description,
+								category:$scope.category,
+								item_type:$scope.item_type,
+					//			request_date:$scope.request_date, 
+								color:$scope.color,
+								shape:$scope.shape,
+								length:$scope.length,
+								width:$scope.width,
+								other_details:$scope.other_details
+							});
+			$http.post(url, parameter).
+			then(function(response, status, headers, config) {
+				// this callback will be called asynchronously
+				// when the response is available
 				
 				
 				
-				if((newVal=="4")||(newVal=="21")){
-					
-					payload.append('identification_ref_no', $scope.ref_identification);
-					payload.append('identification_type', $scope.id_type);
-
-					
-				}	
-					
-					
-					
-					$http({
-						url: url,
-						method: 'POST',
-						data: payload,
-						//assign content-type as undefined, the browser
-						//will assign the correct boundary for us
-						headers: { 'Content-Type': undefined},
-						//prevents serializing payload.  don't do it.
-						transformRequest: angular.identity
-					})
-					.then(function(response, status, headers, config) {
-							// this callback will be called asynchronously
-							// when the response is available
-							
-							
-							
-							
-						$scope.resp=response.data;
-
-						$scope.ref_identification="";
-						$scope.id_type="";
-						
-						$scope.message="Item successfully recorded.";
-							
-						window.open('admin_dashboard.html','_SELF');
-							
-							
-							
-							
-							
-					}).
-					error(function(data, status, headers, config) {
-						// called asynchronously if an error occurs
-						// or server returns response with an error status.
-					});
+				
+				$scope.resp=response.data;
+				
+				$scope.message="Item successfully recorded.";
+				
+				window.open('admin_dashboard.html','_SELF');
+				
+				
+				
+				
+				
+			}).
+			error(function(data, status, headers, config) {
+				// called asynchronously if an error occurs
+				// or server returns response with an error status.
+			});
+	*/
+			if(($scope.item_type=="")||($scope.item_type==null)){
+				alert("Error: Item Type Missing");
 				
 			}
+			else if(($scope.category=="")||($scope.category==null)){
+				alert("Error: Category Missing");
+			}
+			else {
+			
+				if($scope.found_date!==""){
+
+					var photo=$scope.file;
+				
+					var payload = new FormData();
+					payload.append("found_date", $scope.found_date);
+					payload.append("user_id", $scope.user_id);
+					payload.append('description', $scope.description);
+					payload.append('category', $scope.category);
+					payload.append('item_type', $scope.item_type);
+					payload.append('color', $scope.color);
+					payload.append('shape', $scope.shape);
+					payload.append('length', $scope.length);
+					payload.append('width', $scope.width);
+					payload.append('other_details', $scope.other_details);
+					payload.append('file', $scope.img);
+					payload.append('receiver_id', $scope.receiver);
+					payload.append('item_no', $scope.item_no);
+
+					payload.append('location_id', $scope.item_location);
+
+					
+					
+					
+					if((newVal=="4")||(newVal=="21")){
+						
+						payload.append('identification_ref_no', $scope.ref_identification);
+						payload.append('identification_type', $scope.id_type);
+
+						
+					}	
+						
+						
+						$http({
+							url: url,
+							method: 'POST',
+							data: payload,
+							//assign content-type as undefined, the browser
+							//will assign the correct boundary for us
+							headers: { 'Content-Type': undefined},
+							//prevents serializing payload.  don't do it.
+							transformRequest: angular.identity
+						})
+						.then(function(response, status, headers, config) {
+								// this callback will be called asynchronously
+								// when the response is available
+								
+							$scope.resp=response.data;
+
+							$scope.ref_identification="";
+							$scope.id_type="";
+							
+							$scope.message="Item successfully recorded.";
+								
+							window.open('admin_dashboard.html','_SELF');
+								
+								
+								
+								
+						}).
+						error(function(data, status, headers, config) {
+
+							// called asynchronously if an error occurs
+							// or server returns response with an error status.
+						});
+				}
+			}
+		
+		submitToggle=true;	
+		
 		}
+		
 	}
 	$scope.logout=function (){
 		$http.get(host+"logout").

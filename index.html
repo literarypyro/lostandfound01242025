@@ -30,20 +30,23 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style='background-color:rgb(233, 233, 231);'>
 <div ng-app="loginApp">
-<div ng-controller='loginController'>
-<div class="login-box">
-  <div class="login-logo">
-  </div>
+<div ng-controller='loginController' >
+	<div class="jumbotron jumbotron-fluid" style='background-color:rgb(236, 230, 212);'>
+	  <div class="container">
+            <img class="block-center img-rounded img-fluid" src="img/banner.jpg" alt="Image" />
+	  </div>
+	</div>
+<div class='container' align=center>
+<div class='row'>
+<div class="col-md-6" style='height:200px; ' >
+
   <!-- /.login-logo -->
-  <div class="login-box-body">
+  
+  <div class="login-box-body"  style='background-color:rgb(241, 245, 244);border:2px solid rgb(236, 230, 212);' >
       <div class="login-logo">
-         <a href="#"  >
-            <img class="block-center img-rounded img-fluid" src="img/mrt3 logo.jpg" alt="Image" />
-         </a>
-		<br>
-		<a href="#"><b>Lost and Found</b></a>
+		<a href="#"><b>Login</b></a>
         </div>
 
 	  <p class="login-box-msg">Sign in to start your session</p>
@@ -71,20 +74,44 @@
         </div>
         <!-- /.col -->
       </div>
+	<a href="register.html" class="text-center">Register a new membership</a>
+
+</div>
+</div>
+<div class="col-md-3 ">
+
+  <div class="login-box-body"  style='background-color:rgb(241, 245, 244);border:2px solid rgb(236, 230, 212);'>
+      <div class="login-box-msg">
+		<a href="#"><h3><b>Scan QR Code for Android App</b></h3></a>
+        </div>
+
+      <div class="row">
+        <div class="login-logo">
+           <a href="apk/lostandfound.apk" target="_BLANK"> 
+			<img class="block-center img-rounded img-fluid" width=80% height=80% src="download_app.php" alt="Image" />
+			</a>
+		<br>
+
+		</div>
+
     </form>
 	
 	<span ng-if="error_confirm==false" class='btn btn-primary' >{{ error_message }}</span>
     <!--
 	<a href="#">I forgot my password</a><br>
     -->
-	<a href="register.html" class="text-center">Register a new membership</a>
+      </div>
 
   </div>
-  <!-- /.login-box-body -->
 </div>
+</div>
+  <!-- /.login-box-body -->
 <!-- /.login-box -->
 </div>
 </div>
+</div>
+</div>
+
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->

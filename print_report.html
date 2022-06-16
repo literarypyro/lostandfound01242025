@@ -8,7 +8,13 @@
 
 <style type='text/css' media='print'>
 @media print {
-	@page { margin-top: 1in; }
+	@page { 
+	
+	
+	margin-top:0mm;
+	margin-bottom:0mm;
+	
+	}
 	body { margin-top: 1in; 
 		text-align:justify;
 		font-size: 13pt;
@@ -123,6 +129,16 @@
  <script src="js/admin_print_report4.js"></script>
 
 </head>
+<script language='javascript'>
+function printDiv(){
+  var divToPrint=document.getElementById('itemsApp');
+  newWin= window.open("");
+  newWin.document.write(divToPrint.outerHTML);
+  newWin.print();
+  newWin.close();
+
+}
+</script>
 <body onclick='window.print()'>
 <div ng-app='itemsApp'>
 

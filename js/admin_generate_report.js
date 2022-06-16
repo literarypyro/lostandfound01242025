@@ -8,7 +8,7 @@ requestModule.controller("searchController",['$compile', '$scope','$http','$wind
 	$scope.assetfolder=host+"public/assets/images/items/";	
 	$scope.user_name=$cookies.get("user_name");
 
-	
+	$scope.baseModel={};
 		//alert(request_id);
 		
 //	var request_id=$rootScope.user_id;
@@ -37,14 +37,17 @@ requestModule.controller("searchController",['$compile', '$scope','$http','$wind
 
 	
 		var range=$scope.daterange;
-		var search_type=$scope.search_type;
+		var search_type=$scope.baseModel.search_type;
+		var prepared_by=$scope.baseModel.prepared_by;
+		var prepared_position=$scope.baseModel.prepared_position;
+		var ref_no=$scope.baseModel.ref_no;
 		
 
 		if(search_type=="monthly"){
-			window.open("print_report2.html?date="+range,"_BLANK");
+			window.open("print_report2.html?date="+range+"&prepared_by="+prepared_by+"&prep_pos="+prepared_position+"&ref_no="+ref_no,"_BLANK");
 		}
 		else if(search_type=="daily"){
-			window.open("print_report3.html?date="+range,"_BLANK");
+			window.open("print_report3.html?date="+range+"&prepared_by="+prepared_by+"&prep_pos="+prepared_position+"&ref_no="+ref_no,"_BLANK");
 			
 		}
 		else if(search_type=="charity"){

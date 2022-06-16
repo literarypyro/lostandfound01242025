@@ -1,5 +1,5 @@
 var requestModule=angular.module('itemsApp',['datatables','ngSanitize','ngCookies']);
-requestModule.controller("itemsController",['$compile', '$scope','$http','$window','$cookies', function itemsController($compile, $scope,$http,$window,$cookies){
+requestModule.controller("itemsController",['$compile', '$scope','$http','$window','$cookies', 'DTOptionsBuilder', 'DTColumnDefBuilder', function itemsController($compile, $scope,$http,$window,$cookies, DTOptionsBuilder, DTColumnDefBuilder){
 
 	var editHTML="";
 
@@ -35,7 +35,12 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 
 
 	
-	
+	$scope.deleteItem=function(delete_id){
+//		$http.get("http://192.168.1.163/lnf_api/item/"+delete_id+"/remove").then(function(response) { alert(response.data); });	
+		$http.get("http://127.0.0.1/lnf_api_old/lnf_api/item/"+delete_id+"/remove").then(function(response) { alert(response); });	
+//		alert(delete_id);
+
+	}			
 	
 	
 	
@@ -60,7 +65,14 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 			$scope.expired_items = response;
 			//console.log(data);
 	});
-	
+	$scope.dtColumnDefs = [  
+		DTColumnDefBuilder.newColumnDef([2]).withOption('type', 'date').notSortable()
+	];
+	$scope.dtOptions=[
+		DTOptionsBuilder.newOptions().withOption('order',[[1,'desc']])
+	];
+		
+
 		var url=host+"items/recent/1";
 	
 	
@@ -77,7 +89,6 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 			//console.log(data);
 		});
 
-		
 	$scope.editField=function (){
 		if($scope.edit_field=="picture"){
 			$scope.submitPhoto();
@@ -214,6 +225,7 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 	*/
 	}
 
+
 	$scope.initiateEdit=function (elem,elem_id){
 
 		$scope.edit_id=elem_id;
@@ -255,6 +267,20 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 			
 			
 		}
+
+		else if(elem=="item_no"){
+		
+			editHTML="<label class='text-muted'>Edit Item No.</label>";
+			editHTML+="<input class='form-control' type='text' id='edit_value' name='edit_value' ng-model='edit_value'  />";
+	
+	
+			$('#edit_content').html(editHTML);
+	
+//			$scope.edit_content="<input type='text' />";
+			
+			
+		}
+
 		else if(elem=="category_id"){
 
 
@@ -325,6 +351,49 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 				for(var i=0;i<locations.length;i++){
 					
 					editHTML+="<option value='"+locations[i]['id']+"'>"+locations[i]['location']+"</option>";		
+					
+
+				
+				}
+				
+				
+				editHTML+="</select>";
+				
+				$('#edit_content').html(editHTML);
+				
+				
+			});	
+
+			
+		}
+		else if(elem=="receiver_id"){
+			$scope.edit_type="found_record";
+
+
+			var url=host+"receivers";
+			$http.get(url)
+			.then(function(resp, status, headers, config) {
+				// this callback will be called asynchronously
+				// when the response is available
+				var response=resp.data;
+							
+				//if login is illegal
+				
+				
+				$scope.receivers = response;
+				//console.log(data);
+				
+				editHTML="<label class='text-muted'>Edit Receiver</label>";
+
+				editHTML+="<select ui-select2  class=\"form-control\" id='edit_value' name='edit_value' ng-model='edit_value'>";
+				
+				
+				
+				
+				var receivers=response;
+				for(var i=0;i<receivers.length;i++){
+					
+					editHTML+="<option value='"+receivers[i]['id']+"'>"+receivers[i]['lastName']+", "+receivers[i]['firstName']+"</option>";		
 					
 
 				

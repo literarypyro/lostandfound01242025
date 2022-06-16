@@ -43,7 +43,6 @@ requestModule.controller("searchController",['$compile', '$scope','$http','$wind
 		
 		var url=host+"items/"+search_type+"/"+search_term+"/range/"+range;
 
-		
 	
 //		var request_id=id;
 		
@@ -54,7 +53,7 @@ requestModule.controller("searchController",['$compile', '$scope','$http','$wind
 		$http.get(url).then(function(resp, status, headers, config) {
 			var response=resp.data;
 
-			if(search_type=="search"){
+			if($scope.search_type=="search"){
 				$scope.items=response;		
 			}			
 			else {

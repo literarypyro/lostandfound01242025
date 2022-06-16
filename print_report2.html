@@ -22,8 +22,8 @@
 		font-size: 13pt;
 		font-family: "Segoe UI";
 		table #training{
-			
 			font-size: 11pt;
+			border:1px solid black;
 			font-family: "Segoe UI";
 			
 			td {
@@ -32,11 +32,28 @@
 			}
 			
 		}
+		table #items {
+			font-size: 11pt;
+			font-family: "Segoe UI";
+		
+			tr td {
+				border:1px solid black;
+			}
+			tr th {
+				border:1px solid black;
+			}
+		
+		}
+		table {
+			table-layout:fixed;
+		
+		}
 		table  #signatory {
 			font-size: 13pt;
 			font-family: "Segoe UI";
 		}
 	}
+	
 
 
 	
@@ -116,10 +133,20 @@
 <script src="js/angular-datatables.js"></script>
 <script src="js/db.js"></script>
  <script src="js/admin_print_report2.js"></script>
+<script language='javascript'>
+function printDiv(){
+  var divToPrint=document.getElementById('itemsApp');
+  newWin= window.open("");
+  newWin.document.write(divToPrint.outerHTML);
+  newWin.print();
+  newWin.close();
+
+}
+</script>
 
 </head>
-<body onclick='window.print()'>
-<div ng-app='itemsApp'>
+<body onclick='printDiv()'>
+<div ng-app='itemsApp' id='itemsApp'>
 
 <div ng-controller='itemsController'>
 <div align=center>
@@ -137,7 +164,7 @@ For the month of {{ period | date: "MMMM" }}
 </div>
 
 
-         <table class="table table-bordered table-striped">
+         <table id='items' border=1 class="table table-bordered table-striped">
          <thead>
          <tr>
              <th>Date Item Found</th>
@@ -151,11 +178,65 @@ For the month of {{ period | date: "MMMM" }}
 		<tr ng-repeat="item in items">
             <td>{{ item["found_record"].found_date | date: "MM/dd/YYYY" }}</td>
             <td>{{ item["location"].code }}</td>
-            <td>{{ item["found_record"].reference_number }}</td>
+            <td>{{ item.item_no }}</td>
             <td>{{ item.description }}</td>
             <td>{{ item.is_claimed }}</td>
 		</tr>
 		</tbody>
+	</table>
+		</p>
+
+	<table width=100% id='signatory'>
+	<tr>
+	<td width=30%>
+	Prepared by:
+	</td>
+	<td width=40%>
+	Checked and Verified by:
+	</td>
+	<td width=30%>
+	Noted by:
+	</td>
+	
+	</tr>
+	</tr>
+		<tr rows=2>
+		
+	<td colspan=3><br><br>
+	</td>
+	
+	</tr>
+
+	<tr>
+	<td>
+	<b>{{ prepared_by }}</b>
+	</td>
+	<td>
+	<b>EMMA E. MORALES/<br>JANE A. ABIERA</b>
+	</td>
+	<td>
+	<b>RODA B. ESPEJO<br></b>
+	</td>
+	
+
+	<tr>
+	<td>
+	{{ prepared_position }}
+	</td>
+	<td>
+	SVTDO, Station<br> Division
+	</td>
+	<td>
+	Chief, Station<br> Division
+	</td>
+	
+	</tr>
+	<tr>
+	<td colspan=3 style='font:8px;'>
+	cc: Station Base, File<br>
+	Ref No. {{ ref_no }}
+	</td>
+	</tr>
 	</table>
 </div>
 </div>

@@ -39,7 +39,7 @@ requestModule.controller("searchController",['$compile', '$scope','$http', funct
 		
 		
 		
-		var url="http://192.168.1.11/lnf_api_old/lnf_api/items/"+search_type+"/"+search_term;
+		var url="http://192.168.1.163/lnf_api_old/lnf_api/items/"+search_type+"/"+search_term;
 
 //		var request_id=id;
 		
@@ -76,7 +76,7 @@ requestModule.controller("searchController",['$compile', '$scope','$http', funct
 		
 	};
 	$scope.logout=function (){
-		$http.get("http://192.168.1.11/lnf_api_old/lnf_api/logout").
+		$http.get("http://192.168.1.163/lnf_api_old/lnf_api/logout").
 		then(function(response, status, headers, config) {
 			// this callback will be called asynchronously
 			// when the response is available

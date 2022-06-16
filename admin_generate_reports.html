@@ -47,6 +47,54 @@
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+	<style type='text/css'>
+	.table-primary td  {
+		background-color:rgb(233, 233, 231);
+
+	}
+	.thead-dark th {
+		background-color:rgb(126, 238, 212, 1);
+     }
+
+	.logo-lg {
+		background-color:rgb(239, 209, 169);
+
+	}
+	.main_sidebar {
+		color:green;
+
+	}
+
+	.sidebar {
+		background-color:rgb(223, 231, 233);
+
+	}
+	.fa, a span {
+
+		color:green;
+	}	
+
+	.sidebar-menu li:hover {
+		background-color:rgb(96, 156, 164, 1);
+		color:white;
+
+	}
+
+
+	.treeview-menu {
+		background-color:red;
+
+	}
+
+	.sidebar-menu hover {
+		color:white;
+		background-color:rgb(96, 156, 164, 1);
+
+	}
+	
+
+
+	</style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div ng-app='searchApp'>
@@ -56,14 +104,14 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="../../index2.html" class="logo">
+    <a href="../../index2.html" class="logo" style='background-color:rgb(239, 209, 169); color:green;'>
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>Lost and Found System</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
+    <nav class="navbar navbar-static-top" style='background-color:rgb(239, 209, 169); color:green;'>
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
@@ -72,7 +120,7 @@
         <span class="icon-bar"></span>
       </a>
 
-      <div class="navbar-custom-menu">
+      <div class="navbar-custom-menu" style='background-color:rgb(239, 209, 169); color:green;'>
         <ul class="nav navbar-nav">
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
@@ -128,7 +176,7 @@
     </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
+  <aside class="main-sidebar" style='background-color:rgb(223, 231, 233); '>
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
@@ -154,7 +202,7 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
+        <li class="header" style='background-color:rgb(96, 156, 164, 1); color:white;'>MAIN NAVIGATION</li>
          <li class="treeview">
           <a href="#">
             <i class="fa fa-clone"></i>
@@ -246,13 +294,27 @@
 
 
 				<div class='col-md-2'>
-                  <select class="form-control" name='search_type' ng-model='search_type'>
+                  <select class="form-control" name='search_type' ng-model='baseModel.search_type'>
                     <option value='monthly'>Monthly Report</option>
                     <option value='daily'>Daily Report</option>
                     <option value='charity'>Letter to Charity</option>
                     <option value='disposal'>Letter for Disposal of Items</option>
                   </select>
 				</div>
+				<div ng-if="baseModel.search_type=='daily' || baseModel.search_type=='monthly'" class='col-md-3'>
+					<span >Prepared By:</span><input  class="form-control" id="prepared_by" type="text" name="prepared_by" ng-model="baseModel.prepared_by"  required="" />
+					
+					
+					<span >Position:</span>
+					<input class="form-control" id="prepared_position" type="text" name="prepared_position" ng-model="baseModel.prepared_position"  required="" />
+
+					<span >Reference No:</span>
+					<input class="form-control" id="prepared_position" type="text" name="ref_no" ng-model="baseModel.ref_no"  required="" />
+
+
+
+				</div>
+
 				<div class='col-md-2'>
 		          <button type="button" ng-click='generateReport()' class="btn btn-primary btn-block btn-flat">Search Item</button>
 
