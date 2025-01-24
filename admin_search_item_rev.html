@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>Lost and Found: Add Found Item</title>
+      <!-- CSS -->
+      <link href="css2/bootstrap.min.css" rel="stylesheet">
+      <link href="css2/teststyle.css" rel="stylesheet">
+
+      <!-- FONT -->
+      <link href="https://fonts.gstatic.com" rel="preconnect">
+      <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+
+	<!-- DataTables -->
+
+<!--	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script> -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+	<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-cookies.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-animate/1.7.8/angular-animate.js"></script>
+   <script src="js/angular-datatables.js"></script>
+   <script src="js/db.js"></script>
+   <script src="js/admin_search_item.js"></script> 
+
+
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Google Font -->
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+	<style type='text/css'>
+	.table-primary td  {
+		background-color:rgb(233, 233, 231);
+
+	}
+	.thead-dark th {
+		background-color:rgb(126, 238, 212, 1);
+     }
+
+	.logo-lg {
+		background-color:rgb(239, 209, 169);
+
+	}
+	.main_sidebar {
+		color:green;
+
+	}
+
+	.sidebar {
+		background-color:rgb(223, 231, 233);
+
+	}
+	.fa, a span {
+
+		color:green;
+	}	
+
+	.sidebar-menu li:hover {
+		background-color:rgb(96, 156, 164, 1);
+		color:white;
+
+	}
+	
+
+	.treeview-menu {
+		background-color:red;
+
+	}
+
+	.sidebar-menu hover {
+		color:white;
+    		background: #cc0616;
+
+	}
+
+	.found_item {
+		  animation: fadeIn 3s forwards;
+		  animation-duration: 3s;
+		  animation-delay: calc(var(.f_item) * 3s);
+		  animation-delay: -webkit-calc(var(.f_item) * 3s);
+		  animation-delay: -moz-calc(var(.f_item) * 3s);
+
+
+		  animation-fill-mode: both;
+		  animation-timing-function: ease-in-out;
+		  margin:20px;
+		  
+		width:150px;
+		border-radius: 15px;
+
+
+	}
+
+	.found_item img {
+	
+    box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+    -webkit-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+    -moz-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+	
+	
+	}
+
+
+
+	@keyframes fadeIn {
+	  0% { opacity: 0; 
+
+	      transform: translateX(0px);
+		
+		}
+  	  100% { opacity: 1; 
+
+	      transform: translateX(0);
+
+		}
+	}
+@keyframes fadeInUp {
+    0%  { opacity:-0.5;
+        visibility:none;  
+	 transform: translateY(+20px)
+	height:10px;
+
+    }
+
+    100% {
+        transform: translateY(0px);
+        visibility:visible;
+	opacity: 1
+	height:+80px;
+    }
+}
+
+@-webkit-keyframes fadeInUp {
+    0%  { opacity:-0.5;
+        visibility:none;  
+	 transform: translateY(+20px)
+	height:10px;
+
+    }
+
+    100% {
+        transform: translateY(0px);
+        visibility:visible;
+	opacity: 1
+	height:+80px;
+    }
+}
+	.dropdown-menu {
+		display:none;
+		position:absolute;
+		background-color:#fff;
+		z-index:0;
+
+	}
+
+	.dropdown-menu p {
+		margin-left:20px;
+		margin-right:20px;
+
+
+	}	
+
+	.found_item_title {
+		text-align: center;
+	}
+
+
+	.dropup:hover .dropdown-menu {
+		display:block;
+		width:150px;
+		max-height:150px;
+		bottom:0px;
+ 		animation: fadeInUp 3s forwards;
+  		animation-duration: 2.5s;
+ 		animation-delay: 2;
+  		animation-fill-mode: both;
+  		animation-timing-function: ease-in-out;
+		object-fit:scale-down;
+		background: #cc0616;
+
+		opacity:0.80;
+		color:white;
+
+	}
+
+	.found_item:hover {
+   -moz-box-shadow: 3px 3px 4px #000; 
+   -webkit-box-shadow: 3px 3px 4px #000; 
+   box-shadow: 3px 3px 4px #000; 
+  opacity: 0.2;
+	}
+
+	.found_item:hover img {
+
+	  opacity: 0.75;
+
+	}	
+
+
+	.found_item .item_box{
+    box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+    -webkit-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+    -moz-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+
+	}
+
+
+	</style>
+
+
+   </head>
+   <body>
+   
+
+	  
+	  <!-- CONTAINER -->
+	<div ng-app='searchApp' class="container d-flex align-items-center min-vh-100">
+	   <div ng-controller='searchController' >
+		<div class="row g-0 justify-content-center">
+		  <!-- TITLE -->
+		  
+		  
+			<div class="col-lg-4 offset-lg-1 mx-0 px-0">
+			   <div id="title-container">
+				  <img class="covid-image" src="./img/covid-check.jpeg">
+				  <h2>Lost Item</h2>
+				  <h3>Search Item Form</h3>
+				  <p>Browses through catalogue of lost items through search term</p>
+				  <a href="admin_dashboard.html" class='btn_primary'>Return to Main Page</a>
+				  
+			   </div>
+			</div>
+		  
+		  <!-- FORMS -->
+<div class="col-lg-7 mx-0 px-0">
+   <div class="progress">
+      <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="50" class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%"></div>
+   </div>
+   <div id="qbox-container">
+      <form class="needs-validation" id="form-wrapper" method="post" name="form-wrapper" novalidate>
+         <!-- STEPS HERE -->
+         <div id="steps-container">
+		 
+		 
+			<div class="step">
+                <div class="mt-3">
+                  <label class="form-label">Date Range:</label> 
+			<input class="form-control" id="search_term" type="text" name="daterange" ng-model="daterange"  required="" />
+   
+
+	            </div>
+
+
+               <div class="mt-2">
+                  <label class="form-label">Search Term:</label> 
+				<div class='col-md-12'>
+			<input class="form-control" id="search_term" type="text" name="search_term" ng-model="search_term"  required="" />
+		</div>
+               </div>
+               <div class="mt-2">
+                  <label class="form-label">Search Type:</label> 
+                  <select class="form-control" name='search_type' ng-model='search_type'>
+                    <option value='category'>Category</option>
+                    <option value='itemType'>Item Type</option>
+                    <option value='search'>Name</option>
+                  </select>
+               </div>
+
+
+
+
+            </div>
+				
+           <div class="step">
+		
+		  <div class='item_row' style="display: flex; flex-wrap:wrap;" ng-repeat='item in items | limitTo:1' >
+			<div class='item_box' ng-repeat="ex_item in item"  style="display:flex; flex-wrap:wrap;" >
+			<div class='found_item dropup col-lg-3'  value='{{ $index }}' ><input type=hidden class='f_item' value='{{ $index }}' />
+			<img style="height:150px; width:150px; border-radius: 15px; object-fit:cover;" ng-src="{{ assetfolder2 }}{{ ex_item['details'].picture }}" />
+				<div class='dropdown-menu'>
+					<p class='found_item_title'>
+					{{ ex_item.description }} 
+					</p>
+					<p class='found_item_text'>
+					{{ ex_item['found_record'].found_date_label }} <br>
+
+					</p>
+
+				</div>
+
+		 
+
+<!--			<br ng-if="found_item.value % 5==0" /> -->
+			
+	
+
+
+            </div>		
+		
+		
+		</div>
+		
+		</div>
+	
+
+			</div>		
+            
+            <div id="success">
+               <div class="mt-5">
+                  <h4>Success! We'll get back to you ASAP!</h4>
+                  <p>Meanwhile, clean your hands often, use soap and water, or an alcohol-based hand rub, maintain a safe distance from anyone who is coughing or sneezing and always wear a mask when physical distancing is not possible.</p>
+                  <a class="back-link" href="">Go back from the beginning ➜</a>
+               </div>
+            </div>
+         </div>
+ 	<div id="q-box__buttons">
+            <button id="prev-btn" type="button">Previous</button> 
+            <button id="next-btn" type="button" ng-click="searchItem()">Next</button> 
+			            <button id="submit-btn" type="submit">Submit</button>
+
+         </div>
+
+
+
+
+		 
+		 
+		 
+      </form>
+   </div>
+</div>
+
+
+		  
+		  </div>
+
+	</div>
+	
+<div id="preloader-wrapper">
+   <div id="preloader"></div>
+   <div class="preloader-section section-left"></div>
+   <div class="preloader-section section-right"></div>
+</div>	  
+      <script type="text/javascript" src="testscript.js"></script>
+	  
+   </body>
+</html>

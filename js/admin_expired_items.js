@@ -6,7 +6,7 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 
 	var host=$window.hostName;
 
-	$scope.assetfolder=host+"public/assets/images/items/";	
+	$scope.assetfolder2=host+"assets/images/items/";	
 		//alert(request_id);
 		$scope.user_name=$cookies.get("user_name");
 	

@@ -19,7 +19,7 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 
 	var host=$window.hostName;
 
-	$scope.assetfolder=host+"public/assets/images/items/";
+	$scope.assetfolder=host+"assets/images/items/";
 
 
 	var url=host+"expired";

@@ -2,7 +2,6 @@ var loginModule=angular.module('loginApp',['ngCookies']);
 
 
 loginModule.controller('loginController',['$compile','$scope',"$http","$rootScope",'$window','$cookies', function loginController($compile, $scope,$http,$rootScope,$window,$cookies){
-
 //	var host=$window.hostName;
 	$scope.loginUser=function(){
 		
@@ -11,11 +10,15 @@ loginModule.controller('loginController',['$compile','$scope',"$http","$rootScop
 		//var url=host+"login";
 		//var url="http://10.20.5.11/lnf_api_old/lnf_api/login";
 //		var url="http://localhost/lnf_api_old/lnf_api/login";
-		var url="http://192.168.1.163/lnf_api_old/lnf_api/login";
+//		var url="http://10.20.4.200/lnf_api_old/lnf_api/login";
+
+//		var url="http://192.168.1.162/lnf_api_old/lnf_api/login";
+
+		var url="https://oms.dotrmrt3.gov.ph/psilva/lnf_api/login";
+
 		
 		var username=$scope.username;
 		var password=$scope.password;
-
 				
 		var parameter = JSON.stringify({username:$scope.username, password:$scope.password});
 		$http.post(url, parameter).
@@ -32,12 +35,11 @@ loginModule.controller('loginController',['$compile','$scope',"$http","$rootScop
 			
 			
 			if(response["confirm"]==false){
-				$scope.error_message=response["message"];
-
-			}
-			else {
-				var token=response["token"];
 				
+				$scope.error_message=response["message"];
+			}
+			else if(response["confirm"]==true){
+				var token=response["token"];
 				
 				var user_id=response["userid"];
 				
@@ -59,7 +61,6 @@ loginModule.controller('loginController',['$compile','$scope',"$http","$rootScop
 //				$rootScope.token=response["token"];
 //				$rootScope.login_type=response["login_type"];
 	
-				
 	
 				if(response["login_type"]=="user"){
 //					window.open("request_list.html?token="+token+"&uid="+user_id,"_self");	
@@ -69,14 +70,16 @@ loginModule.controller('loginController',['$compile','$scope',"$http","$rootScop
 				
 				}
 				else if(response["login_type"]=="administrator"){
-					window.open("admin_dashboard.html?token="+token+"&uid="+user_id+"&b=N","_self");			
+					window.open("admin_2.html?token="+token+"&uid="+user_id+"&b=N","_self");			
 				}
 				else if(response["login_type"]=="station_base"){
-					window.open("admin_dashboard.html?token="+token+"&uid="+user_id+"&b=Y","_self");			
+					window.open("admin_2.html?token="+token+"&uid="+user_id+"&b=Y","_self");			
 				}
 				
 				
 				
+			}
+			else {
 			}
 			//console.log(data);
 		})

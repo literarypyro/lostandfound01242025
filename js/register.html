@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>Lost and Found: Add Found Item</title>
+      <!-- CSS -->
+      <link href="css2/bootstrap.min.css" rel="stylesheet">
+      <link href="css2/teststyle2.css" rel="stylesheet">
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+      <!-- FONT -->
+      <link href="https://fonts.gstatic.com" rel="preconnect">
+      <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-cookies.min.js"></script>
+
+<script src="bower_components/angular-ui-select2/src/select2.js"></script>
+<script src="bower_components/select2/select2.js"></script>
+   <script src="js/db.js"></script>
+  <script src="js/registration.js"></script>
+  <style type='text/css'>
+  .add-item-container {
+    min-height: 100vh;
+    background: #f8f9fa;
+    padding: 2rem;
+}
+
+.form-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.address-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .address-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.confirmation-message {
+    text-align: center;
+    padding: 2rem;
+}
+  </style>
+   </head>
+   <body>
+   
+
+	  <!-- CONTAINER -->
+	<div ng-app='registrationApp' class="add-item-container container d-flex align-items-center min-vh-100">
+	
+	<div class='form-card' ng-controller='registrationController'>
+	
+	        <div class="row g-0">
+            <!-- Left Side - Title Section -->
+            <div class="col-lg-4">
+                <div id="title-container">
+                    <img src="./img/mrt3_login_img.jpg" alt="MRT Background">
+                    <div class="title-content">
+                        <h2>Lost and Found System</h2>
+                        <p>System for cataloguing lost and searched for items</p>
+                    </div>
+                </div>
+            </div>
+			
+			
+			
+	
+	
+		  
+          <!-- Right Side - Form Section -->
+            <div class="col-lg-8">
+                <div class="form-section">
+                    <!-- Progress Bar -->
+                    <div class="progress-animated">
+                        <div class="bar"></div>
+                    </div>
+
+                    <!-- Form Steps -->
+                    <form class="needs-validation" id="form-wrapper" novalidate>
+                        <div id="steps-container">
+                            <!-- Step 1: Account Details -->
+                            <div class="step">
+                                <h4>Sign Up Here:</h4>
+                                <div class="form-group">
+                                    <label class="form-label">Username</label> 
+                                    <input class="form-control" ng-model="username" type="text" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Password</label> 
+                                    <input class="form-control" ng-model="password" type="password" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Confirm Password</label> 
+                                    <input class="form-control" ng-model="confirm_password" type="password" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">User Type</label>
+                                    <select class="form-control" ng-model="user_type">
+                                        <option value="user">User</option>
+                                        <option value="administrator">Administrator</option>
+                                        <option value="station">Station</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: Personal Information -->
+                            <div class="step">
+                                <h4>Profile Information</h4>
+                                <div class="form-group">
+                                    <label class="form-label">First Name</label>
+                                    <input class="form-control" ng-model="first_name" type="text" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Middle Name</label>
+                                    <input class="form-control" ng-model="middle_name" type="text">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Last Name</label>
+                                    <input class="form-control" ng-model="last_name" type="text" required>
+                                </div>
+                            </div>
+
+                            <!-- Step 3: Address -->
+                            <div class="step">
+                                <h4>Address Information</h4>
+                                <div class="address-grid">
+                                    <div class="form-group">
+                                        <label class="form-label">Unit/House No.</label>
+                                        <input class="form-control" ng-model="unit" type="text">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Street</label>
+                                        <input class="form-control" ng-model="street" type="text">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">City</label>
+                                        <input class="form-control" ng-model="city" type="text">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Province</label>
+                                        <input class="form-control" ng-model="province" type="text">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Country</label>
+                                        <select class="form-control" ng-model="country_id">
+                                            <option ng-repeat="country in countries" value="{{country.id}}">
+                                                {{country.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Zip Code</label>
+                                        <input class="form-control" ng-model="zip_code" type="text">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 4: Contact Information -->
+                            <div class="step">
+                                <h4>Contact Information</h4>
+                                <div class="form-group">
+                                    <label class="form-label">Landline</label>
+                                    <input class="form-control" ng-model="landline" type="text">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Mobile</label>
+                                    <input class="form-control" ng-model="mobile" type="text">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input class="form-control" ng-model="email" type="email" required>
+                                </div>
+                            </div>
+
+                            <!-- Confirmation Step -->
+                            <div class="step">
+                                <div class="confirmation-message">
+                                    <h4>Ready to Submit</h4>
+                                    <p>Please review your information before submitting.</p>
+                                    <p>Click submit to create your account.</p>
+                                </div>
+                            </div>
+
+                            <!-- Success Message -->
+                            <div id="success">
+                                <h4>Registration Successful!</h4>
+                                <p>Your account has been created successfully.</p>
+                                <p>Redirecting to login page...</p>
+                            </div>
+                        </div>
+
+                        <!-- Navigation Buttons -->
+                        <div id="q-box__buttons">
+                            <button id="prev-btn" type="button">Previous</button>
+                            <button id="next-btn" type="button">Next</button>
+                            <button id="submit-btn" type="submit" ng-click="registerUser()">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+</div>
+		  
+		  </div>
+		  </div>
+
+	
+<div id="preloader-wrapper">
+   <div id="preloader"></div>
+   <div class="preloader-section section-left"></div>
+   <div class="preloader-section section-right"></div>
+</div>	  
+      <script type="text/javascript" src="testscript3.js"></script>
+	  
+   </body>
+</html>

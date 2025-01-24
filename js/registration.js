@@ -1,123 +1,120 @@
-var registrationModule=angular.module("registrationApp",["ngRoute"]);
+var registrationModule=angular.module("registrationApp",['ui.select2','ngCookies']);
 
-registrationModule.config(['$routeProvider','$locationProvider',
-  function($routeProvider,$locationProvider) {
-     $locationProvider
-	  .html5Mode(false)
-	  .hashPrefix('!');
-    $routeProvider.
-      when('register.html#!/details', {
-        templateUrl: 'details_page.html',
-        controller: 'detailsController'
-      });
-      //when('/showOrders', {
-       // templateUrl: 'templates/show-orders.html',
-       // controller: 'ShowOrdersController'
-      //}).
-//      .otherwise({
-      //  redirectTo: '/addOrder'
- //       templateUrl: 'register.html',
-  //      controller: 'registrationController'
-      
-	  
-	  
-	//  });
-  }]);
-registrationModule.controller("registrationController",['$compile','$scope',"$http","$rootScope","$window", function registrationController($compile, $scope,$http,$rootScope,$window){
 
-	$scope.registerUser=function (){
+registrationModule.controller("registrationController",['$compile','$scope',"$http","$rootScope","$window","$cookies", function registrationController($compile, $scope,$http,$rootScope,$window){
+
+$scope.registerUser=function() {
+    const surl = "https://oms.dotrmrt3.gov.ph/psilva/lnf_api/register";
+    const username = $scope.username;
+    const name = $scope.first_name+" "+$scope.last_name;
+    const password = $scope.password;
+    const user_type = $scope.user_type;
+
+        const steps = document.getElementsByClassName("step");
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const preloader = document.getElementById('preloader-wrapper');
+        const successDiv = document.getElementById('success');
+
+
+    parameter = JSON.stringify({ username, password, name, user_type });
+
+
+        // Hide all steps and buttons
+        Array.from(steps).forEach(step => {
+            step.style.display = 'none';
+        });
+        if(prevBtn) prevBtn.style.display = 'none';
+        if(nextBtn) nextBtn.style.display = 'none';
+        if(submitBtn) submitBtn.style.display = 'none';
+        // Show preloader
+        preloader.style.display = 'block';
+        successDiv.style.display = 'none';
 		
+//    try {
+      $http.post(surl, parameter)
+	  .then(function(resp) {
+        const response = resp.data;
+        $scope.user_id = response.user_id;
+
+
+
+        if ($scope.user_id=="") {
+            throw new Error("User ID is not returned from registration");
+        }
+
+        const profileParameter = JSON.stringify({
+            first_name: $scope.first_name,
+            last_name: $scope.last_name,
+            middle_name: $scope.middle_name
+        });
+
+
+
+
+
+        return $http.post(`https://oms.dotrmrt3.gov.ph/psilva/lnf_api/registerProfile/${$scope.user_id}`, profileParameter);
+	  })	
+    .then(function(resp2) {
+        const response2 = resp2.data;
+        $scope.profile_id = response2.profile_id;
 		
-	
-	//	var url="http://192.168.1.163/lnf_api_old/lnf_api/register";
-		var url="http://10.20.5.11/lnf_api_old/lnf_api/register";
-		var username=$scope.username;
-		var name=$scope.name;
-		var password=$scope.password;
-		var user_type=$scope.user_type;
-	
-	
-		var parameter = JSON.stringify({username:username, password:password, name:name,user_type:user_type});
-		$http.post(url, parameter).
-		then(function(response, status, headers, config) {
-			// this callback will be called asynchronously
-			// when the response is available
-			var user=response.data;
-
-
-			$scope.user_id=user["user_id"];
+        const addressParameter = JSON.stringify({
+            unit: $scope.unit,
+            street: $scope.street,
+            subdivision: $scope.subdivision,
+            city: $scope.city,
+            province: $scope.province,
+            zip_code: $scope.zip_code,
+            country_id: $scope.country_id
+        });		
+        return $http.post(`https://oms.dotrmrt3.gov.ph/psilva/lnf_api/registerAddress/${$scope.profile_id}`, addressParameter);
+    })
+    .then(function(resp3) {
+        const response3 = resp3.data;
+        $scope.profile_id2 = response3.profile_id;
+		
+        const contactParameter = JSON.stringify({
+            landline: $scope.landline,
+            mobile: $scope.mobile,
+            email: $scope.email
 			
-			$window.open('details_page.html?user_id='+$scope.user_id,'_SELF');
+        });		
+        return $http.post(`https://oms.dotrmrt3.gov.ph/psilva/lnf_api/registerContact/${$scope.profile_id2}`, contactParameter);
+    })
+    .then(function() {
+                // Hide preloader and show success after all API calls complete
+                preloader.style.display = 'none';
+                successDiv.style.display = 'block';
 
-		}).
-		error(function(data, status, headers, config) {
-			// called asynchronously if an error occurs
-			// or server returns response with an error status.
-		});
-	};
-	
-	$scope.enterProfileDetails=function(){
-		
-
-		var profile_parameter = JSON.stringify({
-									first_name:first_name, 
-									last_name:last_name, 
-									middle_name:middle_name
-								});
-		var address_parameter = JSON.stringify({
-									unit:unit, 
-									street:street, 
-									subdivision:subdivision, 
-									city:city, 
-									zip_code:zip_code, 
-									country_id:country_id, 
-									
-								});
-		var contact_parameter = JSON.stringify({
-									landline:landline, 
-									mobile:mobile, 
-									email:email
-								});
-
-//		var url="http://192.168.1.163/lnf_api/register/"+$scope.user_id+"/profile";						
-//		var url2="http://192.168.1.163/lnf_api/register/"+$scope.user_id+"/address";						
-//		var url3="http://192.168.1.163/lnf_api/register/"+$scope.user_id+"/contact";						
-
-		var url="http://10.20.5.11/lnf_api/register/"+$scope.user_id+"/profile";						
-		var url2="http://10.20.5.11/lnf_api/register/"+$scope.user_id+"/address";						
-		var url3="http://10.20.5.11/lnf_api/register/"+$scope.user_id+"/contact";						
-								
-		$http.post(url, profile_parameter).
-		success(function(data, status, headers, config) {
+                // Redirect after showing success message
+                setTimeout(() => {
+                    $window.open("../lostnfound", '_SELF');
+                }, 1500);
+    })
+    .catch(function(error) {
+        console.error("Error during registration:", error);
+                // Hide preloader on error
+                preloader.style.display = 'none';
+                // Show error message to user
+                alert('Registration failed. Please try again.');
+    });
+}
+		var url4="https://oms.dotrmrt3.gov.ph/psilva/lnf_api/countries";
+		$http.get(url4)
+		.then(function(resp, status, headers, config) {
 			// this callback will be called asynchronously
 			// when the response is available
-			$scope.profile_message=data["message"];
-		}).
-		error(function(data, status, headers, config) {
-			// called asynchronously if an error occurs
-			// or server returns response with an error status.
-		});
-		$http.post(url2, address_parameter).
-		success(function(data, status, headers, config) {
-			// this callback will be called asynchronously
-			// when the response is available
-			$scope.address_message=data["message"];
-		}).
-		error(function(data, status, headers, config) {
-			// called asynchronously if an error occurs
-			// or server returns response with an error status.
-		});
-		$http.post(url3, contact_parameter).
-		success(function(data, status, headers, config) {
-			// this callback will be called asynchronously
-			// when the response is available
-			$scope.contact_message=data["message"];
-		}).
-		error(function(data, status, headers, config) {
-			// called asynchronously if an error occurs
-			// or server returns response with an error status.
-		});
-	};
+			var response=resp.data;
+			//if login is illegal
+					
+					
+			$scope.countries = response;
+			//console.log(data);
+		});	
+
+
 }]);
 
 

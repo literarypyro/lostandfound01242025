@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>Lost and Found: Add Found Item</title>
+      <!-- CSS -->
+      <link href="css2/bootstrap.min.css" rel="stylesheet">
+      <link href="css2/teststyle.css" rel="stylesheet">
+
+      <!-- FONT -->
+      <link href="https://fonts.gstatic.com" rel="preconnect">
+      <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+
+	<!-- DataTables -->
+
+<!--	<script type="text/javascript"  src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script> -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+   <script src="js/bootstrap.min.js"></script>
+
+
+	<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-cookies.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-animate/1.7.8/angular-animate.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.7.8/angular-sanitize.js"></script>
+ <script src="js/ng-file-upload.js"></script> 
+<script src="js/ng-file-upload-shim.js"></script> 
+
+ <script src="js/angular-datatables.js"></script>
+   <script src="js/db.js"></script>
+ <script src="js/admin_request_list.js"></script>
+
+
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Google Font -->
+
+
+
+
+
+
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+	<style type='text/css'>
+	.table-primary td  {
+		background-color:rgb(233, 233, 231);
+
+	}
+	.thead-dark th {
+		background-color:rgb(126, 238, 212, 1);
+     }
+
+	.logo-lg {
+		background-color:rgb(239, 209, 169);
+
+	}
+	.main_sidebar {
+		color:green;
+
+	}
+
+	.sidebar {
+		background-color:rgb(223, 231, 233);
+
+	}
+	.fa, a span {
+
+		color:green;
+	}	
+
+	.sidebar-menu li:hover {
+		background-color:rgb(96, 156, 164, 1);
+		color:white;
+
+	}
+	
+	.category {
+		height: 100%;
+		margin: 20px;
+		padding:10px;
+
+	}
+
+	.treeview-menu {
+		background-color:red;
+
+	}
+
+	.sidebar-menu hover {
+		color:white;
+    		background: #cc0616;
+
+	}
+
+	.found_item {
+		  animation: fadeIn 3s forwards;
+		  animation-duration: 3s;
+		  animation-delay: calc(var(.f_item) * 3s);
+		  animation-delay: -webkit-calc(var(.f_item) * 3s);
+		  animation-delay: -moz-calc(var(.f_item) * 3s);
+
+
+		  animation-fill-mode: both;
+		  animation-timing-function: ease-in-out;
+		  margin:20px;
+		  
+		width:150px;
+		border-radius: 15px;
+
+
+	}
+
+	.found_item img {
+	
+    box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+    -webkit-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+    -moz-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+	
+	
+	}
+
+
+
+	@keyframes fadeIn {
+	  0% { opacity: 0; 
+
+	      transform: translateX(0px);
+		
+		}
+  	  100% { opacity: 1; 
+
+	      transform: translateX(0);
+
+		}
+	}
+@keyframes fadeInUp {
+    0%  { opacity:-0.5;
+        visibility:none;  
+	 transform: translateY(+20px)
+	height:10px;
+
+    }
+
+    100% {
+        transform: translateY(0px);
+        visibility:visible;
+	opacity: 1
+	height:+80px;
+    }
+}
+
+@-webkit-keyframes fadeInUp {
+    0%  { opacity:-0.5;
+        visibility:none;  
+	 transform: translateY(+20px)
+	height:10px;
+
+    }
+
+    100% {
+        transform: translateY(0px);
+        visibility:visible;
+	opacity: 1
+	height:+80px;
+    }
+}
+	.dropdown-menu {
+		display:none;
+		position:absolute;
+		background-color:#fff;
+		z-index:0;
+
+	}
+
+	.dropdown-menu p {
+		margin-left:20px;
+		margin-right:20px;
+
+
+	}	
+
+	.found_item_title {
+		text-align: center;
+	}
+
+
+	.dropup:hover .dropdown-menu {
+		display:block;
+		width:150px;
+		max-height:150px;
+		bottom:0px;
+ 		animation: fadeInUp 3s forwards;
+  		animation-duration: 2.5s;
+ 		animation-delay: 2;
+  		animation-fill-mode: both;
+  		animation-timing-function: ease-in-out;
+		object-fit:scale-down;
+		background: #cc0616;
+
+		opacity:0.80;
+		color:white;
+
+	}
+
+	.found_item:hover {
+   -moz-box-shadow: 3px 3px 4px #000; 
+   -webkit-box-shadow: 3px 3px 4px #000; 
+   box-shadow: 3px 3px 4px #000; 
+  opacity: 0.2;
+	}
+
+	.found_item:hover img {
+
+	  opacity: 0.75;
+
+	}	
+
+
+	.found_item .item_box{
+    box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+    -webkit-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+    -moz-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+
+	}
+
+
+	.container {
+background: rgb(255,255,255);
+background: linear-gradient(90deg, rgba(255,255,255,1) 0%, #fffafa 100%);
+
+
+	
+	
+	}
+	
+	.cat_title {
+	    font-family: 'Josefin Sans', sans-serif;
+		color:#555;
+		margin-bottom:10px;
+		display:flex;
+	}
+
+	.title {
+    color: #fff;
+	padding-top:7px;
+	padding-left:7px;
+  background: rgb(164,119,100);
+background: linear-gradient(90deg, rgba(164,119,100,1) 0%, rgba(195,159,137,1) 100%);
+		height:50px;
+		font-size:20;
+		text-align:left;
+		font-family: 'Josefin Sans', sans-serif;
+
+	}
+
+	
+	.cont_body {
+	
+	
+	}
+
+
+
+	</style>
+	
+	<style type='text/css'>
+	.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #f8f9fa!important;
+  overflow-x: hidden;
+  transition: 0.7s;
+  padding-top: 60px;
+  box-shadow: 0px 0px 8px #888888;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 16px;
+  text-decoration: none;
+  font-size: 15px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+  background: #a47764;
+}
+
+.sidenav::-webkit-scrollbar { 
+  display: none; 
+} 
+
+
+  .animated-icon {
+  width: 30px;
+  height: 20px;
+  position: relative;
+  margin: 0px;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: .5s ease-in-out;
+  -moz-transition: .5s ease-in-out;
+  -o-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+  cursor: pointer;
+  }
+  
+  .animated-icon span {
+  display: block;
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  border-radius: 9px;
+  opacity: 1;
+  left: 0;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: .25s ease-in-out;
+  -moz-transition: .25s ease-in-out;
+  -o-transition: .25s ease-in-out;
+  transition: .25s ease-in-out;
+  }
+  
+  .animated-icon span {
+  background: #f3e5f5;
+  }
+  
+  .animated-icon span:nth-child(1) {
+  top: 0px;
+  -webkit-transform-origin: left center;
+  -moz-transform-origin: left center;
+  -o-transform-origin: left center;
+  transform-origin: left center;
+  }
+  
+  .animated-icon span:nth-child(2) {
+  top: 10px;
+  -webkit-transform-origin: left center;
+  -moz-transform-origin: left center;
+  -o-transform-origin: left center;
+  transform-origin: left center;
+  }
+  
+  .animated-icon span:nth-child(3) {
+  top: 20px;
+  -webkit-transform-origin: left center;
+  -moz-transform-origin: left center;
+  -o-transform-origin: left center;
+  transform-origin: left center;
+  }
+  
+  .animated-icon.open span:nth-child(1) {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  top: 0px;
+  left: 8px;
+  }
+  
+  .animated-icon.open span:nth-child(2) {
+  width: 0%;
+  opacity: 0;
+  }
+  
+  .animated-icon.open span:nth-child(3) {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  top: 21px;
+  left: 8px;
+  }
+  button {border:none !important;}
+  button:focus{outline: none;}
+
+  .center {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    text-align: center;
+    vertical-align: middle;
+  }
+
+	.navbar-brand {
+		color:#fff;
+	
+	}
+	
+	
+	.cat_title {
+	
+	
+	}
+	
+	.desc_title {
+		font-size:20px;
+		font-weight:bold;
+	
+	}
+	.req_title {
+		font-size:20px;
+	
+	
+	}
+	
+	.panel1 {
+		width:60%;
+		padding-top:20px;
+		padding-left:25px;
+		background-color:#fff;
+	
+	}
+	.panel2 {
+		width:40%;
+		
+		padding-top:20px;
+		padding-left:25px;
+		background-color:#fff;
+		font-family: 'Josefin Sans', sans-serif;
+  box-shadow: 0px 0px 8px #0c0c0c;
+		margin-top:10px;
+	}
+	
+	.cat_title1 {
+		font-size:12px;
+	
+	}
+	
+	.foot {
+		font-size:12px;
+		width:100%;
+	
+	}
+	
+	
+	.requested_by {
+		font-align:left;
+	}
+	
+	.status {
+		font-align:right;
+	}
+	
+	.cat_row {
+		margin-bottom:20px;
+		padding:10px;
+  box-shadow: 0px 0px 8px #0c0c0c;
+		margin-right:10px;
+	}
+	
+	.gg_layout {
+		width:100%;
+	
+	
+	}
+	
+	.request_title {
+background: rgb(240,240,230);
+background: linear-gradient(90deg, rgba(240,240,230,1) 0%, rgba(228,199,185,1) 100%);
+	color: #56453e !important;
+	padding:10px;
+	
+	
+	}
+
+.pagination button, .claim_button, .submit_img {
+    background: #a47764;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 4px;
+}
+
+.pagination button:hover:not(:disabled) {
+    background: #c39f89;
+}
+
+.pagination button:disabled {
+    background: #cccccc;
+}	
+	
+	.panel2 {
+   width: 40%;
+   padding: 15px;
+   background-color: #fff;
+   font-family: 'Josefin Sans', sans-serif;
+   box-shadow: 0px 0px 8px #0c0c0c;
+   margin-top: 10px;
+   font-size: 14px;
+}
+
+.panel2 img {
+   height: 200px;
+   width: 150px;
+   border-radius: 10px;
+   object-fit: contain;
+}
+
+.panel2 .req_title,
+.panel2 .shape,
+.panel2 .color,
+.panel2 .length,
+.panel2 .width,
+.panel2 .other_details,
+.panel2 .requester,
+.panel2 .landline,
+.panel2 .mobile,
+.panel2 .email {
+   padding-top: 3px;
+   line-height: 1.4;
+}
+
+.panel2 b {
+   font-size: 13px;
+}
+
+.panel2 p {
+   font-size: 12px;
+   color: #666;
+   margin: 5px 0;
+}
+
+.panel2 div[align="center"] {
+   font-size: 15px;
+   padding: 8px 0;
+}
+
+/* Align panels */
+.gg_layout {
+   display: inline-flex; flex-wrap:wrap;
+   align-items: flex-start;
+   padding-top: 20px;
+}
+
+.panel1, .panel2 {
+   margin-top: 0;
+}
+
+/* Adaptive image container */
+.panel2 .image-container {
+   display: flex;
+   flex-direction: column;
+   gap: 5px;
+}
+
+.panel2 img {
+   height: auto;
+   max-height: 200px;
+   width: auto;
+   max-width: 150px;
+   margin: 0 auto;
+}
+
+
+/* Only add spacing if image exists */
+.panel2 img + .details-section {
+   margin-top: 15px;
+}
+
+.details-section, .contact-section {
+    padding-top: 10px;
+}
+
+.section-title {
+    padding-top: 15px;
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+
+.image-container + .details-section {
+    margin-top: 10px;
+}
+
+
+/* Fix content alignment */
+.panel2 {
+  box-shadow: 0px 0px 8px #0c0c0c;
+  min-height: 100%;
+  margin-top: 20px !important;
+}
+
+/* Ensure image container doesn't push content down */
+.panel2 div[align="center"] {
+  padding: 5px 0;
+}
+
+.image-container {
+  margin: 10px 0;
+  padding: 0;
+}
+
+/* Remove extra white space */
+.panel2 > *:first-child {
+  margin-top: 0;
+}
+/* Panel 1 text adjustments */
+.cat_title1 {
+ font-size: 14px;
+ color: #666;
+ margin-bottom: 5px;
+}
+
+.desc_title {
+ font-size: 18px;
+ font-weight: 600;
+ margin: 5px 0;
+ cursor: pointer;
+}
+
+.req_date {
+ font-size: 12px;
+ color: #888;
+ margin-bottom: 10px;
+}
+
+/* Footer adjustments */
+.foot {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ width: 100%;
+ font-size: 13px;
+ margin-top: auto;
+ padding-top: 10px;
+}
+
+.requested_by {
+ color: #666;
+}
+
+.status {
+ color: #a47764;
+ font-weight: 500;
+ margin-left: auto;
+}
+
+/* Card layout */
+.cat_row {
+ padding: 15px;
+ margin-bottom: 15px;
+ display: flex;
+ flex-direction: column;
+ height: 100%;
+}
+
+.panel2 div[align="center"] {
+  font-size: 15px;
+  padding: 8px 0;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.section-title {
+  text-align: center;
+  width: 100%;
+  padding: 15px 0;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-top: 1px solid #eee;
+  margin-top: 15px;
+}
+
+.details-section, .contact-section {
+   width: 100%;
+   padding: 0 15px;
+}
+
+
+
+.details-section > div,
+.contact-section > div {
+   margin-left: 20px;
+}
+
+.req_title, .shape, .color, .length, .width, .other_details,
+.requester, .landline, .mobile, .email {
+   display: block;
+   text-align: justify;
+}
+
+.details-section b,
+.contact-section b {
+   margin-right: 5px;
+}
+
+.seal {
+ position: absolute;
+ top: 20px;
+ right: 20px;
+ z-index: 1;
+}
+
+.panel2 {
+ position: relative;  /* Add this to contain absolute positioned seal */
+}
+
+/* Modal styling */
+.modal-header {
+    background-color: #a47764 !important;
+    color: white !important;
+}
+
+.modal-body {
+    padding: 2rem;
+}
+.spec_submit {
+    background: #a47764;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    border: none;
+    transition: transform 0.2s;
+}
+
+	.modal_mt-2 {
+	    padding-top:10px;
+	    vertical-align:bottom;
+	    display:inline-block;	
+		color:#dee2e6;
+
+	}
+
+	</style>
+</head>
+<body>
+<div ng-app='requestApp' class='container'>
+
+<div ng-controller='requestController'>
+
+<div class='cont_body'>
+
+
+   <div class="row">
+        <div class="col-1 d-flex justify-content-center">
+            <div id="mySidenav" class="sidenav">
+
+                <a href="admin_2.html">Dashboard</a>
+                <a href="add_new_item2.html">Add New Item</a>
+                <a href="admin_search_item3.html">Search Item</a>
+                <a href="admin_generate_reports2.html">Generate Reports</a>
+            </div>
+        </div>
+    </div>
+    <!--Navbar-->
+    <nav class="title navbar " style="box-shadow: 0px 0px 8px #888888;">
+        <!-- Collapse button -->
+        <button class="navbar-toggler hamburger-button" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation" onclick="Nav()" style="z-index: 2">
+            <div class="animated-icon"><span></span><span></span><span></span></div>
+        </button>
+        <!-- Navbar brand -->
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto" href="#">Lost and Found System</a>
+        </div>
+		<div align=right style='padding-right:5px;'>
+		<a style='text-decoration:none;color:white;' href='../lostnfound/'>Log out</a></div>		
+		
+    </nav>
+
+<div class='category'>
+
+
+
+		<div class='request_title'><div width="100%">Requests Made</div></div>		
+
+		<div class='gg_layout' style="display: inline-flex; flex-wrap:wrap;" >
+		<div class='panel1' style='display:flex;flex-direction:column'>
+		
+<div class='cat_row' ng-repeat='request in paginatedRequests()' style='border-bottom: 1px solid #888888; border-right: 1px solid #888888;'>
+		<div class='cat_title1'>{{ request["category"].type }}</div>
+		<div class='desc_title'  ng-click='retrieveItemDetails(request["details"],request["user_info"],request["latest_status"]["status_type"]["type"],request.id)'>{{ request.description }}</div>
+		<div class='req_date'>{{ request.request_date_label }}</div>
+		
+		<div class='foot' style="display: inline-flex; flex-wrap:wrap;">
+			<div class='requested_by'>Requested By: {{ request["user_info"]["name"] }} </div>
+			<div class='status'>{{ request["latest_status"]["status_type"]["type"] }}</div>
+		</div>
+		</div>
+		<!-- Add pagination controls -->
+<div class="pagination d-flex justify-content-center mt-3">
+    <button class="btn mx-1" 
+            ng-click="currentPage = currentPage - 1" 
+            ng-disabled="currentPage === 1">Previous</button>
+    <span class="mx-3 align-self-center">
+        Page {{currentPage}} of {{totalPages()}}
+    </span>
+    <button class="btn mx-1" 
+            ng-click="currentPage = currentPage + 1" 
+            ng-disabled="currentPage === totalPages()">Next</button>
+</div>
+		
+		
+		
+		</div>
+<div class='panel2' style='display:flex;flex-direction:column'>
+
+    <div align="center" ng-if="req_title!=''">PARTICULARS</div>
+	<div align=right class='seal' ng-if="req_title!='' && reqStatus=='Claimed'">
+	<svg width="80" height="80" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+    <!-- Outer Circle -->
+    <circle cx="150" cy="150" r="100" fill="none" stroke="#a47764" stroke-width="10" />
+    
+    <!-- Inner Circle -->
+    <circle cx="150" cy="150" r="85" fill="none" stroke="#a47764" stroke-width="5" stroke-dasharray="5,5" />
+    
+    <!-- Text -->
+    <text x="50%" y="50%" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#a47764" text-anchor="middle" alignment-baseline="middle">CLAIMED</text>
+</svg>
+</div>
+    
+    <div class="image-container" ng-if="picture!=''">
+        <img ng-src="{{ assetfolder2 }}{{ picture }}" style="height:auto; max-height:200px; width:auto; max-width:150px;" />
+        <div align="center">Image for reference</div>
+        <p>Any image or picture of the item that might be useful in its identification</p>
+    </div>
+
+    <div class="details-section">
+        <div ng-if="req_title" class='req_title'><b>TITLE:</b> {{ req_title }}</div>
+        <div ng-if="shape" class='shape'><b>SHAPE:</b> {{ shape }}</div>
+        <div ng-if="color" class='color'><b>COLOR:</b> {{ color }}</div>
+        <div ng-if="length" class='length'><b>LENGTH:</b> {{ length }}</div>
+        <div ng-if="width" class='width'><b>WIDTH:</b> {{ width }}</div>
+        <div ng-if="other_details" class='other_details'><b>OTHER DETAILS:</b> {{ other_details }}</div>
+    </div>
+
+    <div class="contact-section" ng-if="last_name">
+        <div align="center" class="section-title">REQUESTER CONTACT DETAILS</div>
+        <div class='requester'><b>REQUESTER:</b> {{ last_name }}, {{ first_name }}</div>
+        <div ng-if="landline" class='landline'><b>LANDLINE:</b> {{ landline }}</div>
+        <div ng-if="mobile" class='mobile'><b>MOBILE:</b> {{ mobile }}</div>
+        <div ng-if="email" class='email'><b>EMAIL:</b> {{ email }}</div>
+    </div>
+	
+			<!-- Add pagination controls -->
+<div ng-if="last_name && reqStatus!='Claimed'" class="d-flex justify-content-center mt-3">
+    <button class='claim_button'  data-bs-toggle="modal" data-bs-target="#modal_claim">Claim</button>
+</div>
+	
+			
+  <div id='modal_claim' aria-hidden="true" aria-labelledby="myLargeModalLabel2" class="modal" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header"  style='background-color:#DC3545;color:white;  font-family: "Oswald", sans-serif;'>
+                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style='color:white;'>Record a Claim</h4>
+                </div>
+                <div class="modal-body">
+               <div class="modal_mt-2" style='padding-left:10px;width:90%;'>
+					<div align=center width=100%>
+					<div class='file_img' align=center>
+					<img controls ngf-src="img" align=center style="height:auto; max-height:200px; width:auto; max-width:150px;" />		
+		
+					</div>
+
+
+					<div align=center>
+
+					  <button class="submit_img" ngf-select ng-model="img">Upload Proof of Claim</button>
+					          <div align="center" style='color: #4a5568;'>(Optional)</div>
+
+					</div>
+					</div>
+               </div>
+               <div class="modal_mt-2" style='padding-left:10px;width:90%;'>
+                  <label   class="form-label" style='color:#121212;padding-left:-10px;'>Date Claimed:</label> 
+		  
+                  <input class="form-control" style="margin-left:20px;" id="claim_date" name="claim_date" ng-model='claim_date' type="date">				  
+				  
+               </div>
+			   
+
+               <div class="modal_mt-2" style='padding-left:10px;width:90%;'>
+                  <label  class="form-label" style='color:#121212;padding-left:-10px;'>Claim Details:</label> 
+                  <textarea class="form-control"  style='margin-left:20px;' id="claim_details" ng-model="claim_details" name="claim_details" rows="3" ></textarea>
+               </div>
+
+            </div>
+                <div class="modal-footer">
+					<button type="button" class='spec_submit' data-bs-dismiss="modal" ng-click="addClaim()" >Submit</button>				
+				
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                </div>
+        </div>
+    </div>	
+	
+	
+</div>
+				</div>
+</div>
+
+
+</div>
+
+
+</div>
+</div>
+
+</div>
+
+	<script language='javascript'>
+function Nav() {
+  var width = document.getElementById("mySidenav").style.width;
+  if (width === "0px" || width == "") {
+    document.getElementById("mySidenav").style.width = "250px";
+    $('.animated-icon').toggleClass('open');
+  }
+  else {
+    document.getElementById("mySidenav").style.width = "0px";
+    $('.animated-icon').toggleClass('open');
+  }
+}
+	
+	
+	
+	
+	</script>
+	
+</body>
+</html>
+
+
+
+
+

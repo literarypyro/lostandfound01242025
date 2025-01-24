@@ -1,5 +1,7 @@
+//var hostName="http://192.168.1.162/lnf_api_old/lnf_api/";
 
-var hostName="http://192.168.1.11/lnf_api_old/lnf_api/";
+var hostName="https://oms.dotrmrt3.gov.ph/psilva/lnf_api/public/";
+//var hostName="http://10.20.4.200/lnf_api_old/lnf_api/";
 //var hostName="http://10.20.5.11/lnf_api_old/lnf_api/";
 //var hostName="http://localhost/lnf_api_old/lnf_api/";
 var isBase="";

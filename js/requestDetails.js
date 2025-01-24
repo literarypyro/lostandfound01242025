@@ -3,7 +3,7 @@ requestDetailsModule.controller("requestDetailsController",['$compile','$scope',
 
 	var item_id=$scope.item_id;
 	var token=$rootScope.token;
-	$http.get("http://192.168.1.163/lnf_api/request/"+request_id+"/?api_token="+token).then(function(response) {$scope.requests = response.data; });	
+	$http.get("http://oms.dotrmrt3.gov.ph/psilva/lnf_api/request/"+request_id+"/?api_token="+token).then(function(response) {$scope.requests = response.data; });	
 		  
 }]);
 

@@ -1,8 +1,12 @@
 var addItemModule=angular.module('addItemApp',['ui.select2','ngCookies']);
 addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$window','$cookies', function addController($compile, $scope,$http,$window,$cookies){
 
+
 	var submitToggle=false;
-	var host=$window.hostName;
+//	var host=$window.hostName;
+        // Hide all steps and buttons
+  
+	var host="https://oms.dotrmrt3.gov.ph/psilva/lnf_api/public/";
 	$scope.receiver=null;
 	$scope.user_name=$cookies.get("user_name");
 	var addToggle=false;
@@ -33,7 +37,7 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 			$scope.categories = response;
 			//console.log(data);
 		});	
-	var url=host+"itemType";
+	var url=host+"itemType/list";
 	
 	
 		$http.get(url)
@@ -153,6 +157,27 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 
 
 	}
+
+
+
+
+
+		var url2=host+"receivers";
+			
+			
+		$http.get(url2)
+		.then(function(resp, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+			var response=resp.data;
+								
+			//if login is illegal
+					
+					
+			$scope.receivers = response;
+			//console.log(data);
+		});	
+
 	
 		var url2=host+"location";
 			
@@ -183,10 +208,35 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 	
 	
 	}		
+	$scope.identifyDate=function(){
+		var dt=new Date($scope.found_date);
+		var year=dt.getFullYear();
+		var mm=dt.getMonth();
+		var day=dt.getDate();
+
+		$scope.found_dt=year+"-"+(mm+1)+"-"+day;
+		
+		$scope.addItem();
+	}
 	$scope.addItem=function(){
+		        const steps = document.getElementsByClassName("step");
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const preloader = document.getElementById('preloader-wrapper');
+        const successDiv = document.getElementById('success');
+	      Array.from(steps).forEach(step => {
+            step.style.display = 'none';
+        });
+        if(prevBtn) prevBtn.style.display = 'none';
+        if(nextBtn) nextBtn.style.display = 'none';
+        if(submitBtn) submitBtn.style.display = 'none';
+        // Show preloader
+        preloader.style.display = 'block';
+        successDiv.style.display = 'none';
 		
 		if(!submitToggle){
-			var url=host+"item";
+			var url=host+"newitem";
 			var newVal=$scope.category;
 			
 			if((newVal=="4")||(newVal=="21")){
@@ -254,7 +304,7 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 					var photo=$scope.file;
 				
 					var payload = new FormData();
-					payload.append("found_date", $scope.found_date);
+					payload.append("found_date", $scope.found_dt);
 					payload.append("user_id", $scope.user_id);
 					payload.append('description', $scope.description);
 					payload.append('category', $scope.category);
@@ -265,7 +315,7 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 					payload.append('width', $scope.width);
 					payload.append('other_details', $scope.other_details);
 					payload.append('file', $scope.img);
-					payload.append('receiver_id', $scope.receiver);
+					payload.append('receiver_id', $scope.receiver_id);
 					payload.append('item_no', $scope.item_no);
 
 					payload.append('location_id', $scope.item_location);
@@ -288,7 +338,7 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 							data: payload,
 							//assign content-type as undefined, the browser
 							//will assign the correct boundary for us
-							headers: { 'Content-Type': undefined},
+							headers: { 'Content-Type': undefined },
 							//prevents serializing payload.  don't do it.
 							transformRequest: angular.identity
 						})
@@ -301,19 +351,31 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 							$scope.ref_identification="";
 							$scope.id_type="";
 							
+			                preloader.style.display = 'none';
+							successDiv.style.display = 'block';
+
+							// Redirect after showing success message
+							setTimeout(() => {
+								$window.open("admin_2.html", '_SELF');
+							}, 1500);
+							
 							$scope.message="Item successfully recorded.";
 								
-							window.open('admin_dashboard.html','_SELF');
+							//window.open('admin_2.html','_SELF');
 								
 								
 								
 								
-						}).
+						});
+
+/*						.
 						error(function(data, status, headers, config) {
 
 							// called asynchronously if an error occurs
 							// or server returns response with an error status.
 						});
+
+*/
 				}
 			}
 		
@@ -410,28 +472,31 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 				//console.log(data);
 			});	
 
-		}).
+		});
+/*
+
+		.
 		error(function(data, status, headers, config) {
 			// called asynchronously if an error occurs
 			// or server returns response with an error status.
 		});
-	
+*/	
 	}	
 
 	$scope.image = "";
 
 	$scope.imageUpload = function(event){
+		
 		 var files = event.target.files; //FileList object
-
-
+	
+		
 		 var file = files[0];
 		
 		 $scope.img=files[0];
 		
-		 var reader = new FileReader();
-		 reader.onload = $scope.imageIsLoaded; 
-		 reader.readAsDataURL(file);
-		 
+	//	 var reader = new FileReader();
+	//	 reader.onload = $scope.imageIsLoaded; 
+	//	 reader.readAsDataURL(file);
 		 
 	}
 
@@ -440,4 +505,5 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 			$scope.image=e.target.result;
 		});
 	}	
+	
 }]);

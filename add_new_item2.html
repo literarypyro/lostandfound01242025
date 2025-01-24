@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>Lost and Found: Add Found Item</title>
+      <!-- CSS -->
+      <link href="css2/bootstrap.min.css" rel="stylesheet">
+      <link href="css2/teststyle.css" rel="stylesheet">
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+      <!-- FONT -->
+      <link href="https://fonts.gstatic.com" rel="preconnect">
+      <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-cookies.min.js"></script>
+
+<script src="bower_components/angular-ui-select2/src/select2.js"></script>
+<script src="bower_components/select2/select2.js"></script>
+   <script src="js/db.js"></script>
+   <script src="js/add_new_item.js"></script> 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-datepicker/2.1.23/angular-datepicker.min.css" rel="stylesheet" type="text/css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-datepicker/2.1.23/angular-datepicker.min.js"></script>
+<style type='text/css'>
+.add-item-container {
+    min-height: 100vh;
+    background: #f8f9fa;
+    padding: 2rem;
+}
+
+.form-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+/* Left side - Title section */
+#title-container {
+    background: #a47764;
+    padding: 3rem;
+    color: white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Center align items */
+    text-align: center;   /* Center text */
+}
+
+#title-container img {
+    width: 150px;        /* Fixed width */
+    height: 150px;       /* Fixed height */
+    object-fit: contain; /* Maintain aspect ratio */
+    margin: 0 auto 2rem; /* Center horizontally and add bottom margin */
+    display: block;      /* Remove any inline spacing */
+}
+
+#title-container h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+#title-container h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+	color:#c39f89;
+}
+
+#title-container p {
+    margin-bottom: 2rem;
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+.btn_primary {
+    background: white;
+    color: #a47764 !important;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.btn_primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px #c39f89;
+}
+
+/* Form section */
+.form-section {
+    padding: 2rem;
+}
+
+.progress-animated {
+    height: 4px;
+    background: #f1f1f1;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.progress-animated .bar {
+    width: 0%;
+    height: 100%;
+    background: #a47764;
+    transition: width 0.4s ease;
+}
+
+.step {
+    display: none;
+}
+
+.step.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.step h4 {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    color: #2d3748;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #4a5568;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.form-control:focus {
+    border-color: #a47764;
+    box-shadow: 0 0 0 3px rgba(195,159,137, 0.1);
+    outline: none;
+}
+
+select.form-select {
+    background-image: url("data:image/svg+xml,...");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+}
+
+#q-box__buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+#q-box__buttons button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s;
+    flex: 1;
+}
+
+#prev-btn {
+    background: #f1f1f1;
+    color: #4a5568;
+}
+
+#next-btn, #submit-btn {
+    background: #a47764;
+    color: white;
+}
+
+#q-box__buttons button:hover {
+    transform: translateY(-1px);
+	background-color:#c39f89;
+}
+
+/* Success state */
+#success {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+}
+
+#success.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+#preloader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.9);
+    display: none;
+} 
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #c39f89;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -25px 0 0 -25px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+#q-box__buttons button {
+	background-color:#a47764;
+
+
+}
+#next-btn:hover, #submit-btn:hover {
+    background-color: #c39f89 !important;
+
+}
+
+#q-box__buttons button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+button#prev-btn,
+button#next-btn,
+button#submit-btn {
+    font-size: 17px;
+    font-weight: bold;
+    position: relative;
+    width: 130px;
+    height: 50px;
+    background: #a47764;  /* Base color changed to your theme */
+    margin: 0 auto;
+    margin-top: 40px;
+    overflow: hidden;
+    z-index: 1;
+    cursor: pointer;
+    transition: color .3s;
+    text-align: center;
+    color: #fff;
+    border: 0;
+    border-radius: 5px;
+}
+
+/* Keep the sliding effect but change color */
+button#prev-btn:after,
+button#next-btn:after,
+button#submit-btn:after {
+    position: absolute;
+    top: 90%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #c39f89;  /* Hover color changed to lighter brown */
+    content: '';
+    z-index: -2;
+    transition: transform .3s;
+}
+
+/* Keep original hover animation */
+button#prev-btn:hover::after,
+button#next-btn:hover::after,
+button#submit-btn:hover::after {
+    transform: translateY(-80%);
+    transition: transform .3s;
+
+	
+	
+}
+
+/* Focus state */
+button#prev-btn:focus,
+button#next-btn:focus,
+button#submit-btn:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 4px #a47764;	
+    outline: none;
+}
+button#prev-btn,
+button#next-btn,
+button#submit-btn {
+    font-size: 17px;
+    font-weight: bold;
+    position: relative;
+    width: 130px;
+    height: 50px;
+    background: #a47764;
+    margin: 0 auto;
+    margin-top: 40px;
+    cursor: pointer;
+    text-align: center;
+    color: white;
+    border: 0;
+    border-top: 3px solid transparent; /* Add transparent top border */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Setup the slide effect */
+button#prev-btn:after,
+button#next-btn:after,
+button#submit-btn:after {
+    position: absolute;
+    top: 90%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #c39f89;
+    content: '';
+    z-index: -1;
+    transition: transform .3s;
+}
+
+/* Hover animation */
+button#prev-btn:hover::after,
+button#next-btn:hover::after,
+button#submit-btn:hover::after {
+    transform: translateY(-83%);
+    transition: transform .3s;
+		box-shadow: 0 0 2px 0 white, 0 0 2px 0 #a47764;	
+		background:#a47764;
+}
+
+/* Focus style - adds line at top */
+button#prev-btn:focus,
+button#next-btn:focus,
+button#submit-btn:focus {
+
+    outline: none;
+}
+
+#q-box__buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+</style>
+
+
+
+   </head>
+   <body>
+   
+
+	  
+	  <!-- CONTAINER -->
+	<div ng-app='addItemApp' class="add-item-container container d-flex align-items-center min-vh-100">
+	
+	
+    <div ng-controller='addItemController' class="form-card">
+        <div class="row g-0">
+		  <!-- TITLE -->
+            <div class="col-lg-4">
+                <div id="title-container">
+                    <img src="./img/covid-check.jpeg" alt="Form Icon">
+                    <h2>Lost Item</h2>
+                    <h3>Found Item Form</h3>
+                    <p>Record the items found on the station for proper inventory and cataloguing</p>
+                    <a href="admin_2.html" class="btn_primary">Return to Main Page</a>
+                </div>
+            </div>
+		  
+		  
+		  <!-- FORMS -->
+            <div class="col-lg-8">
+                <div class="form-section">
+<div class="progress-animated">
+    <div class="bar" style="width: 25%"></div>
+</div>
+                    
+                    <form class="needs-validation" id="form-wrapper" novalidate>
+         <!-- STEPS HERE -->
+         <div id="steps-container">
+		 
+		 
+			<div class="step">
+               <h4>Provide us with your information on the Item:</h4>
+               <div class="mt-1">
+                  <label class="form-label">Item No:</label> 
+                  <input class="form-control" id="item_no" name="item_no" ng-model='item_no' type="text">
+               </div>
+               <div class="mt-2">
+                  <label class="form-label">Date Item was Found:</label> 
+                  <input class="form-control" id="found_date" name="found_date" ng-model='found_date' type="date">
+               </div>
+               <div class="mt-2">
+                  <label class="form-label">Location:</label> 
+						<select class="form-control form-select" aria-label="Default select example" ng-model="item_location">
+						
+					<option ng-repeat="location in locations"  value='{{ location.id }}'>{{ location.location }}</option>
+						
+						</select>	
+               </div>
+               <div class="mt-2">
+                     <label class="form-label">Item Type:</label>
+						<select class="form-control form-select" aria-label="Default select example" ng-model="item_type" name="item_type" id="item_type" >
+   						  <option ng-repeat="item_type in item_types" ng-if="found_record_id=='' && item_type.id!==3" value='{{ item_type.id }}'>{{ item_type.name }}</option>
+						  <option ng-repeat="item_type in item_types" ng-if="found_record_id!=='' && item_type.id==3" value='{{ item_type.id }}'>{{ item_type.name }}</option>
+						</select>			   
+               </div>
+               <div class="mt-2">
+                     <label class="form-label">Category:</label>
+						<select class="form-control form-select" aria-label="Default select example" ng-model="category" name="category" id="category" >
+						  <option ng-repeat="category in categories" value='{{ category.id }}'>{{ category.type }}</option>						
+
+						</select>	
+               </div>
+            </div>
+            <div class="step">
+               <h4>Provide us with the Item's Particulars:</h4>
+               <div class="mt-1">
+                  <label class="form-label">Description:</label> 
+                  <textarea class="form-control" id="description" ng-model="description" name="description" rows="3" ></textarea>
+               </div>
+               <div class="mt-2">
+                  <label class="form-label">Shape:</label> 
+                  <input class="form-control" id="shape" name="shape" ng-model="shape" type="text">
+               </div>
+               <div class="mt-2">
+                  <label class="form-label">Color:</label> 
+                  <input class="form-control" id="color" name="color" ng-model="color" type="email">
+               </div>
+			   
+
+            </div>	
+            <div class="step">
+			
+               <h4>Provide us with the Item's Particulars:</h4>
+               <div class="mt-2">
+                  <label class="form-label">Width:</label> 
+                  <input class="form-control" id="width" name="width" ng-model="width" type="text">
+               </div>
+               <div class="mt-2">
+                  <label class="form-label">Length:</label> 
+                  <input class="form-control" id="length" name="length" ng-model="length" type="text">
+               </div>			   
+			    <div class="mt-2">
+                  <label class="form-label">Other Details:</label> 
+                  <input class="form-control" id="other_details" name="other_details" ng-model="other_details" type="text">
+               </div>
+		   
+            </div>						
+           <div class="step">
+               <h4>Add Person Who Received the Item:</h4>
+               <div class="mt-2">
+                     <label class="form-label">Name:</label>
+						<select class="form-control form-select" aria-label="Default select example" name='receiver_id' id='receiver_id' ng-model="receiver_id" >
+						
+				   <option ng-repeat="receiver in receivers" value='{{ receiver.id }}'>{{ receiver.lastName }}, {{ receiver.firstName }}<option>						
+						
+						</select>	
+               </div>
+			</div>		
+            <div class="step">
+               <h4>Upload a Picture of the Item:</h4>
+               <div class="mt-2">
+					<label for="formFileLg" class="form-label">Upload File</label>
+					<input class="form-control form-control-lg" id="formFileLg" ng-model-instant onchange="angular.element(this).scope().imageUpload(event)" name="file" type="file" ng-model="file" />
+               </div>
+            </div>	                 
+			<div class="step">
+               <div class="mt-1">
+                  <div class="closing-text">
+                     <h4>Processing Record</h4>
+                     <p>The item will be processed and inventory in the appropriate duration after submission</p>
+                     <p>Click on the submit button to continue.</p>
+                  </div>
+               </div>
+            </div>
+            
+                                <!-- Success Message -->
+                                <div id="success">
+                                    <div class="mt-5">
+                                        <h4>Adding successful!</h4>
+                                        <p>Your item has been successfully recorded.</p>
+                                        <!--<a class="back-link" href="index.html">Return to login page ➜</a>-->
+                                    </div>
+                                </div>
+            </div>
+         </div>
+                       <div id="q-box__buttons">
+                            <button id="prev-btn" type="button">Previous</button>
+                            <button id="next-btn" type="button">Next</button>
+                            <button id="submit-btn" ng-click="identifyDate()" type="submit">Submit</button>
+                        </div>
+		 
+		 
+		 
+		 </div>
+      </form>
+
+   </div>
+</div>
+		  
+		  </div>
+		  </div>
+</div>
+</div>
+	</div>
+	
+    <div id="preloader-wrapper">
+    <div class="loader"></div>
+    <div class="loader-text" style="position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%); color: #DC3545; font-weight: 500;">
+        Adding the item...
+    </div>  
+      <script type="text/javascript" src="testscript.js"></script>
+	  
+   </body>
+</html>

@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>Lost and Found: Add Found Item</title>
+      <!-- CSS -->
+      <link href="css2/bootstrap.min.css" rel="stylesheet">
+      <link href="css2/teststyle.css" rel="stylesheet">
+
+      <!-- FONT -->
+      <link href="https://fonts.gstatic.com" rel="preconnect">
+      <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+	<!-- DataTables -->
+
+<!--	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script> -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+   <script src="js/bootstrap.min.js"></script>
+
+	<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-cookies.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-animate/1.7.8/angular-animate.js"></script>
+<script src="js/ng-file-upload.js"></script> 
+<script src="js/ng-file-upload-shim.js"></script> 
+
+   <script src="js/angular-datatables.js"></script>
+   <script src="js/db.js"></script>
+   <script src="js/admin_retrieve_item.js"></script> 
+
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Google Font -->
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+	<style type='text/css'>
+	.table-primary td  {
+		background-color:rgb(233, 233, 231);
+
+	}
+	.thead-dark th {
+		background-color:rgb(126, 238, 212, 1);
+     }
+
+	.logo-lg {
+		background-color:rgb(239, 209, 169);
+
+	}
+	.main_sidebar {
+		color:green;
+
+	}
+
+	.sidebar {
+		background-color:rgb(223, 231, 233);
+
+	}
+	.fa, a span {
+
+		color:green;
+	}	
+
+	.sidebar-menu li:hover {
+		background-color:rgb(96, 156, 164, 1);
+		color:white;
+
+	}
+	
+
+	.treeview-menu {
+		background-color:red;
+
+	}
+
+	.sidebar-menu hover {
+		color:white;
+    		background: #cc0616;
+
+	}
+
+	.found_item {
+		  animation: fadeIn 3s forwards;
+		  animation-duration: 3s;
+		  animation-delay: calc(var(.f_item) * 3s);
+		  animation-delay: -webkit-calc(var(.f_item) * 3s);
+		  animation-delay: -moz-calc(var(.f_item) * 3s);
+
+
+		  animation-fill-mode: both;
+		  animation-timing-function: ease-in-out;
+		  margin:20px;
+		  
+			width:150px;
+			border-radius: 15px;
+
+
+	}
+
+	.found_item img {
+	
+		box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+		-webkit-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+		-moz-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+	
+	
+	}
+
+
+
+	@keyframes fadeIn {
+	  0% { opacity: 0; 
+
+	      transform: translateX(0px);
+		
+		}
+  	  100% { opacity: 1; 
+
+	      transform: translateX(0);
+
+		}
+	}
+	@keyframes fadeInUp {
+		0%  { opacity:-0.5;
+			visibility:none;  
+			 transform: translateY(+20px)
+			height:10px;
+
+		}
+
+		100% {
+			transform: translateY(0px);
+			visibility:visible;
+			opacity: 1
+			height:+80px;
+		}
+	}
+
+	@-webkit-keyframes fadeInUp {
+		0%  { opacity:-0.5;
+			visibility:none;  
+			 transform: translateY(+20px)
+			height:10px;
+
+		}
+
+		100% {
+			transform: translateY(0px);
+			visibility:visible;
+			opacity: 1
+			height:110%;
+		}
+	}
+	.dropdown-menu {
+		display:none;
+		position:absolute;
+		background-color:#fff;
+		z-index:0;
+
+	}
+
+	.dropdown-menu p {
+		margin-left:20px;
+		margin-right:20px;
+
+
+	}	
+
+	.found_item_title {
+		text-align: center;
+	}
+
+	.found_item_title p {
+		font-size:15px;
+	}
+
+
+	.dropup:hover .dropdown-menu {
+		display:block;
+		width:150px;
+		max-height:150px;
+		bottom:0px;
+ 		animation: fadeInUp 3s forwards;
+  		animation-duration: 2.5s;
+ 		animation-delay: 2;
+  		animation-fill-mode: both;
+  		animation-timing-function: ease-in-out;
+		object-fit:scale-down;
+		background: #cc0616;
+
+		opacity:0.80;
+		color:white;
+
+	}
+
+	.found_item:hover {
+	   -moz-box-shadow: 3px 3px 4px #000; 
+	   -webkit-box-shadow: 3px 3px 4px #000; 
+		box-shadow: 3px 3px 4px #000; 
+		opacity: 0.2;
+	}
+
+	.found_item:hover img {
+	  height:250px;
+	  width:170px;
+	  opacity: 0.75;
+
+
+	}	
+
+
+
+	.found_item .item_box{
+    box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+    -webkit-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+    -moz-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+
+	}
+
+	.mt-3 {
+	    margin-left:10px;
+	    padding-top:10px;
+	    vertical-align:bottom;
+	    display:inline-block;	
+
+
+	}
+
+	.mt-2 {
+	    margin-left:10px;
+	    padding-top:10px;
+	    vertical-align:bottom;
+	    display:inline-block;	
+		
+	}
+
+	.modal_mt-2 {
+	    padding-top:10px;
+	    vertical-align:bottom;
+	    display:inline-block;	
+		color:#dee2e6;
+
+	}
+
+	.header_mt-2 {
+
+	    vertical-align:bottom;
+	    display:inline-block;	
+		color:#dee2e6;
+
+	}
+
+	.mt-4 {
+	    margin-left:10px;
+	    padding-top:10px;
+	    vertical-align:bottom;
+	    display:inline-block;	
+	}
+
+	#q-box__buttons {
+	    padding-top:10px;	
+	
+
+	}
+	#q-box__buttons button {
+		color:#fff;
+
+
+
+	}
+	</style>
+	<style type='text/css'>
+	.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #f8f9fa!important;
+  overflow-x: hidden;
+  transition: 0.7s;
+  padding-top: 60px;
+  box-shadow: 0px 0px 8px #888888;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+  
+    font-size: 15px;
+
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+  background: rgb(164,119,100);
+background: linear-gradient(90deg, rgba(164,119,100,1) 0%, rgba(195,159,137,1) 100%);
+}
+
+.sidenav::-webkit-scrollbar { 
+  display: none; 
+} 
+
+
+  .animated-icon {
+	  width: 30px;
+	  height: 20px;
+	  position: relative;
+	  margin: 0px;
+	  -webkit-transform: rotate(0deg);
+	  -moz-transform: rotate(0deg);
+	  -o-transform: rotate(0deg);
+	  transform: rotate(0deg);
+	  -webkit-transition: .5s ease-in-out;
+	  -moz-transition: .5s ease-in-out;
+	  -o-transition: .5s ease-in-out;
+	  transition: .5s ease-in-out;
+	  cursor: pointer;
+  }
+  
+  .animated-icon span {
+	  display: block;
+	  position: absolute;
+	  height: 3px;
+	  width: 100%;
+	  border-radius: 9px;
+	  opacity: 1;
+	  left: 0;
+	  -webkit-transform: rotate(0deg);
+	  -moz-transform: rotate(0deg);
+	  -o-transform: rotate(0deg);
+	  transform: rotate(0deg);
+	  -webkit-transition: .25s ease-in-out;
+	  -moz-transition: .25s ease-in-out;
+	  -o-transition: .25s ease-in-out;
+	  transition: .25s ease-in-out;
+  }
+  
+  .animated-icon span {
+	background: #f3e5f5;
+  }
+  
+  .animated-icon span:nth-child(1) {
+	  top: 0px;
+	  -webkit-transform-origin: left center;
+	  -moz-transform-origin: left center;
+	  -o-transform-origin: left center;
+	  transform-origin: left center;
+  }
+  
+  .animated-icon span:nth-child(2) {
+	  top: 10px;
+	  -webkit-transform-origin: left center;
+	  -moz-transform-origin: left center;
+	  -o-transform-origin: left center;
+	  transform-origin: left center;
+  }
+  
+  .animated-icon span:nth-child(3) {
+	  top: 20px;
+	  -webkit-transform-origin: left center;
+	  -moz-transform-origin: left center;
+	  -o-transform-origin: left center;
+	  transform-origin: left center;
+  }
+  
+  .animated-icon.open span:nth-child(1) {
+	  -webkit-transform: rotate(45deg);
+	  -moz-transform: rotate(45deg);
+	  -o-transform: rotate(45deg);
+	  transform: rotate(45deg);
+	  top: 0px;
+	  left: 8px;
+  }
+  
+  .animated-icon.open span:nth-child(2) {
+  width: 0%;
+  opacity: 0;
+  }
+  
+  .animated-icon.open span:nth-child(3) {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  top: 21px;
+  left: 8px;
+  }
+  button {border:none !important;}
+  button:focus{outline: none;}
+
+  .center {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    text-align: center;
+    vertical-align: middle;
+  }
+
+	.navbar-brand {
+		color:#fff;
+	
+	}
+	
+	.search_bar {
+		background-color: #fff;
+		margin-bottom:10px;
+	}
+	
+	.catalogue {
+		background-color:#fff;
+	
+	
+	}
+
+	.title {
+    color: #fff;
+	padding-top:7px;
+	padding-left:7px;
+  background: rgb(164,119,100);
+background: linear-gradient(90deg, rgba(164,119,100,1) 0%, rgba(195,159,137,1) 100%);
+		height:50px;
+		font-size:20;
+		text-align:left;
+		font-family: 'Josefin Sans', sans-serif;
+		margin-bottom:10px;
+		
+
+	}	
+	
+button#search-btn {
+    font-size: 17px;
+    font-weight: bold;
+    width: 130px;
+    height: 40px;
+    background: #a47764;
+    margin: 0 auto;
+    margin-top: 28px;
+    overflow: hidden;
+    z-index: 1;
+    cursor: pointer;
+    transition: color .3s;
+    text-align: center;
+    color: #fff;
+    border: 0;
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}	
+
+.header_title {
+width:100%;
+height: 350px;
+background: rgb(36,78,160);
+background: linear-gradient(90deg, rgba(36,78,160,1) 0%, rgba(20,34,73,1) 100%);
+display:inline-flex;
+flex-wrap:wrap;
+margin-top:-10px;
+
+
+
+
+}
+
+.header_img {
+	height:100%;
+  box-shadow: 0px 0px 0px #000;
+  moz-box-shadow: 0px 0px 0px #000;
+	width:30%;
+
+}
+
+.file_img {
+	height:250px;
+  box-shadow: 0px 0px 0px #000;
+  moz-box-shadow: 0px 0px 0px #000;
+	border:1px solid #121212;
+	object-fit:contain;
+
+margin-bottom:10px;	
+	width:250px;
+
+}
+
+
+.header_img img {
+	height:100%;
+	object-fit:cover;
+
+	width:100%;
+
+}
+
+.header_logo {
+
+	vertical-align:center; 
+	text-align:center
+	font-size:20px;
+	height:100%;
+	width:60%;
+	
+	margin-left:80px;
+}
+
+.header_logo h2{
+	color:#fff;
+	margin-top:100px;
+		
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+}
+
+
+.category {
+	background-color:#121212;
+	min-height:500px;
+	color:#dde8ea;
+	border-top:4px solid rgb(36,78,160);
+	float:left;
+	
+}
+
+.category label {
+
+	color:#dde8ea;
+	margin-left:50px;
+	font-size:20px;
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+
+}
+.category2 {
+	background-color:#121212;
+	min-height:500px;
+	color:#dde8ea;
+	border-top:4px solid rgb(36,78,160);
+	
+	
+}
+
+.category2 label {
+
+	color:#dde8ea;
+	margin-left:50px;
+	font-size:20px;
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+
+}
+
+.title_status {
+    position: absolute;
+    right: 2rem;
+    top: 2rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    background-color: #48bb78;
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.category {
+    background-color: #f7fafc;
+    min-height: 500px;
+    padding: 2rem;
+    border-top: 4px solid #2c5282;
+    color: #2d3748;
+}
+
+.category label {
+    color: #2d3748;
+    font-family: "Oswald", sans-serif;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+/* Field groups */
+.field-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.field-label {
+    font-weight: 600;
+    min-width: 150px;
+    color: #4a5568;
+}
+
+.field-value {
+    color: #2d3748;
+}
+
+
+.desc_edit {
+	position:absolute;
+	right:365px;
+	top:155px;
+
+}
+.edit-icon:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.status-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #10B981;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.details-section {
+    padding: 2rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin: 1rem;
+}
+
+.details-section h2 {
+    color: #1e3a8a;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.detail-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    padding: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+    align-items: center;
+}
+
+
+
+
+.submit_img {
+    background-color: #a47764;
+color:white;
+
+padding:10px;
+
+
+
+
+}
+/* Header Styles */
+.header_title {
+    width: 100%;
+    height: 350px;
+background: rgb(240,240,230);
+background: linear-gradient(90deg, rgba(240,240,230,1) 0%, rgba(228,199,185,1) 100%);
+    display: flex;
+    position: relative;
+    padding: 20px;
+    margin-top: -10px;
+}
+
+/* Header Image Section */
+.header_img {
+    position: relative;
+    width: 35%;
+    height: 100%;
+    margin-right: 20px;
+}
+
+.header_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.camera {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.camera:hover {
+    transform: scale(1.1);
+    background: white;
+}
+
+.camera i {
+    color: #a47764;
+    font-size: 20px;
+}
+
+/* Header Text Section */
+.header_logo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 40px;
+}
+
+.header_logo h2 {
+	color:#8b655a;
+
+    font-family: "Oswald", sans-serif;
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+/* Status Badge */
+.title_status {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #c39f89;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+
+.content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;  /* Creates two equal columns */
+    gap: 2rem;  /* Space between sections */
+    padding: 2rem;
+}
+
+.section-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+.section-title {
+    color: #1a365d;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Edit Icons */
+.edit-icon {
+    background: #f3f4f6;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.edit-icon:hover {
+    background: #e5e7eb;
+    transform: scale(1.05);
+}
+/* Detail Rows */
+.detail-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    padding: 15px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #4a5568;
+}
+
+.detail-value {
+    color: #1a202c;
+}
+
+.row {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+/* Content Section */
+.content-container {
+    padding: 30px;
+}
+
+.row.g-4 {
+    display: flex;
+    gap: 30px;
+    margin: 0;
+}
+
+.col-md-6 {
+    flex: 1;
+    width: 50%;
+    padding: 0;
+}
+
+/* Cards */
+.section-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    height: 100%;
+}
+
+.section-title {
+    color: #56453e;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Ensure consistent height */
+.h-100 {
+    height: 100%;
+}
+
+/* Remove any float properties that might affect layout */
+.col-md-6 {
+    float: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header_title {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .header_img {
+        width: 100%;
+        height: 300px;
+        margin-bottom: 20px;
+    }
+
+    .header_logo {
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .row.g-4 {
+        flex-direction: column;
+    }
+
+    .col-md-6 {
+        width: 100%;
+    }
+}
+
+
+/* Modal styling */
+.modal-header {
+    background-color: #a47764 !important;
+    color: white !important;
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.spec_submit {
+    background: #a47764;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    border: none;
+    transition: transform 0.2s;
+}
+
+.spec_submit:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.fa {
+    color: #a47764 !important;
+
+}
+.detail-row .detail-label, .detail-row .detail-value{
+	color: #56453e !important;
+ 
+}
+
+	</style>
+
+   </head>
+   <body>
+	<div ng-app='retrieveApp' class="container min-vh-100">
+	   <div ng-controller='retrieveController' >
+
+   <div class="row">
+        <div class="col-1 d-flex justify-content-center">
+            <div id="mySidenav" class="sidenav">
+                <a href="admin_2.html">Dashboard</a>
+                <a href="add_new_item2.html">Add New Item</a>
+                <a href="admin_search_item3.html">Search Item</a>
+                <a href="admin_generate_reports2.html">Generate Reports</a>
+            </div>
+        </div>
+    </div>
+    <!--Navbar-->
+    <nav class="title navbar " style="box-shadow: 0px 0px 8px #888888;">
+        <!-- Collapse button -->
+        <button class="navbar-toggler hamburger-button" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation" onclick="Nav()" style="z-index: 2">
+            <div class="animated-icon"><span></span><span></span><span></span></div>
+        </button>
+        <!-- Navbar brand -->
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto" href="#">Lost and Found System</a>
+        </div>
+    </nav>
+
+	<div class="header_title">
+    <div class="header_img">
+        <img ng-src="{{ assetfolder2 }}{{ picture }}" alt="Item Image"/>
+        <button class="edit-button camera" data-bs-toggle="modal" data-bs-target="#modal_file">
+            <i class="fa fa-camera fa-2x"></i>
+        </button>
+    </div>
+
+    <div class="header_logo">
+        <h2>
+            {{ description }}
+            <button class="edit-icon" data-bs-toggle="modal" data-bs-target="#modal_desc">
+                <i class="fa fa-edit"></i>
+            </button>
+        </h2>
+    </div>
+
+    <div class="title_status">
+        {{ status }}
+        <button class="edit-button" data-bs-toggle="modal" data-bs-target="#modal_status">
+            <i class="fa fa-plus-square"></i>
+        </button>
+    </div>
+</div>
+		
+			
+<div class="content-container">
+    <div class="row g-4">
+        <!-- Item Details -->
+    <div class="col-md-6">
+        <div class="section-card h-100">
+        <h2 class="section-title">
+        Item Details
+        <button class="edit-icon" data-bs-toggle="modal" data-bs-target="#modal_details">
+            <i class="fa fa-edit"></i>
+        </button>
+    </h2>
+    
+    <div class="detail-row">
+        <span class="detail-label">ITEM NO.</span>
+        <span class="detail-value">{{ item.item_no }}</span>
+    </div>
+    
+    <div class="detail-row">
+        <span class="detail-label">DATE FOUND</span>
+        <span class="detail-value">{{ item.found_record_label }}</span>
+    </div>
+    
+    <div class="detail-row">
+        <span class="detail-label">LOCATION</span>
+        <span class="detail-value">{{ item["location"].location }}</span>
+    </div>
+    
+    <div class="detail-row">
+        <span class="detail-label">ITEM TYPE</span>
+        <span class="detail-value">{{ item['itemType'].name }}</span>
+    </div>
+        </div>
+
+
+		
+		<!-- insert form here -->
+		
+  <div id='modal_details' aria-hidden="true" aria-labelledby="myLargeModalLabel2" class="modal" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header"  style='background-color:#DC3545;color:white;  font-family: "Oswald", sans-serif;'>
+                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style='color:white;'>Edit Details</h4>
+                </div>
+                <div class="modal-body">
+               <div class="modal_mt-2" style='padding-left:10px;width:90%;'>
+                  <label   class="form-label" style='color:#121212;padding-left:-10px;'>Item No:</label> 
+                  <input class="form-control" id="shape" style="margin-left:20px;" name="edit_item_no" ng-model="edit_item_no" type="text">
+               </div>
+               <div class="modal_mt-2" style='padding-left:10px;width:90%;'>
+                  <label   class="form-label" style='color:#121212;padding-left:-10px;'>Date Found:</label> 
+		  
+                  <input class="form-control" style="margin-left:20px;" id="edit_found_date" name="edit_found_date" ng-model='edit_found_date' type="date">				  
+				  
+               </div>
+			   
+
+               <div class="modal_mt-2" style='padding-left:10px;width:90%;'>
+                  <label   class="form-label" style='color:#121212;padding-left:-10px;'>Location:</label> 
+						<select style="margin-left:20px;" class="form-control form-select" aria-label="Default select example" name='edit_location' ng-model="edit_location">
+						
+					<option ng-repeat="location in locations"  value='{{ location.id }}'>{{ location.location }}<option>
+						
+						</select>
+               </div>
+               <div class="modal_mt-2" style='padding-left:10px;width:90%;'>
+                  <label   class="form-label" style='color:#121212;padding-left:-10px;'>Item Type:</label> 
+						<select style="margin-left:20px;" class="form-control form-select" aria-label="Default select example" ng-model="edit_item_type" name="edit_item_type" id="edit_item_type" >
+   						  <option ng-repeat="item_type in item_types" value='{{ item_type.id }}'>{{ item_type.name }}<option>
+						</select>	
+               </div>			   
+			    <div class="modal_mt-2" style='padding-left:10px;width:90%;'>
+                  <label  class="form-label" style='color:#121212;padding-left:-10px;'>Category:</label> 
+						<select style="margin-left:20px;" class="form-control form-select" aria-label="Default select example" ng-model="edit_category" name="edit_category" id="edit_category" >
+						  <option ng-repeat="category in categories" value='{{ category.id }}'>{{ category.type }}<option>						
+
+						</select>
+               </div>
+				</div>
+                <div class="modal-footer">
+					<button type="button" class='spec_submit' data-bs-dismiss="modal" ng-click="editDetails()" >Submit</button>				
+				
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>			
+		
+</div>
+ <div class="col-md-6">
+    <div class="section-card h-100">
+        <h2 class="section-title">
+            Specifications
+            <button class="edit-icon" data-bs-toggle="modal" data-bs-target="#modal_specifications">
+                <i class="fa fa-edit"></i>
+            </button>
+        </h2>
+        
+        <div class="detail-row">
+            <span class="detail-label">SHAPE</span>
+            <span class="detail-value">{{ shape }}</span>
+        </div>
+        
+        <div class="detail-row">
+            <span class="detail-label">COLOR</span>
+            <span class="detail-value">{{ color }}</span>
+        </div>
+        
+        <div class="detail-row">
+            <span class="detail-label">WIDTH</span>
+            <span class="detail-value">{{ width }}</span>
+        </div>
+        
+        <div class="detail-row">
+            <span class="detail-label">LENGTH</span>
+            <span class="detail-value">{{ length }}</span>
+        </div>
+        
+        <div class="detail-row">
+            <span class="detail-label">OTHER DETAILS</span>
+            <span class="detail-value">{{ other_details }}</span>
+        </div>
+    </div>
+</div>
+		
+		<!-- insert form here -->
+
+  <div id='modal_specifications' aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header"  style='background-color:#DC3545;color:white;  font-family: "Oswald", sans-serif;'>
+                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style='color:white;'>Edit Specifications</h4>
+                </div>
+                <div class="modal-body">
+				
+
+			   	<div style="display:inline-flex;flex-wrap:wrap; margin-left:20px;width:90%;">
+               <div style='width:50%;' >
+                  <label   class="form-label" style='color:#121212;padding-left:-20px;'>Shape:</label> 
+                  <input class="form-control" id="shape"  name="edit_shape" ng-model="edit_shape" type="text">
+               </div>
+               <div  style='width:50%;'>
+                  <label   class="form-label" style='color:#121212;padding-left:-20px;'>Color:</label> 
+                  <input class="form-control" id="color"  name="edit_color" ng-model="edit_color" type="text">
+               </div>
+
+			   </div>
+
+			   	<div style="display:inline-flex;flex-wrap:wrap;margin-left:20px;width:90%;">
+			   
+
+               <div  style='width:50%;'>
+                  <label   class="form-label" style='color:#121212;padding-left:-10px;'>Width:</label> 
+                  <input class="form-control" id="width" name="edit_width"  ng-model="edit_width" type="text">
+               </div>
+               <div   style='width:50%;'>
+                  <label   class="form-label" style='color:#121212;padding-left:-10px;'>Length:</label> 
+                  <input class="form-control" id="length" name="edit_length" ng-model="edit_length" type="text">
+               </div>			   
+
+
+
+				</div>
+
+
+
+
+			    <div class="modal_mt-2" style='margin-left:10px;padding-left:10px;width:90%;'>
+                  <label  class="form-label" style='color:#121212;padding-left:-10px;'>Other Details:</label> 
+                  <input class="form-control" id="other_details"  name="edit_other_details" ng-model="edit_other_details" type="text">
+               </div>
+				</div>
+                <div class="modal-footer" style='width:100%;align:center;'>
+					<button type="button" ng-click="editSpecifications()" data-bs-dismiss="modal" class='spec_submit'>Submit</button>
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>	
+				
+	</div>
+	
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+  <div id='modal_desc' aria-hidden="true" aria-labelledby="myLargeModalLabel3" class="modal" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header"  style='background-color:#DC3545;color:white;  font-family: "Oswald", sans-serif;'>
+                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style='color:white;'>Edit Item Name</h4>
+                </div>
+                <div class="modal-body">
+               <div class="modal_mt-2" style='padding-left:10px;width:90%;'>
+                  <label   class="form-label" style='color:#121212;padding-left:-10px;'>Item Name:</label> 
+                  <textarea class="form-control"  style='margin-left:20px;' id="edit_description" ng-model="edit_description" name="description" rows="3" ></textarea>
+               </div>
+				</div>
+                <div class="modal-footer">
+					<button type="button" data-bs-dismiss="modal" ng-click='editDescription()' class='spec_submit'>Submit</button>				
+				    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>			
+		
+
+
+  <div id='modal_status' aria-hidden="true" aria-labelledby="myLargeModalLabel5" class="modal" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header"  style='background-color:#DC3545;color:white;  font-family: "Oswald", sans-serif;'>
+                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style='color:white;'>Update/Add Item Status</h4>
+                </div>
+                <div class="modal-body">
+               <div class="modal_mt-2" style='padding-left:10px;width:90%;'>
+			   
+			   
+			   
+                  <label   class="form-label" style='color:#121212;padding-left:-10px;'>Item Status:</label> 
+               
+					<select style="margin-left:20px;" class="form-control form-select" aria-label="Default select example" ng-model="edit_status_type" name="edit_status_type" id="edit_status_type" >
+						<option value='1'>Item Recorded/Active</option>
+						<option value='3'>Claimed</option>
+						<option value='4'>Expired</option>
+						<option value='5'>Item Disposed</option>
+					</select>
+
+               </div>
+				</div>
+                <div class="modal-footer">
+					<button type="button" data-bs-dismiss="modal" ng-click='editStatus()' class='spec_submit'>Submit</button>				
+				    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>			
+		
+</div>
+  <div id='modal_file' aria-hidden="true" aria-labelledby="myLargeModalLabel4" class="modal" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header"  style='background-color:#DC3545;color:white;  font-family: "Oswald", sans-serif;'>
+                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style='color:white;'>Edit Photo</h4>
+                </div>
+                <div class="modal-body">
+
+               <div class="modal_mt-2" style='padding-left:10px;width:90%;' >
+<!--
+				<div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100">Upload File</div>
+<button class='spec_submit' type="submit" ng-click="uploadImage()">submit</button>
+
+
+					
+-->
+
+					<div align=center width=100%>
+					<div class='file_img' align=center>
+					<img controls ngf-src="img" align=center style='width:250px;height:250px;object-fit:contain;' />		
+		
+					</div>
+
+
+					<div align=center>
+
+					  <button class="submit_img" ngf-select ng-model="img">Upload File</button>
+					</div>
+					</div>
+					
+					<!--
+					<div class="button" ngf-select ngf-change="upload($file)">Upload on file change</div>
+
+
+-->
+<!--
+					    <input type="file" id="file" name="file" ng-file-select="uploadImage($files)" accept="image/*" ngf-max-size="5MB" ngf-model-invalid="errorFiles">
+	
+
+					-->
+	<!--
+					
+					<input class="form-control form-control-lg" style='margin-left:20px;' id="formFileLg" ng-model-instant onchange="angular.element(this).scope().uploadImage(event)" name="file" type="file" ng-model="file" />
+					-->
+
+               </div>
+				</div>
+                <div class="modal-footer">
+					<button type="button" class='spec_submit' data-bs-dismiss="modal" ng-click='editFile()'>Submit</button>
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>			
+		
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+
+</div>
+</div>
+
+</div>
+ 	<script language='javascript'>
+function Nav() {
+  var width = document.getElementById("mySidenav").style.width;
+  if (width === "0px" || width == "") {
+    document.getElementById("mySidenav").style.width = "250px";
+    $('.animated-icon').toggleClass('open');
+  }
+  else {
+    document.getElementById("mySidenav").style.width = "0px";
+    $('.animated-icon').toggleClass('open');
+  }
+}
+	
+	
+	
+	
+	</script>  
+
+	
+	<!--
+	
+	
+<div id="preloader-wrapper">
+   <div id="preloader"></div>
+   <div class="preloader-section section-left"></div>
+   <div class="preloader-section section-right"></div>
+</div>	  
+      <script type="text/javascript" src="testscript.js"></script>
+	  -->
+   </body>
+</html>

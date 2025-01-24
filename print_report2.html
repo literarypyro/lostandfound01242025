@@ -16,14 +16,23 @@
 
 <style type='text/css' media='print'>
 @media print {
-	@page { margin-top: 1in; }
-	body { margin-top: 1in; 
+	@page { size:auto;
+	
+		#itemsApp {
+			margin-top: 1in; 
+		}
+	
+	}
+	
+		
+	body { 
+
 		text-align:justify;
 		font-size: 13pt;
 		font-family: "Segoe UI";
 		table #training{
 			font-size: 11pt;
-			border:1px solid black;
+			border:1px solid gray;
 			font-family: "Segoe UI";
 			
 			td {
@@ -37,10 +46,10 @@
 			font-family: "Segoe UI";
 		
 			tr td {
-				border:1px solid black;
+				border:1px solid gray;
 			}
 			tr th {
-				border:1px solid black;
+				border:1px solid gray;
 			}
 		
 		}
@@ -72,6 +81,7 @@
 	font-family: "Segoe UI";
 	}
 
+
 	
 }	
 
@@ -85,11 +95,13 @@
 
 @page {
 	size: 5.5in 8.5in;
+
 }
 
 
 @page {
 	size: A4 portrait;
+	
 }
 
 @page :left {
@@ -107,6 +119,10 @@
 
 }
 
+@page :footer {
+	margin-bottom:20in;
+}
+
 @page :blank {
 	@top-center { content: "This page is intentionally left blank." }
 }
@@ -118,6 +134,8 @@
 		margin-left: 2cm;
 		margin-right:2cm;
 	}
+	   #heading {display: none;}
+   #footer {display: none;}
 }
 </style>
 
@@ -135,21 +153,35 @@
  <script src="js/admin_print_report2.js"></script>
 <script language='javascript'>
 function printDiv(){
+  var header=document.getElementById('heading');
+  var footer=document.getElementById('footer');
+
   var divToPrint=document.getElementById('itemsApp');
+
+
   newWin= window.open("");
+  newWin.document.write(header.outerHTML);
+
   newWin.document.write(divToPrint.outerHTML);
+  newWin.document.write(footer.outerHTML);
+
   newWin.print();
   newWin.close();
+
 
 }
 </script>
 
 </head>
 <body onclick='printDiv()'>
-<div ng-app='itemsApp' id='itemsApp'>
+<div id='heading'>
+<img src='img/mrt3 heading.jpg' width=100%></img>
+
+</div>
+<div ng-app='itemsApp' id='itemsApp' >
 
 <div ng-controller='itemsController'>
-<div align=center>
+<div align=center >
 <p>
 <b>
 DEPARTMENT OF TRANSPORTATION
@@ -164,23 +196,23 @@ For the month of {{ period | date: "MMMM" }}
 </div>
 
 
-         <table id='items' border=1 class="table table-bordered table-striped">
+         <table id='items' style='border-top:1px solid gray;border-right:1px solid gray;border-left:1px solid gray;' class="table table-bordered table-striped">
          <thead>
          <tr>
-             <th>Date Item Found</th>
-             <th>Station</th>
-             <th>Item No.</th>
-             <th>Description/Particulars</th>
-             <th>Remarks</th>
+             <th style='border-bottom:1px solid gray;border-right:1px solid gray;'>Date Item Found</th>
+             <th style='border-bottom:1px solid gray;border-right:1px solid gray;'>Station</th>
+             <th style='border-bottom:1px solid gray;border-right:1px solid gray;'>Item No.</th>
+             <th style='border-bottom:1px solid gray;border-right:1px solid gray;'>Description/Particulars</th>
+             <th style='border-bottom:1px solid gray;'>Remarks</th>
         </tr>
         </thead>
         <tbody>
 		<tr ng-repeat="item in items">
-            <td>{{ item["found_record"].found_date | date: "MM/dd/YYYY" }}</td>
-            <td>{{ item["location"].code }}</td>
-            <td>{{ item.item_no }}</td>
-            <td>{{ item.description }}</td>
-            <td>{{ item.is_claimed }}</td>
+            <td style='border-bottom:1px solid gray;border-right:1px solid gray;' width='20%' align=center>{{ item["found_record"].found_date.replace(" 00:00:00","") | date: 'MM/dd/yyyy' }}</td>
+            <td style='border-bottom:1px solid gray;border-right:1px solid gray;' width='15%' align=center>{{ item["location"].code }}</td>
+            <td style='border-bottom:1px solid gray;border-right:1px solid gray;' width='20%' align=center>{{ item.item_no }}</td>
+            <td style='border-bottom:1px solid gray;border-right:1px solid gray;' width='25%'>{{ item.description }}</td>
+            <td style='border-bottom:1px solid gray;' width='20%' align=center>{{ item.is_claimed }}</td>
 		</tr>
 		</tbody>
 	</table>
@@ -239,6 +271,10 @@ For the month of {{ period | date: "MMMM" }}
 	</tr>
 	</table>
 </div>
+</div>
+<div id='footer' style='bottom:0; position:absolute;'>
+<img src='img/footer.jpg' width=100%></img>
+
 </div>
 </body>
 </html>

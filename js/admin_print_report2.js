@@ -6,7 +6,7 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 
 	var request_id = window.location.search.split("date=")[1];	
 	$scope.request_id=request_id;
-	$scope.assetfolder=host+"public/assets/images/items/";	
+	$scope.assetfolder=host+"assets/images/items/";	
 
 	var dateSplit=request_id.split("to");
 
@@ -27,6 +27,8 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 
 	$scope.ref_no=request_id.split("&")[3].split("=")[1].replace("%20"," ");
 
+	$scope.prepared_position=$scope.prepared_position.replace("%20",' ');
+	$scope.ref_no=$scope.ref_no.replace("%20",' ');
 
 	if((dateFrom.replace("%20",""))==(dateTo.replace("%20",""))){
 		$scope.period2="";
@@ -35,9 +37,7 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 	else {
 		$scope.conjunct=" to ";
 	}	
-	var url=host+"items/daterange/1/range/"+request_id.split("&")[0];
-
-	
+	var url=host+"daterangefound/monthly/"+request_id.split("&")[0];
 //		var request_id=id;
 		
 //		var token=$scope.token;
@@ -47,7 +47,9 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 		$http.get(url).then(function(resp, status, headers, config) {
 			var response=resp.data;
 
-			$scope.items=response;		
+				const firstKey = Object.keys(response)[1];
+
+				$scope.items=response[firstKey];
 			
 			
 			

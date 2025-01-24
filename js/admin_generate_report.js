@@ -33,15 +33,45 @@ requestModule.controller("searchController",['$compile', '$scope','$http','$wind
 		});
 
 		*/
+		
+	$('input[name="daterange"]').daterangepicker();
+		
+		
 	$scope.generateReport=function (){
 
-	
 		var range=$scope.daterange;
+	
 		var search_type=$scope.baseModel.search_type;
 		var prepared_by=$scope.baseModel.prepared_by;
 		var prepared_position=$scope.baseModel.prepared_position;
 		var ref_no=$scope.baseModel.ref_no;
+
+		var dates=range.split("-");
+
+		var from=dates[0];
+
+		var froms=from.split("/");
 		
+		var y=froms[2].split(" ");
+
+
+		from=y[0]+"-"+froms[0]+"-"+froms[1];
+
+
+		var to=dates[1];
+
+		var tos=to.split("/");
+
+
+		var y2=tos[2].split(" ");
+
+		var m=tos[0].split(" ");
+		
+
+		to=y2[0]+"-"+m[1]+"-"+tos[1];
+
+
+		range=from+" to "+to;		
 
 		if(search_type=="monthly"){
 			window.open("print_report2.html?date="+range+"&prepared_by="+prepared_by+"&prep_pos="+prepared_position+"&ref_no="+ref_no,"_BLANK");
@@ -70,6 +100,9 @@ requestModule.controller("searchController",['$compile', '$scope','$http','$wind
 		
 		
 		var range=$scope.daterange;
+		
+		
+		
 		
 		var url=host+"items/"+search_type+"/"+search_term+"/range/"+range;
 

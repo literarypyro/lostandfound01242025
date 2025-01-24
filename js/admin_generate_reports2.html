@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>Lost and Found: Add Found Item</title>
+      <!-- CSS -->
+      <link href="css2/bootstrap.min.css" rel="stylesheet">
+      <link href="css2/teststyle.css" rel="stylesheet">
+
+      <!-- FONT -->
+      <link href="https://fonts.gstatic.com" rel="preconnect">
+      <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+
+	<!-- DataTables -->
+
+<!--	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script> -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+	<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-cookies.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-animate/1.7.8/angular-animate.js"></script>
+   <script src="js/angular-datatables.js"></script>
+   <script src="js/db.js"></script>
+   <script src="js/admin_generate_report.js"></script>
+
+
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Google Font -->
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+	<style type='text/css'>
+	.table-primary td  {
+		background-color:rgb(233, 233, 231);
+
+	}
+	.thead-dark th {
+		background-color:rgb(126, 238, 212, 1);
+     }
+
+	.logo-lg {
+		background-color:rgb(239, 209, 169);
+
+	}
+	.main_sidebar {
+		color:green;
+
+	}
+
+	.sidebar {
+		background-color:rgb(223, 231, 233);
+
+	}
+	.fa, a span {
+
+		color:green;
+	}	
+
+	.sidebar-menu li:hover {
+		background-color:rgb(96, 156, 164, 1);
+		color:white;
+
+	}
+	
+
+	.treeview-menu {
+		background-color:red;
+
+	}
+
+	.sidebar-menu hover {
+		color:white;
+    		background: #cc0616;
+
+	}
+
+	.found_item {
+		  animation: fadeIn 3s forwards;
+		  animation-duration: 3s;
+		  animation-delay: calc(var(.f_item) * 3s);
+		  animation-delay: -webkit-calc(var(.f_item) * 3s);
+		  animation-delay: -moz-calc(var(.f_item) * 3s);
+
+
+		  animation-fill-mode: both;
+		  animation-timing-function: ease-in-out;
+		  margin:20px;
+		  
+			width:150px;
+			border-radius: 15px;
+
+
+	}
+
+	.found_item img {
+	
+		box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+		-webkit-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+		-moz-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+	
+	
+	}
+
+
+
+	@keyframes fadeIn {
+	  0% { opacity: 0; 
+
+	      transform: translateX(0px);
+		
+		}
+  	  100% { opacity: 1; 
+
+	      transform: translateX(0);
+
+		}
+	}
+	@keyframes fadeInUp {
+		0%  { opacity:-0.5;
+			visibility:none;  
+			 transform: translateY(+20px)
+			height:10px;
+
+		}
+
+		100% {
+			transform: translateY(0px);
+			visibility:visible;
+			opacity: 1
+			height:+80px;
+		}
+	}
+
+	@-webkit-keyframes fadeInUp {
+		0%  { opacity:-0.5;
+			visibility:none;  
+			 transform: translateY(+20px)
+			height:10px;
+
+		}
+
+		100% {
+			transform: translateY(0px);
+			visibility:visible;
+			opacity: 1
+			height:110%;
+		}
+	}
+	.dropdown-menu {
+		display:none;
+		position:absolute;
+		background-color:#fff;
+		z-index:0;
+
+	}
+
+	.dropdown-menu p {
+		margin-left:20px;
+		margin-right:20px;
+
+
+	}	
+
+	.found_item_title {
+		text-align: center;
+	}
+
+	.found_item_title p {
+		font-size:15px;
+	}
+
+
+	.dropup:hover .dropdown-menu {
+		display:block;
+		width:150px;
+		max-height:150px;
+		bottom:0px;
+ 		animation: fadeInUp 3s forwards;
+  		animation-duration: 2.5s;
+ 		animation-delay: 2;
+  		animation-fill-mode: both;
+  		animation-timing-function: ease-in-out;
+		object-fit:scale-down;
+		background: #cc0616;
+
+		opacity:0.80;
+		color:white;
+
+	}
+
+	.found_item:hover {
+	   -moz-box-shadow: 3px 3px 4px #000; 
+	   -webkit-box-shadow: 3px 3px 4px #000; 
+		box-shadow: 3px 3px 4px #000; 
+		opacity: 0.2;
+	}
+
+	.found_item:hover img {
+	  height:250px;
+	  width:170px;
+	  opacity: 0.75;
+
+
+	}	
+
+
+
+	.found_item .item_box{
+    box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+    -webkit-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+    -moz-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+
+	}
+
+	.mt-3 {
+	    margin-left:10px;
+	    padding-top:10px;
+	    vertical-align:bottom;
+	    display:inline-block;	
+	}
+
+	.mt-2 {
+	    margin-left:10px;
+	    padding-top:10px;
+	    vertical-align:bottom;
+	    display:inline-block;	
+	}
+
+	.mt-4 {
+	    margin-left:10px;
+	    padding-top:10px;
+	    vertical-align:bottom;
+	    display:inline-block;	
+	}
+
+	#q-box__buttons {
+	    padding-top:10px;	
+	
+
+	}
+	#q-box__buttons button {
+		color:#fff;
+
+
+
+	}
+	</style>
+	<style type='text/css'>
+	.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #f8f9fa!important;
+  overflow-x: hidden;
+  transition: 0.7s;
+  padding-top: 60px;
+  box-shadow: 0px 0px 8px #888888;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 16px;
+  text-decoration: none;
+  font-size: 15px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+  background: #cc0616;
+}
+
+.sidenav::-webkit-scrollbar { 
+  display: none; 
+} 
+
+
+  .animated-icon {
+	  width: 30px;
+	  height: 20px;
+	  position: relative;
+	  margin: 0px;
+	  -webkit-transform: rotate(0deg);
+	  -moz-transform: rotate(0deg);
+	  -o-transform: rotate(0deg);
+	  transform: rotate(0deg);
+	  -webkit-transition: .5s ease-in-out;
+	  -moz-transition: .5s ease-in-out;
+	  -o-transition: .5s ease-in-out;
+	  transition: .5s ease-in-out;
+	  cursor: pointer;
+  }
+  
+  .animated-icon span {
+	  display: block;
+	  position: absolute;
+	  height: 3px;
+	  width: 100%;
+	  border-radius: 9px;
+	  opacity: 1;
+	  left: 0;
+	  -webkit-transform: rotate(0deg);
+	  -moz-transform: rotate(0deg);
+	  -o-transform: rotate(0deg);
+	  transform: rotate(0deg);
+	  -webkit-transition: .25s ease-in-out;
+	  -moz-transition: .25s ease-in-out;
+	  -o-transition: .25s ease-in-out;
+	  transition: .25s ease-in-out;
+  }
+  
+  .animated-icon span {
+	background: #f3e5f5;
+  }
+  
+  .animated-icon span:nth-child(1) {
+	  top: 0px;
+	  -webkit-transform-origin: left center;
+	  -moz-transform-origin: left center;
+	  -o-transform-origin: left center;
+	  transform-origin: left center;
+  }
+  
+  .animated-icon span:nth-child(2) {
+	  top: 10px;
+	  -webkit-transform-origin: left center;
+	  -moz-transform-origin: left center;
+	  -o-transform-origin: left center;
+	  transform-origin: left center;
+  }
+  
+  .animated-icon span:nth-child(3) {
+	  top: 20px;
+	  -webkit-transform-origin: left center;
+	  -moz-transform-origin: left center;
+	  -o-transform-origin: left center;
+	  transform-origin: left center;
+  }
+  
+  .animated-icon.open span:nth-child(1) {
+	  -webkit-transform: rotate(45deg);
+	  -moz-transform: rotate(45deg);
+	  -o-transform: rotate(45deg);
+	  transform: rotate(45deg);
+	  top: 0px;
+	  left: 8px;
+  }
+  
+  .animated-icon.open span:nth-child(2) {
+  width: 0%;
+  opacity: 0;
+  }
+  
+  .animated-icon.open span:nth-child(3) {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  top: 21px;
+  left: 8px;
+  }
+  button {border:none !important;}
+  button:focus{outline: none;}
+
+  .center {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    text-align: center;
+    vertical-align: middle;
+  }
+
+	.navbar-brand {
+		color:#fff;
+	
+	}
+	
+	.search_bar {
+		background-color: #fff;
+		margin-bottom:10px;
+	}
+	
+	.catalogue {
+		background-color:#fff;
+	
+	
+	}
+
+	.title {
+    color: #fff;
+	padding-top:7px;
+	padding-left:7px;
+    background-color: #DC3545;
+		height:50px;
+		font-size:20;
+		text-align:left;
+		font-family: 'Josefin Sans', sans-serif;
+		margin-bottom:10px;
+		
+
+	}	
+	
+button#search-btn {
+    font-size: 17px;
+    font-weight: bold;
+    width: 180px;
+    height: 40px;
+    background: #DC3545;
+    margin: 0 auto;
+    margin-top: 28px;
+    overflow: hidden;
+    z-index: 1;
+    cursor: pointer;
+    transition: color .3s;
+    text-align: center;
+    color: #fff;
+    border: 0;
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}	
+	</style>
+
+   </head>
+   <body>
+	<div ng-app='searchApp' class="container min-vh-100">
+	   <div ng-controller='searchController' >
+
+   <div class="row">
+        <div class="col-1 d-flex justify-content-center">
+            <div id="mySidenav" class="sidenav">
+                <a href="admin_2.html">Dashboard</a>
+				                <a href="admin_requests.html">Requests Made</a>
+
+                <a href="add_new_item2.html">Add New Item</a>
+                <a href="admin_search_item3.html">Search Item</a>
+                <a href="#">Generate Reports</a>
+            </div>
+        </div>
+    </div>
+    <!--Navbar-->
+    <nav class="title navbar " style="box-shadow: 0px 0px 8px #888888;">
+        <!-- Collapse button -->
+        <button class="navbar-toggler hamburger-button" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation" onclick="Nav()" style="z-index: 2">
+            <div class="animated-icon"><span></span><span></span><span></span></div>
+        </button>
+        <!-- Navbar brand -->
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto" href="#">Lost and Found System</a>
+        </div>
+    </nav>
+
+
+			<div class='search_bar' style="display:flex;flex-wrap:wrap;">
+				<div class='mt-3'>
+                  <label class="form-label">Date Range:</label> 
+				  <input class="form-control" id="search_term" type="text" name="daterange" ng-model="daterange"  required="" />
+
+				</div>
+				<div class='mt-3'>
+                  <label class="form-label">Search Type:</label> 
+                  <select class="form-control col-md-7" name='search_type' ng-model='baseModel.search_type'>
+                    <option value='monthly'>Monthly Report</option>
+                    <option value='daily'>Daily Report</option>
+                    <option value='charity'>Letter to Charity</option>
+                    <option value='disposal'>Letter for Disposal of Items</option>
+                  </select>
+				</div>
+				<div class='mt-3'>
+
+                  <label class="form-label">&nbsp;</label> 
+				  
+				
+					<button id='search-btn' type='button' ng-click='generateReport()'>Generate Report</button>
+				
+
+	
+			</div>
+			</div>
+			
+
+			<div ng-if="baseModel.search_type=='daily' || baseModel.search_type=='monthly'" class='search_bar' style="display:flex;flex-wrap:wrap;">
+				<div class='mt-3'>
+                  <label class="form-label">Prepared By:</label> 
+				  <input class="form-control" id="prepared_by"  name="prepared_by" type="text" ng-model="baseModel.prepared_by"  required="" />
+
+				</div>
+				<div class='mt-3'>
+                  <label class="form-label">Position:</label> 
+					<div class='col-md-11'>
+					<input class="form-control" id="prepared_position" type="text" name="prepared_position" ng-model="baseModel.prepared_position"  required="" />
+					</div>
+				</div>
+				<div class='mt-3'>
+                  <label class="form-label">Reference:</label> 
+					<input class="form-control" id="prepared_position" type="text" name="ref_no" ng-model="baseModel.ref_no"  required="" />
+				</div>
+				
+
+			</div>
+			
+
+
+
+ 	<script language='javascript'>
+function Nav() {
+  var width = document.getElementById("mySidenav").style.width;
+  if (width === "0px" || width == "") {
+    document.getElementById("mySidenav").style.width = "250px";
+    $('.animated-icon').toggleClass('open');
+  }
+  else {
+    document.getElementById("mySidenav").style.width = "0px";
+    $('.animated-icon').toggleClass('open');
+  }
+}
+	
+	
+	
+	
+	</script>  
+
+	
+	<!--
+	
+	
+<div id="preloader-wrapper">
+   <div id="preloader"></div>
+   <div class="preloader-section section-left"></div>
+   <div class="preloader-section section-right"></div>
+</div>	  
+      <script type="text/javascript" src="testscript.js"></script>
+	  -->
+   </body>
+</html>

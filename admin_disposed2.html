@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>Lost and Found: Add Found Item</title>
+      <!-- CSS -->
+      <link href="css2/bootstrap.min.css" rel="stylesheet">
+      <link href="css2/teststyle.css" rel="stylesheet">
+
+      <!-- FONT -->
+      <link href="https://fonts.gstatic.com" rel="preconnect">
+      <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+
+	<!-- DataTables -->
+
+<!--	<script type="text/javascript"  src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script> -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+	<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-cookies.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-animate/1.7.8/angular-animate.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.7.8/angular-sanitize.js"></script>
+ 
+ <script src="js/angular-datatables.js"></script>
+   <script src="js/db.js"></script>
+   <script src="js/admin_disposed_list2.js"></script> 
+
+
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Google Font -->
+
+
+
+
+
+
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+	<style type='text/css'>
+	.table-primary td  {
+		background-color:rgb(233, 233, 231);
+
+	}
+	.thead-dark th {
+		background-color:rgb(126, 238, 212, 1);
+     }
+
+	.logo-lg {
+		background-color:rgb(239, 209, 169);
+
+	}
+	.main_sidebar {
+		color:green;
+
+	}
+
+	.sidebar {
+		background-color:rgb(223, 231, 233);
+
+	}
+	.fa, a span {
+
+		color:green;
+	}	
+
+	.sidebar-menu li:hover {
+		background-color:rgb(96, 156, 164, 1);
+		color:white;
+
+	}
+	
+	.category {
+		height: 100%;
+		margin: 20px;
+		padding:10px;
+
+	}
+
+	.treeview-menu {
+		background-color:red;
+
+	}
+
+	.sidebar-menu hover {
+		color:white;
+    		background: #cc0616;
+
+	}
+
+	.found_item {
+    position: relative;
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
+    animation-delay: calc(var(--item-index) * 0.2s);
+    margin: 20px;
+    width: 150px;
+    border-radius: 15px;
+    animation-fill-mode: both;
+    transition: all 0.3s ease;
+		  margin:20px;
+		  
+		width:150px;
+		border-radius: 15px;
+
+
+	}
+
+	.found_item img {
+	
+    box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+    -webkit-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+    -moz-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+	
+	
+	}
+
+
+
+	@keyframes fadeIn {
+	  0% { opacity: 0; 
+
+	      transform: translateX(0px);
+		
+		}
+  	  100% { opacity: 1; 
+
+	      transform: translateX(0);
+
+		}
+	}
+@keyframes fadeInUp {
+    0%  { opacity:-0.5;
+        visibility:none;  
+	 transform: translateY(+20px)
+	height:10px;
+
+    }
+
+    100% {
+        transform: translateY(0px);
+        visibility:visible;
+	opacity: 1
+	height:+80px;
+    }
+}
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 0.7;
+        transform: translateY(0);
+    }
+}
+
+@-webkit-keyframes fadeInUp {
+    0%  { opacity:-0.5;
+        visibility:none;  
+	 transform: translateY(+20px)
+	height:10px;
+
+    }
+
+    100% {
+        transform: translateY(0px);
+        visibility:visible;
+	opacity: 1
+	height:+80px;
+    }
+}
+	.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: rgba(204, 6, 22, 0.85); /* Using rgba for transparency */
+    width: 150px;
+    height: 100%;
+    left: 0;
+    bottom: 0;
+    padding: 10px;
+    color: white;
+    border-radius: 15px;
+    backdrop-filter: blur(2px); /* Adds a slight blur effect behind */
+    -webkit-backdrop-filter: blur(2px);
+    z-index: 100;
+
+	}
+
+	.dropdown-menu p {
+		margin-left:20px;
+		margin-right:20px;
+		line-height:1;
+
+
+	}	
+
+.found_item_title, .found_item_text {
+    margin: 0;
+    padding: 5px 10px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Adds subtle text shadow for better readability */
+}
+.found_item_title {
+    text-align: center;
+    margin: 0;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+}
+
+.found_item_title a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    line-height: 1.3;
+    padding: 0 5px;
+}
+
+.found_item_text {
+    text-align: center;
+    margin-top: 8px;
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+
+	.dropup:hover .dropdown-menu {
+    display: block;
+	
+	
+	    left: 0;
+    bottom: 0;
+    padding: 10px;
+    color: white;
+    border-radius: 15px;
+    backdrop-filter: blur(2px);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	    width: 150px;  /* Keep consistent with card width */
+    animation: slideUp 0.3s ease forwards;
+    height: 100%;   /* Full height of the card */
+    transform-origin: bottom;
+		background: #cc0616;
+		width:90px;
+
+		opacity:0.80;
+		color:white;
+
+	}
+
+	.found_item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+
+	}
+
+	.found_item:hover img {
+    opacity: 0.7; /* Made image slightly more visible on hover */
+    transition: all 0.3s ease;
+
+	}	
+
+
+	.found_item .item_box{
+    box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+    -webkit-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+    -moz-box-shadow: 10px 8px 21px 0px rgba(204, 204, 204, 0.75);
+
+	}
+
+
+	.container {
+background: rgb(255,255,255);
+background: linear-gradient(90deg, rgba(255,255,255,1) 0%, #fffafa 100%);
+
+
+	
+	
+	}
+	
+	.cat_title {
+	    font-family: 'Josefin Sans', sans-serif;
+		color:#fff;
+		margin-bottom:10px;
+		display:flex;
+				padding:10px;
+		width:100%;
+	
+				
+	background: rgb(120,150,176);
+background: linear-gradient(90deg, rgba(120,150,176,1) 0%, rgba(87,108,127,1) 100%);	
+	}
+.table {
+  width: 100%;
+  margin-bottom: 0;
+  background-color: transparent;
+}
+
+.table th {
+  font-weight: 500;
+  background-color: #f8f9fa;
+  border-top: none;
+}
+
+.table td, .table th {
+  vertical-align: middle;
+  border-top: 1px solid #dee2e6;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.shadow {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.title {
+  height: 60px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: rgb(164,119,100);
+background: linear-gradient(90deg, rgba(164,119,100,1) 0%, rgba(195,159,137,1) 100%);
+}
+
+.title h1 {
+  text-decoration: none !important;  /* Force remove strikethrough */
+  font-family: 'Josefin Sans', sans-serif;
+  margin: 0;
+  color: white;
+}
+
+.category-section {
+  margin-bottom: 2rem;
+}
+
+.cat_title {
+  background: linear-gradient(90deg, rgba(120,150,176,1) 0%, rgba(87,108,127,1) 100%);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-family: 'Josefin Sans', sans-serif;
+  margin-bottom: 0; /* Remove bottom margin */
+}
+
+.table-container {
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 0 0 4px 4px;
+  overflow: hidden; /* Ensure table doesn't break container */
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.table th {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+  padding: 1rem;
+}
+
+.table td {
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+.main-content {
+  padding: 1.5rem;
+}
+
+.category-section + .category-section {
+  margin-top: 2rem;
+}
+
+
+
+	</style>
+	
+	<style type='text/css'>
+	.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #f8f9fa!important;
+  overflow-x: hidden;
+  transition: 0.7s;
+  padding-top: 60px;
+  box-shadow: 0px 0px 8px #888888;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 16px;
+  text-decoration: none;
+  font-size: 15px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+  background: #a47764;
+}
+
+.sidenav::-webkit-scrollbar { 
+  display: none; 
+} 
+
+  .animated-icon {
+  width: 30px;
+  height: 20px;
+  position: relative;
+  margin: 0px;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: .5s ease-in-out;
+  -moz-transition: .5s ease-in-out;
+  -o-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+  cursor: pointer;
+  }
+  
+  .animated-icon span {
+  display: block;
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  border-radius: 9px;
+  opacity: 1;
+  left: 0;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: .25s ease-in-out;
+  -moz-transition: .25s ease-in-out;
+  -o-transition: .25s ease-in-out;
+  transition: .25s ease-in-out;
+  }
+  
+  .animated-icon span {
+  background: #f3e5f5;
+  }
+  
+  .animated-icon span:nth-child(1) {
+  top: 0px;
+  -webkit-transform-origin: left center;
+  -moz-transform-origin: left center;
+  -o-transform-origin: left center;
+  transform-origin: left center;
+  }
+  
+  .animated-icon span:nth-child(2) {
+  top: 10px;
+  -webkit-transform-origin: left center;
+  -moz-transform-origin: left center;
+  -o-transform-origin: left center;
+  transform-origin: left center;
+  }
+  
+  .animated-icon span:nth-child(3) {
+  top: 20px;
+  -webkit-transform-origin: left center;
+  -moz-transform-origin: left center;
+  -o-transform-origin: left center;
+  transform-origin: left center;
+  }
+  
+  .animated-icon.open span:nth-child(1) {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  top: 0px;
+  left: 8px;
+  }
+  
+  .animated-icon.open span:nth-child(2) {
+  width: 0%;
+  opacity: 0;
+  }
+  
+  .animated-icon.open span:nth-child(3) {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  top: 21px;
+  left: 8px;
+  }
+  button {border:none !important;}
+  button:focus{outline: none;}
+
+  .center {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    text-align: center;
+    vertical-align: middle;
+  }
+
+	.navbar-brand {
+		color:#fff;
+	
+	}
+	
+	</style>
+		<style>
+.nav-link {
+  color: #0d6efd;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.nav-link:hover {
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.table th {
+  font-weight: normal;
+  border: none;
+  background: white;
+}
+
+.table td {
+  border: none;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+</style>
+
+		<style>
+
+
+
+.table th {
+  font-weight: 500;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+  .table-responsive {
+    border: 0;
+  }
+}
+
+.page-link, .text-primary {
+	color: #8b655a !important;
+
+}
+
+.table td, .table th {
+  vertical-align: middle;
+  border-top: 1px solid #dee2e6;
+}
+</style>
+</head>
+<body>
+<div ng-app='itemsApp' class='container'>
+
+<div ng-controller='itemsController'>
+
+<div class='cont_body'>
+
+
+   <div class="row">
+        <div class="col-1 d-flex justify-content-center">
+            <div id="mySidenav" class="sidenav">
+                <a href="admin_2.html">Dashboard</a>
+	                <a href="admin_requests.html">Requests Made</a>
+		
+			
+                <a href="add_new_item2.html">Add New Item</a>
+                <a href="admin_search_item3.html">Search Item</a>
+                <a href="admin_generate_reports2.html">Generate Reports</a>
+            </div>
+        </div>
+    </div>
+    <!--Navbar-->
+    <nav class="title navbar " style="box-shadow: 0px 0px 8px #888888;">
+        <!-- Collapse button -->
+        <button class="navbar-toggler hamburger-button" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation" onclick="Nav()" style="z-index: 2">
+            <div class="animated-icon"><span></span><span></span><span></span></div>
+        </button>
+        <!-- Navbar brand -->
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto" href="#">Lost and Found System</a>
+        </div>
+		
+				<div align=right style='padding-right:5px;'>
+		<a style='text-decoration:none;color:white;' href='../lostnfound/'>Log out</a></div>
+		
+		
+    </nav>
+
+
+
+
+
+
+</div>
+
+    <!-- Categories -->
+    <div class="flex-grow-1 p-4">
+	<!-- Recently Found Items -->
+      <div class="sections-container"> 
+<!--    <div class="mb-4 w-100"></div>-->
+		
+		
+		
+       <div class="mb-4 w-100">
+        <div class="d-flex justify-content-between align-items-center p-3" id='disposed'
+             style="background: rgb(240,240,230);
+background: linear-gradient(90deg, rgba(240,240,230,1) 0%, rgba(228,199,185,1) 100%);color:#8b655a;">
+          <h2 class="h5 mb-0" style='color:#8b655a;'>Disposed Items</h2>
+          <a href="admin_2.html"  style='color:#8b655a;' class="text-decoration-none">Go Back</a>
+        </div>
+        <!-- Same table structure as above -->
+		        <div class="bg-white shadow-sm">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0" >
+              <thead>
+                <tr>
+                  <th class="px-4 py-3">Date Found</th>
+                  <th class="px-4 py-3">Description</th>
+                  <th class="px-4 py-3">Category</th>
+                  <th class="px-4 py-3">Item Type</th>
+                  <th class="px-4 py-3">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+    <tr ng-repeat="item in disposedItems  | limitTo: pagination.disposed.pageSize : (pagination.disposed.page-1) * pagination.disposed.pageSize">
+	<td class="px-4 py-3">{{item.found_date }}</td>
+                  <td class="px-4 py-3">{{item.description}}{{  }}</td>
+
+	<td class="px-4 py-3">{{item.category.type}}</td>
+                  <td class="px-4 py-3">{{item.item_type.name}}</td>
+
+                  <td class="px-4 py-3">
+                    <a href="admin_item2.html?uid={{item.id}}" class="text-primary">View Details</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+<!-- For Expired Items pagination -->
+<div class="d-flex justify-content-between align-items-center p-3 border-top">
+  <div class="text-muted">
+    Showing {{((pagination.disposed.page-1) * pagination.disposed.pageSize) + 1}} to 
+    {{Math.min(pagination.disposed.page * pagination.disposed.pageSize, disposedItems.length)}} of 
+    {{disposedItems.length}} entries
+  </div>
+  <nav>
+    <ul class="pagination mb-0">
+      <li class="page-item" ng-class="{disabled: pagination.disposed.page === 1}">
+        <a class="page-link" href="#disposed" ng-click="pagination.disposed.page = pagination.disposed.page - 1">Previous</a>
+      </li>
+      <li class="page-item" 
+          ng-repeat="page in getPageArray(filteredDisposed().length, pagination.disposed.pageSize)"
+          ng-class="{active: pagination.disposed.page === page}">
+        <a class="page-link" href="#disposed" ng-click="pagination.disposed.page = page">{{page}}</a>
+      </li>
+      <li class="page-item" 
+          ng-class="{disabled: pagination.disposed.page === getTotalPages(filteredDisposed(), pagination.disposed.pageSize)}">
+        <a class="page-link" href="#disposed" ng-click="pagination.disposed.page = pagination.disposed.page + 1">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+		</div>
+
+
+
+
+</div>
+
+
+</div>
+</div>
+
+</div>
+
+	<script language='javascript'>
+function Nav() {
+  var width = document.getElementById("mySidenav").style.width;
+  if (width === "0px" || width == "") {
+    document.getElementById("mySidenav").style.width = "250px";
+    $('.animated-icon').toggleClass('open');
+  }
+  else {
+    document.getElementById("mySidenav").style.width = "0px";
+    $('.animated-icon').toggleClass('open');
+  }
+}
+	
+	
+	
+	
+	</script>
+	
+</body>
+</html>
+
+
+
+
+

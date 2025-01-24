@@ -5,7 +5,7 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 
 	var request_id = window.location.search.split("date=")[1];	
 	$scope.request_id=request_id;
-	$scope.assetfolder=host+"public/assets/images/items/";	
+	$scope.assetfolder=host+"assets/images/items/";	
 	$scope.date=new Date();
 
 
@@ -19,8 +19,12 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 	$scope.prepared_by=$scope.prepared_by.replace("%20",' ');
 	$scope.prepared_position=request_id.split("&")[2].split("=")[1];
 
+
+	$scope.prepared_position=$scope.prepared_position.replace("%20",' ');
+
 	$scope.ref_no=request_id.split("&")[3].split("=")[1].replace("%20"," ");
 
+	$scope.ref_no=$scope.ref_no.replace("%20",' ');
 
 
 	
@@ -44,15 +48,20 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 	}	
 
 
-	var url=host+"items/daterange/1/range/"+request_id.split("&")[0];
-
+	var url=host+"daterangefound/daily/"+request_id.split("&")[0];
 //		var request_id=id;
 //		var token=$scope.token;
+
+
 	
 		$http.get(url).then(function(resp, status, headers, config) {
 			var response=resp.data;
+				const firstKey = Object.keys(response)[1];
 
-			$scope.items=response;	
+				$scope.items=response[firstKey];
+
+
+			//$scope.items=response;	
 
 			
 

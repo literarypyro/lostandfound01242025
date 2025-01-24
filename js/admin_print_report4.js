@@ -5,7 +5,7 @@ requestModule.controller("itemsController",['$compile', '$scope','$http','$windo
 
 	var request_id = window.location.search.split("date=")[1];	
 	$scope.request_id=request_id;
-	$scope.assetfolder=host+"public/assets/images/items/";	
+	$scope.assetfolder=host+"assets/images/items/";	
 
 	var dateFrom=request_id.split("to")[0];
 	var dateTo=request_id.split("to")[1];

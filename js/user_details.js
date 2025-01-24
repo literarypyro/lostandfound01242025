@@ -3,7 +3,7 @@ registrationModule.controller("registrationController",['$compile','$scope',"$ht
 
 	$scope.registerUser=function (){
 
-		var url="http://192.168.1.163/lnf_api/register";
+		var url="http://oms.dotrmrt3.gov.ph/psilva/lnf_api/register";
 		var username=$scope.username;
 		var name=$scope.name;
 		var password=$scope.password;
@@ -89,9 +89,9 @@ registrationModule.controller("detailsController",['$compile','$scope',"$http","
 									email:$scope.email,
 									user_id:$scope.user_id
 								});
-		var url="http://192.168.1.163/lnf_api_old/lnf_api/register/"+$scope.user_id+"/profile";						
-		var url2="http://192.168.1.163/lnf_api_old/lnf_api/register/"+$scope.user_id+"/address";						
-		var url3="http://192.168.1.163/lnf_api_old/lnf_api/register/"+$scope.user_id+"/contact";						
+		var url="http://oms.dotrmrt3.gov.ph/psilva/lnf_api/register/"+$scope.user_id+"/profile";						
+		var url2="http://oms.dotrmrt3.gov.ph/psilva/lnf_api/register/"+$scope.user_id+"/address";						
+		var url3="http://oms.dotrmrt3.gov.ph/psilva/lnf_api/register/"+$scope.user_id+"/contact";						
 		$http.post(url, profile_parameter).
 		then(function(response, status, headers, config) {
 			// this callback will be called asynchronously

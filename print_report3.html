@@ -12,16 +12,43 @@
   <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+
+<style type='text/css' media='screen'>
+
+@media screen {
+	p {
+		margin-left: 2cm;
+		margin-right:2cm;
+	}
+	
+	hr {
+		margin-left: 2cm;
+		margin-right:2cm;
+	}
+	
+	table {
+		margin-left: 2cm;
+		margin-right:2cm;
+	}
+
+   #heading {display: none;}
+   #footer {display: none;}
+
+}
+</style>
 <style type='text/css' media='print'>
 @media print {
-	@page { 
-	
-	
-	margin-top:0mm;
-	margin-bottom:0mm;
+
+	@page :header {
+			background-image:url("mrt3 logo.jpg");
+					
+			margin-bottom:0mm;
 	
 	}
-	body { margin-top: 2in; 
+	
+	
+	body { 
+		margin-top: 1in; 
 		margin-bottom:2in;
 		text-align:justify;
 		font-size: 13pt;
@@ -89,8 +116,10 @@
 
 
 
+
 @page {
 	size: 5.5in 8.5in;
+	margin-bottom: 1in;
 
 }
 
@@ -98,6 +127,7 @@
 @page {
 	size: A4 portrait;
 }
+
 
 @page :left {
     margin-left: 1in;
@@ -110,33 +140,20 @@
 
  }
 
+
+
+
+@page :footer {
+	margin-bottom:9in;
+
+}
+
 @page :first {
 
 }
 
 @page :blank {
 	@top-center { content: "This page is intentionally left blank." }
-}
-</style>
-<style type='text/css' media='screen'>
-
-@media screen {
-	p {
-		margin-left: 2cm;
-		margin-right:2cm;
-	}
-	
-	hr {
-		margin-left: 2cm;
-		margin-right:2cm;
-	}
-	
-	table {
-		margin-left: 2cm;
-		margin-right:2cm;
-	}
-
-	
 }
 </style>
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -154,9 +171,18 @@
 <script language='javascript'>
 
 function printDiv(){
+  var header=document.getElementById('heading');
+  var footer=document.getElementById('footer');
+
   var divToPrint=document.getElementById('itemsApp');
+
+
   newWin= window.open("");
+  newWin.document.write(header.outerHTML);
+
   newWin.document.write(divToPrint.outerHTML);
+  newWin.document.write(footer.outerHTML);
+
   newWin.print();
   newWin.close();
 
@@ -164,11 +190,13 @@ function printDiv(){
 </script>
 </head>
 <body onclick='printDiv()'>
+<div id='heading'>
+<img src='img/mrt3 heading.jpg' width=100%></img>
 
+</div>
 <div ng-app='itemsApp' id='itemsApp'>
-<br>
-<br>
-<br>
+
+
 
 <div ng-controller='itemsController'>
 <p>
@@ -183,7 +211,7 @@ MEMORANDUM
 
 <tr>
 <td>
-<b>FOR</b>		</td><td><b>:</b></td><td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MICHAEL J. CAPATI</b></td>
+<b>FOR</b>		</td><td><b>:</b></td><td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENGR. OFELIA D. ASTRERA</b></td>
 </b><br>
 </td>
 </tr>
@@ -193,7 +221,7 @@ MEMORANDUM
 </td>
 
 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					Director for Operations		
+					Officer-in-Charge, Office of the Operations Director					
 </td>
 </tr>
 <tr>
@@ -219,23 +247,23 @@ from North Avenue to Taft Avenue Stations.
 <br>
 
 
-         <table id='items' border=0  class="table table-bordered table-striped">
+         <table id='items' style='border-top:1px solid gray;border-right:1px solid gray;border-left:1px solid gray;'  class="table table-bordered table-striped">
          <thead>
          <tr>
-             <th style='border:1px solid black;'>Date Item Found</th>
-             <th style='border:1px solid black;'>Station</th>
-             <th style='border:1px solid black;'>Item No.</th>
-             <th style='border:1px solid black;'>Description/Particulars</th>
-             <th style='border:1px solid black;'>Remarks</th>
+             <th style='border-bottom:1px solid gray;border-right:1px solid gray;'>Date Item Found</th>
+             <th style='border-bottom:1px solid gray;border-right:1px solid gray;'>Station</th>
+             <th style='border-bottom:1px solid gray;border-right:1px solid gray;'>Item No.</th>
+             <th style='border-bottom:1px solid gray;border-right:1px solid gray;'>Description/Particulars</th>
+             <th style='border-bottom:1px solid gray;'>Remarks</th>
         </tr>
         </thead>
         <tbody>
 		<tr ng-repeat="item in items">
-            <td style='border:1px solid black;'>{{ item["found_record"].found_date.replace(" 00:00:00","") | date: 'MM/dd/yyyy' }}</td>
-            <td style='border:1px solid black;'>{{ item["location"].code }}</td>
-            <td style='border:1px solid black;'>{{ item.item_no }}</td>
-            <td style='border:1px solid black;'>{{ item.description }}</td>
-			<td style='border:1px solid black;'><span ng-if="item.status_type_id==3">Claimed</span><span ng-if="item.status_type_id!=3">Unclaimed</span></td>
+            <td style='border-bottom:1px solid gray;border-right:1px solid gray;' width='20%' align=center>{{ item["found_record"].found_date.replace(" 00:00:00","") | date: 'MM/dd/yyyy' }}</td>
+            <td style='border-bottom:1px solid gray;border-right:1px solid gray;'  width='15%' align=center>{{ item["location"].code }}</td>
+            <td style='border-bottom:1px solid gray;border-right:1px solid gray;' width='20%' align=center>{{ item["item_no"] }}</td>
+            <td style='border-bottom:1px solid gray;border-right:1px solid gray;' width='25%'>{{ item.description }}</td>
+			<td style='border-bottom:1px solid gray;' width='20%' align=center>{{ item.is_claimed }}</td>
 		</tr>
 		</tbody>
 	</table>
@@ -301,5 +329,10 @@ from North Avenue to Taft Avenue Stations.
 	
 	</div>
 </div>
+<div id='footer' style='bottom:0; position:absolute;'>
+<img src='img/footer.jpg' width=100%></img>
+
+</div>
+
 </body>
 </html>
