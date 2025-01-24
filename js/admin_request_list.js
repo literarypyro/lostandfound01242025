@@ -67,12 +67,13 @@ requestModule.controller("requestController",['$compile', '$scope','$http','$win
 		});	
 	};
 	
-	$scope.retrieveItemDetails=function(request,request2,req_status,reqId){
+	$scope.retrieveItemDetails=function(request,request2,req_status,req){
 			$scope.reqStatus=req_status;
-			$scope.reqId=reqId;
+			$scope.reqId=req.id;
+			$scope.selectedReq=req;
 			$scope.reqDetails=request;
 			$scope.userProfile=request2;
-
+			
 			$scope.retrieveDetails(request);
 
 
@@ -99,10 +100,98 @@ requestModule.controller("requestController",['$compile', '$scope','$http','$win
 			$scope.length=request.length;
 			$scope.width=request.width;
 			$scope.other_details=request.other_details;
+
+
+			var filterurl=host+"filter";
+
+
+			var dt=new Date($scope.selectedReq['request_date']);
+			
+			
+			var year=dt.getFullYear();
+			var mm=dt.getMonth();
+			var day=dt.getDate();
+
+			var dt2=new Date(year,mm+1,0);
+
+			var year2=dt2.getFullYear();
+			var mm2=dt2.getMonth();
+			var day2=dt2.getDate();
+
+
+			$scope.req_dt=year+"-"+(mm+1)+"-01";
+			$scope.req_dt2=year2+"-"+(mm2+1)+"-"+day2;
+
+			var request_date=$scope.req_dt+" to "+$scope.req_dt2;
+			console.log(request_date);
+			
+			var payload = new FormData();
+			payload.append("dateRange", request_date);
+			payload.append("category", $scope.selectedReq['category_id']);
+//			payload.append('itemType', $scope.selectedReq['item_type_id']);
+			payload.append('itemType', "");
+
+			payload.append('searchTerm', $scope.selectedReq['description']);
+			payload.append('color', $scope.color);
+			payload.append('shape', $scope.shape);
+			payload.append('length', $scope.length);
+			payload.append('width', $scope.width);
+			payload.append('other_details', $scope.other_details);
+			payload.append('advanced', true);
+					
+					
+					
+		
+						
+						
+						$http({
+							url: filterurl,
+							method: 'POST',
+							data: payload,
+							//assign content-type as undefined, the browser
+							//will assign the correct boundary for us
+							headers: { 'Content-Type': undefined },
+							//prevents serializing payload.  don't do it.
+							transformRequest: angular.identity
+						})
+						.then(function(response) {
+							// Check if response.data is null, undefined, or empty
+							$scope.itemList = response.data || [];
+							$scope.itemlength = Array.isArray($scope.itemList) ? $scope.itemList.length : 0;
+							if($scope.itemlength>0){
+								
+							$scope.filteredItems = $scope.itemList.filter(function(item) {
+								return item && 
+									   item.latest_stat && 
+									   ((parseInt(item.latest_stat.status_type_id) == 1) || (parseInt(item.latest_stat.status_type_id) == 4)  );
+							});
+														
+								
+	
+								
+							}
+							$scope.searchResults = "A preliminary database search yielded " + $scope.filteredItems.length + " results";
+							
+							
+						})
+						.catch(function(error) {
+							console.error('Filter API error:', error);
+							$scope.itemList = [];
+							$scope.itemlength = 0;
+							$scope.searchResults = "An error occurred while searching the database";
+						});
+			
 			
 			
 		
 	};
+	
+	$scope.openResults=function(){
+		if($scope.filteredItems.length>0){
+			$cookies.put("itemList",JSON.stringify($scope.filteredItems));
+			window.open('admin_results.html','_SELF');
+		}
+	}
 		
 	$scope.retrieveProfile=function (request){
 		//var request_id=$scope.request_id;
@@ -236,7 +325,7 @@ requestModule.controller("requestController",['$compile', '$scope','$http','$win
 			method: 'POST',
             fields: {'request_id': request_id,'claim_date':claim_date,'details':claim_details},
 //			file: $scope.img,
-			data: {file:$scope.img,'request_id': request_id,'claim_date':claim_date,'details':claim_details}
+			data: {file:photo,'request_id': request_id,'claim_date':claim_date,'details':claim_details}
 
 		}).then(function(response) {
         // Update requests list

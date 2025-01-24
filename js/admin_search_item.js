@@ -22,6 +22,9 @@ requestModule.controller("searchController",['$compile', '$scope','$http','$wind
 	$scope.assetfolder=host+"assets/images/items/";	
 	$scope.user_name=$cookies.get("user_name");
 	
+	$scope.advanced=false;
+	
+	
 		//alert(request_id);
 		
 //	var request_id=$rootScope.user_id;
@@ -47,13 +50,48 @@ requestModule.controller("searchController",['$compile', '$scope','$http','$wind
 
 		*/
 		
+	$scope.enableAdvanced=function(){
+		if($scope.advanced){ $scope.advanced=false; } else { $scope.advanced=true; }
+
+	}		
+	var url=host+"category";
+		$http.get(url)
+		.then(function(resp, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+			var response=resp.data;
+						
+			//if login is illegal
+			
+			
+			$scope.categories = response;
+			//console.log(data);
+		});	
+	var url=host+"itemType/list";
+	
+	
+		$http.get(url)
+		.then(function(resp, status, headers, config) {
+			// this callback will be called asynchronously
+			// when the response is available
+			var response=resp.data;
+						
+			//if login is illegal
+			
+			
+			$scope.item_types = response;
+			//console.log(data);
+	});			
+		
 	$scope.searchItem=function (){
 		//var request_id=$scope.request_id;
-		var search_type=$scope.search_type;
 		var search_term=$scope.search_term;
-		
-		
+		$scope.itemList=[];
 
+		$cookies.put("fromsearch",JSON.stringify(false));
+		$cookies.put("itemList",JSON.stringify($scope.itemList));
+
+		
 
 		var range=$scope.daterange;
 		var dates=range.split("-");
@@ -83,26 +121,91 @@ requestModule.controller("searchController",['$compile', '$scope','$http','$wind
 
 		range=from+" to "+to;
 
-		var url=host+"items/"+search_type+"/"+search_term+"/range/"+range;
-
+		//var request_id=$scope.request_id;
+			$scope.picture="";
 		
-		if(search_type=="search"){
-		   url=host+"daterangesearch/"+search_type+"/"+search_term+"/range/"+range;
-		}
-		else if(search_type=="itemType"){
-		   url=host+"itemtypesearch/"+search_type+"/"+search_term+"/range/"+range;
+			$scope.shape="";
+			$scope.color="";
+			$scope.length="";
+			$scope.width="";
+			$scope.other_details="";
+		
 
-		}
-		else {
-		   url=host+"categorysearch/"+search_type+"/"+search_term+"/range/"+range;			
-		}
 
+			var filterurl=host+"filter";
+
+
+			
+			var payload = new FormData();
+			payload.append("dateRange", range);
+			payload.append("category", $scope.category);
+			payload.append('searchTerm', $scope.search_term);
+			payload.append('itemType', $scope.item_type);
+			payload.append('advanced', $scope.advanced);
+
+
+//			if($scope.advanced==true){
+				
+			payload.append('color', $scope.color);
+			payload.append('shape', $scope.shape);
+			payload.append('length', $scope.length);
+			payload.append('width', $scope.width);
+			payload.append('other_details', $scope.other_details);
+//			}		
+					
+					
+		
+						
+						
+						$http({
+							url: filterurl,
+							method: 'POST',
+							data: payload,
+							//assign content-type as undefined, the browser
+							//will assign the correct boundary for us
+							headers: { 'Content-Type': undefined },
+							//prevents serializing payload.  don't do it.
+							transformRequest: angular.identity
+						})
+						.then(function(response) {
+							// Check if response.data is null, undefined, or empty
+							$scope.itemList = response.data || [];
+							$scope.itemlength = Array.isArray($scope.itemList) ? $scope.itemList.length : 0;
+							
+						   if ($scope.itemlength > 0) {
+							   // Store data in sessionStorage instead of cookies
+							   sessionStorage.setItem('itemList', JSON.stringify($scope.itemList));
+							   $cookies.put('fromsearch', 'true');
+							   window.open('admin_results.html', '_SELF');
+						   }	
+							else {
+								$scope.searchResults = "An error occurred while searching the database";
+								
+								
+								
+							}
+
+								
+							
+							
+						})
+						.catch(function(error) {
+							console.error('Filter API error:', error);
+							$scope.itemList = [];
+							$scope.itemlength = 0;
+							$scope.searchResults = "An error occurred while searching the database";
+						
+						});
+			
+			
+			
 	
 //		var request_id=id;
 		
 //		var token=$scope.token;
 
 
+	/*
 
 		$scope.items={};		
 		$http.get(url).then(function(resp, status, headers, config) {
@@ -155,6 +258,7 @@ requestModule.controller("searchController",['$compile', '$scope','$http','$wind
 			
 			
 		});	
+		*/
 	};
 	$scope.addStatus=function (){
 

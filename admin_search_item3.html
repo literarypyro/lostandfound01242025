@@ -579,7 +579,109 @@ button#search-btn {
     margin-bottom: 0;
     margin-top: 0;
 }
-	</style>
+.advancedfilter {
+	color: #8b655a !important;
+	text-decoration:none;
+
+}
+<style>
+/* Advanced toggle button styling */
+.advanced-toggle {
+    background: transparent;
+    color: #8b655a;
+    font-size: 1rem;
+    padding: 8px 16px;
+    border: 2px solid #8b655a !important;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    margin-top: 28px;
+}
+
+.advanced-toggle:hover {
+    background: #8b655a;
+    color: white;
+}
+
+.advanced-toggle.active {
+    background: #8b655a;
+    color: white;
+}
+
+/* Search bar improvements */
+.search_bar {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+/* Advanced search panels */
+.advanced-panel {
+    background: #f8f8f8;
+    border-radius: 0 0 8px 8px;
+    padding: 20px;
+    margin-top: -10px;
+    border-top: 1px solid #eee;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.advanced-panel .form-group {
+    margin: 0;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .search_bar {
+        flex-direction: column;
+    }
+    
+    .form-group {
+        width: 100%;
+        max-width: none;
+    }
+    
+    #search-btn {
+        width: 100%;
+    }
+}
+.advanced-search-btn {
+   background: #c39f89;
+   color: white;
+   padding: 8px 20px;
+   border-radius: 5px;
+   font-weight: 500;
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   transition: all 0.3s ease;
+}
+
+.advanced-search-btn:hover {
+   background: #a47764;
+}
+
+.advanced-search-btn i {
+   transition: transform 0.3s ease;
+}
+
+.advanced-search-btn.active i {
+   transform: rotate(180deg);
+}
+</style>
+<style>
+.item-card:hover {
+   transform: translateY(-4px);
+   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.search-results {
+   padding: 20px;
+   color: #56453e;
+   font-size: 16px;
+}
+</style>
 
    </head>
    <body>
@@ -613,39 +715,77 @@ button#search-btn {
 		
 		
     </nav>
+<!-- Modified HTML structure -->
+<div class='search_bar'>
+    <!-- Existing search fields -->
 
 
-	<div class='search_bar'>
     <div class="form-group">
         <label class="form-label">Date Range:</label>
         <input class="form-control" id="search_term" type="text" name="daterange" ng-model="daterange" required />
     </div>
-    
+    <div class="form-group">
+        <label class="form-label">Item Type:</label>
+						<select class="form-control form-select" aria-label="Default select example" ng-model="item_type" name="item_type" id="item_type" >
+   						  <option></option>
+						  <option ng-repeat="item_type in item_types" ng-if="item_type.id!=3" value='{{ item_type.id }}'>{{ item_type.name }}</option>
+						</select>	
+						</div>
+    <div class="form-group">
+        <label class="form-label">Category:</label>
+						<select class="form-control form-select" aria-label="Default select example" ng-model="category" name="category" id="category" >
+						  <option ng-repeat="category in categories" value='{{ category.id }}'>{{ category.type }}</option>						
+
+						</select>	
+    </div>	
+  
+ 
+  
     <div class="form-group">
         <label class="form-label">Search Term:</label>
         <input class="form-control" id="search_term" type="text" name="search_term" ng-model="search_term" required />
     </div>
-    
-    <div class="form-group">
-        <label class="form-label">Search Type:</label>
-        <select class="form-control" name='search_type' ng-model='search_type'>
-            <option value='category'>Category</option>
-            <option value='itemType'>Item Type</option>
-            <option value='search'>Name</option>
-        </select>
-    </div>
-    
-    <div class="form-group">
+      <div class="form-group">
         <button id='search-btn' type='button' ng-click='searchItem()'>Search</button>
     </div>
+ 
+     <div class="d-flex justify-content-between align-items-center w-100 mt-3">
+<button class="advanced-search-btn" ng-class="{'active': advanced}" ng-click="enableAdvanced()">
+    <span>Advanced Search</span>
+    <i class="fas fa-chevron-down"></i>
+</button>
+    </div>
+</div>   
+
+<div ng-if="advanced" class="advanced-panel" ng-cloak>
+    <div class="form-group">
+        <label class="form-label">Shape</label>
+        <input class="form-control" id="shape" name="shape" type="text" ng-model="shape"/>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Color</label>
+        <input class="form-control" id="color" type="text" name="color" ng-model="color"/>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Length</label>
+        <input class="form-control" id="length" type="text" name="length" ng-model="length"/>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Width</label>
+        <input class="form-control" id="width" type="text" name="width" ng-model="width"/>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Other Details</label>
+        <input class="form-control" id="other_details" name="other_details" type="text" ng-model="other_details"/>
+    </div>
 </div>
-		
 
 
-
-		<div class='catalogue'>
-			
-			
+<div class='catalogue'>
+   <div class='search-results'>
+       {{ searchResults }}
+   </div>
+			<!--
 		  <div class='item_row' style="display: flex; flex-wrap:wrap;" >
 			<div class='item_box'  ng-repeat="item in items"  style="display:flex; flex-wrap:wrap;" >
 			<div class='found_item dropup col-lg-3'  value='{{ $index }}' ><input type=hidden class='f_item' value='{{ $index }}' />
@@ -663,7 +803,7 @@ button#search-btn {
 
 				</div>
 		 
-		 
+		 -->
 
 <!--			<br ng-if="found_item.value % 5==0" /> -->
 			

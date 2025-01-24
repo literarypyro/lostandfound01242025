@@ -699,8 +699,14 @@ background: linear-gradient(90deg, rgba(240,240,230,1) 0%, rgba(228,199,185,1) 1
 
 
 .details-section > div,
-.contact-section > div {
+.contact-section > div, .result-section > div {
    margin-left: 20px;
+   
+}
+
+.result-section > div {
+	text-align:wrap;
+	font-size:12px;
 }
 
 .req_title, .shape, .color, .length, .width, .other_details,
@@ -710,7 +716,7 @@ background: linear-gradient(90deg, rgba(240,240,230,1) 0%, rgba(228,199,185,1) 1
 }
 
 .details-section b,
-.contact-section b {
+.contact-section b, .result-section {
    margin-right: 5px;
 }
 
@@ -750,7 +756,10 @@ background: linear-gradient(90deg, rgba(240,240,230,1) 0%, rgba(228,199,185,1) 1
 		color:#dee2e6;
 
 	}
-
+	.resultslink {
+		color: #8b655a !important;
+		text-decoration:none;
+	}
 	</style>
 </head>
 <body>
@@ -798,7 +807,7 @@ background: linear-gradient(90deg, rgba(240,240,230,1) 0%, rgba(228,199,185,1) 1
 		
 <div class='cat_row' ng-repeat='request in paginatedRequests()' style='border-bottom: 1px solid #888888; border-right: 1px solid #888888;'>
 		<div class='cat_title1'>{{ request["category"].type }}</div>
-		<div class='desc_title'  ng-click='retrieveItemDetails(request["details"],request["user_info"],request["latest_status"]["status_type"]["type"],request.id)'>{{ request.description }}</div>
+		<div class='desc_title'  ng-click='retrieveItemDetails(request["details"],request["user_info"],request["latest_status"]["status_type"]["type"],request)'>{{ request.description }}</div>
 		<div class='req_date'>{{ request.request_date_label }}</div>
 		
 		<div class='foot' style="display: inline-flex; flex-wrap:wrap;">
@@ -852,6 +861,10 @@ background: linear-gradient(90deg, rgba(240,240,230,1) 0%, rgba(228,199,185,1) 1
         <div ng-if="width" class='width'><b>WIDTH:</b> {{ width }}</div>
         <div ng-if="other_details" class='other_details'><b>OTHER DETAILS:</b> {{ other_details }}</div>
     </div>
+    <div class="result-section" ng-if="reqStatus!='Claimed'">
+		<div align=center><p><a href='#' class='resultslink' ng-click='openResults()'>{{ searchResults }}</a></p></div>
+
+	</div>
 
     <div class="contact-section" ng-if="last_name">
         <div align="center" class="section-title">REQUESTER CONTACT DETAILS</div>
