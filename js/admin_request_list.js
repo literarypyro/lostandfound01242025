@@ -304,7 +304,57 @@ requestModule.controller("requestController",['$compile', '$scope','$http','$win
 			
 		});
 	
-	}			
+	};
+	
+$scope.addClaim = function() {
+    var request_id = $scope.reqId;
+    var claim_details = $scope.claim_details;
+    
+    // Date formatting
+    var dt = new Date($scope.claim_date);
+    var claim_date = dt.getFullYear() + "-" + 
+                    (dt.getMonth() + 1) + "-" + 
+                    dt.getDate();
+
+    // File handling with ngf-select
+    var uploadData = {
+        request_id: request_id,
+        claim_date: claim_date,
+        details: claim_details
+    };
+
+    if ($scope.img) {
+        uploadData.file = $scope.img;
+    }
+
+    Upload.upload({
+        url: host + "addclaim",
+        method: 'POST',
+        data: uploadData
+    }).then(function(response) {
+        // Update requests list
+        $http.get(host + "requests/recent/1").then(function(resp) {
+            $scope.requests = resp.data;
+            
+            // Find and update request
+            var updatedRequest = resp.data.find(r => r.id === request_id);
+            if (updatedRequest) {
+                $scope.reqStatus = 'Claimed';
+                $scope.retrieveItemDetails(
+                    updatedRequest.details,
+                    updatedRequest.user_info,
+                    'Claimed',
+                    request_id
+                );
+            }
+            // Close modal after successful upload
+            $('#modal_claim').modal('hide');
+        });
+    }, function(error) {
+        console.error('Claim upload failed:', error);
+    });
+};
+/*	
 	$scope.addClaim=function (){
 		var request_id=$scope.reqId;
 		var claim_details=$scope.claim_details;
@@ -352,7 +402,11 @@ requestModule.controller("requestController",['$compile', '$scope','$http','$win
 		
 		
 		
-	}		
+	}
+
+
+*/	
+/*
 	$scope.$watch('img', function (file) {
       if (!file.$error) {
         $scope.uploadFile($scope.img);
@@ -371,7 +425,20 @@ requestModule.controller("requestController",['$compile', '$scope','$http','$win
 		
 		
 	}
-	
+	*/
+	// Watch for image changes
+$scope.$watch('img', function(newFile) {
+    if (newFile) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $scope.$apply(function() {
+                $scope.imagePreview = e.target.result;
+            });
+        };
+        reader.readAsDataURL(newFile);
+    }
+});
+	/*
 	
 	$scope.uploadImage = function(files){
 	    if (files && files.length) {
@@ -382,7 +449,23 @@ requestModule.controller("requestController",['$compile', '$scope','$http','$win
 
 		 
 	}			
-		
+	*/
+// Update uploadImage function to handle file selection
+$scope.uploadImage = function(files) {
+    if (files && files.length) {
+        $scope.file = files[0];
+        $scope.img = files[0];  // Set both for compatibility
+        
+        // Preview image if needed
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $scope.$apply(function() {
+                $scope.imagePreview = e.target.result;
+            });
+        };
+        reader.readAsDataURL(files[0]);
+    }
+};	
 		
 		
 		
