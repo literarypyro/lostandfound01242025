@@ -188,7 +188,9 @@ requestModule.controller("requestController",['$compile', '$scope','$http','$win
 	
 	$scope.openResults=function(){
 		if($scope.filteredItems.length>0){
-			$cookies.put("itemList",JSON.stringify($scope.filteredItems));
+		   sessionStorage.setItem('itemList', JSON.stringify($scope.itemList));
+			$cookies.put("fromsearch",JSON.stringify(false));
+
 			window.open('admin_results.html','_SELF');
 		}
 	}

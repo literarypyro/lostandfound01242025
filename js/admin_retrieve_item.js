@@ -1,5 +1,5 @@
 var requestModule=angular.module('retrieveApp',['datatables','ngCookies','ngAnimate','ngFileUpload']);
-requestModule.controller("retrieveController",['$compile', '$scope','$http','$window','$cookies','Upload', function searchController($compile, $scope,$http,$window,$cookies,Upload){
+requestModule.controller("retrieveController",['$compile', '$scope','$http','$window','$cookies','Upload', function retrieveController($compile, $scope,$http,$window,$cookies,Upload){
 
 //	var host=$window.hostName;
 
@@ -222,7 +222,7 @@ requestModule.controller("retrieveController",['$compile', '$scope','$http','$wi
 
 		
 		
-	}
+	};
 
 	$scope.editDescription=function(){
 		var request_id2 = window.location.search.split("uid=")[1];	
@@ -271,7 +271,7 @@ requestModule.controller("retrieveController",['$compile', '$scope','$http','$wi
 
 		
 		
-	}
+	};
 	$scope.editStatus=function(){
 	
 		var request_id2 = window.location.search.split("uid=")[1];	
@@ -351,7 +351,7 @@ requestModule.controller("retrieveController",['$compile', '$scope','$http','$wi
 
 		
 		
-	}
+	};
 	$scope.uploadFile=function(file){
 		var item_id=$scope.request_id;
 
@@ -393,7 +393,7 @@ requestModule.controller("retrieveController",['$compile', '$scope','$http','$wi
 		
 		
 		
-	}
+	};
 	
 	
 	$scope.uploadImage = function(files){
@@ -404,7 +404,7 @@ requestModule.controller("retrieveController",['$compile', '$scope','$http','$wi
 		}
 
 		 
-	}	
+	};
 	
 	
 
@@ -420,7 +420,7 @@ requestModule.controller("retrieveController",['$compile', '$scope','$http','$wi
 			$scope.other_details=request.other_details;
 			$scope.picture=request.picture;
 		
-	}
+	};
 		
 	$scope.retrieveItemStatus=function (id){
 		//var request_id=$scope.request_id;
@@ -445,7 +445,7 @@ requestModule.controller("retrieveController",['$compile', '$scope','$http','$wi
 			
 			
 		});	
-	}		
+	};	
 		
 	$scope.logout=function (){
 		$http.get(host+"logout").
@@ -459,7 +459,7 @@ requestModule.controller("retrieveController",['$compile', '$scope','$http','$wi
 			
 		});
 	
-	}			
+	};			
 		
 		
 		
@@ -494,4 +494,3 @@ requestModule.controller("retrieveController",['$compile', '$scope','$http','$wi
 	*/
 
 }]);
-

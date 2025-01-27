@@ -86,8 +86,11 @@ $scope.updateFilteredLists = function() {
 		});
 	}
 	else {
-		$scope.foundItems=$scope.itemList;
-		
+		$scope.foundItems = $scope.itemList.filter(function(item) {
+			return item && 
+				   item.latest_stat && 
+				   (parseInt(item.latest_stat.status_type_id) == 1 || parseInt(item.latest_stat.status_type_id) == 4  );
+		});		
 	}
 };
 		        // Find and log one item with status_type_id=1
