@@ -693,9 +693,24 @@ $scope.rmItem=function(item_id){
 		if (confirm("Remove the Item?") == true) {
 			$http.get(url)
 			.then(function(resp, status, headers, config) {
-				window.open('admin_2.html','_SELF');
-				
-			});
+				 var url = host + "recentlist";
+					$http.get(url, { cache: false })  // Disable cache to get fresh data
+						.then(function(resp) {
+							$scope.itemList = resp.data;
+							$scope.updateFilteredLists(); // This will update all filtered lists
+							
+							// Reset pagination if needed
+							if ($scope.foundItems.length === 0) {
+								$scope.pagination.found.page = 1;
+							}
+							if ($scope.expiredItems.length === 0) {
+								$scope.pagination.expired.page = 1;
+							}
+							if ($scope.disposedItems.length === 0) {
+								$scope.pagination.disposed.page = 1;
+							}
+						});				
+					});
 
 
 		} 
