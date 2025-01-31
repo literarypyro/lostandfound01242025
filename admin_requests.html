@@ -852,6 +852,8 @@ background: linear-gradient(90deg, rgba(240,240,230,1) 0%, rgba(228,199,185,1) 1
         <div align="center">Image for reference</div>
         <p>Any image or picture of the item that might be useful in its identification</p>
     </div>
+	<div align="center">Reference Code: {{ selectedReq.reference_code }}</div>
+
 
     <div class="details-section">
         <div ng-if="req_title" class='req_title'><b>TITLE:</b> {{ req_title }}</div>
@@ -899,7 +901,6 @@ background: linear-gradient(90deg, rgba(240,240,230,1) 0%, rgba(228,199,185,1) 1
 
 
 					<div align=center>
-
 					  <button class="submit_img" ngf-select ng-model="img">Upload Proof of Claim</button>
 					          <div align="center" style='color: #4a5568;'>(Optional)</div>
 

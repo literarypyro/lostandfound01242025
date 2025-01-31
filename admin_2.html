@@ -591,6 +591,37 @@ background: linear-gradient(90deg, rgba(164,119,100,1) 0%, rgba(195,159,137,1) 1
 
 }
 
+.btn-sm {
+  font-size: 0.875rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.btn-sm:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-1px);
+}
+
+.text-primary:hover {
+  color: #a47764 !important;
+}
+
+.text-danger:hover {
+  color: #bb2d3b !important;
+}
+
+.table td .d-flex {
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* Make the Actions column wider */
+.table th:last-child,
+.table td:last-child {
+  min-width: 200px;
+}
+
 </style>
 
 
@@ -668,8 +699,20 @@ background: linear-gradient(90deg, rgba(240,240,230,1) 0%, rgba(228,199,185,1) 1
 
 	
                   <td class="px-4 py-3">
-                    <a href="admin_item2.html?uid={{item.id}}" class="text-primary">View Details</a>
-                  </td>
+					  <div class="d-flex gap-2">
+						<a href="admin_item2.html?uid={{item.id}}" 
+						   class="btn btn-sm text-primary"
+						   style="border: 1px solid #8b655a; padding: 4px 12px; white-space: nowrap;">
+						  <i class="fa fa-eye me-1"></i> View
+						</a>
+						<a href="#{{found}}" 
+						   ng-click="rmItem(item.id)" 
+						   class="btn btn-sm text-danger"
+						   style="border: 1px solid #dc3545; padding: 4px 12px; white-space: nowrap;">
+						  <i class="fa fa-trash me-1"></i> Delete
+						</a>
+					  </div>
+				  </td>
                 </tr>
               </tbody>
             </table>
@@ -731,7 +774,19 @@ background: linear-gradient(90deg, rgba(240,240,230,1) 0%, rgba(228,199,185,1) 1
                   <td class="px-4 py-3">{{item.item_type.name}}</td>
 
                   <td class="px-4 py-3">
-                    <a href="admin_item2.html?uid={{item.id}}" class="text-primary">View Details</a>
+					  <div class="d-flex gap-2">
+						<a href="admin_item2.html?uid={{item.id}}" 
+						   class="btn btn-sm text-primary"
+						   style="border: 1px solid #8b655a; padding: 4px 12px; white-space: nowrap;">
+						  <i class="fa fa-eye me-1"></i> View
+						</a>
+						<a href="#{{expired}}" 
+						   ng-click="rmItem(item.id)" 
+						   class="btn btn-sm text-danger"
+						   style="border: 1px solid #dc3545; padding: 4px 12px; white-space: nowrap;">
+						  <i class="fa fa-trash me-1"></i> Delete
+						</a>
+					  </div>
                   </td>
                 </tr>
               </tbody>
@@ -795,7 +850,19 @@ background: linear-gradient(90deg, rgba(240,240,230,1) 0%, rgba(228,199,185,1) 1
                   <td class="px-4 py-3">{{item.item_type.name}}</td>
 
                   <td class="px-4 py-3">
-                    <a href="admin_item2.html?uid={{item.id}}" class="text-primary">View Details</a>
+					  <div class="d-flex gap-2">
+						<a href="admin_item2.html?uid={{item.id}}" 
+						   class="btn btn-sm text-primary"
+						   style="border: 1px solid #8b655a; padding: 4px 12px; white-space: nowrap;">
+						  <i class="fa fa-eye me-1"></i> View
+						</a>
+						<a href="#{{disposed}}" 
+						   ng-click="rmItem(item.id)" 
+						   class="btn btn-sm text-danger"
+						   style="border: 1px solid #dc3545; padding: 4px 12px; white-space: nowrap;">
+						  <i class="fa fa-trash me-1"></i> Delete
+						</a>
+					  </div>
                   </td>
                 </tr>
               </tbody>

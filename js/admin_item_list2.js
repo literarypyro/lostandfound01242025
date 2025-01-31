@@ -177,6 +177,8 @@ $scope.updateFilteredLists = function() {
                parseInt(item.latest_stat.status_type_id) === 5;
     });
 };
+
+
 // In your API call
 var url = host + "recentlist";
 $http.get(url, { cache: true })
@@ -685,6 +687,21 @@ $http.get(url, { cache: true })
 
 
 
+$scope.rmItem=function(item_id){
+		var url=host+"rmitem/"+item_id;
+	
+		if (confirm("Remove the Item?") == true) {
+			$http.get(url)
+			.then(function(resp, status, headers, config) {
+				window.open('admin_2.html','_SELF');
+				
+			});
+
+
+		} 
+	
+	
+}
 
 
 	$scope.listParticular=function (item){

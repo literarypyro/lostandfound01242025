@@ -15,7 +15,7 @@ requestModule.controller("requestController",['$compile', '$scope','$http','$win
 	
 	var host="https://oms.dotrmrt3.gov.ph/psilva/lnf_api/public/";
 
-	var host2="https://oms.dotrmrt3.gov.ph/psilva/lnfclient/laravel/public/";
+	var host2="https://oms.dotrmrt3.gov.ph/psilva/lnfrequest/public_html/";
 
 
 	$scope.assetfolder2=host2+"images/";

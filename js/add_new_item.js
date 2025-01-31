@@ -239,6 +239,7 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 			var url=host+"newitem";
 			var newVal=$scope.category;
 			
+			/*
 			if((newVal=="4")||(newVal=="21")){
 				
 				if(($scope.ref_identification==null)||($scope.id_type==null)){
@@ -250,7 +251,7 @@ addItemModule.controller("addItemController",['$compile', '$scope',"$http",'$win
 			
 			}
 			
-			
+			*/
 			addToggle=true;
 			
 		/*
